@@ -18,4 +18,19 @@ public enum EBankName {
     NH("농협은행");
 
     private final String koName;
+
+    public static EBankName fromString(String value) {
+        return switch (value.toUpperCase()) {
+            case "KB" -> KB;
+            case "SOL" -> SOL;
+            case "WON" -> WON;
+            case "KEB" -> KEB;
+            case "KAKAO" -> KAKAO;
+            case "TOSS" -> TOSS;
+            case "KBANK" -> KBANK;
+            case "IBK" -> IBK;
+            case "NH" -> NH;
+            default -> throw new IllegalArgumentException("은행 이름이 잘못되었습니다.");
+        };
+    }
 }

@@ -11,4 +11,13 @@ public enum EOnjungTag {
     UNDERFED_CHILD("결식아동");
 
     private final String onjungTagName;
+
+    public static EOnjungTag fromString(String value) {
+        return switch (value.toUpperCase()) {
+            case "PATRIOT" -> PATRIOT;
+            case "GOOD_PRICE" -> GOOD_PRICE;
+            case "UNDERFED_CHILD" -> UNDERFED_CHILD;
+            default -> throw new IllegalArgumentException("온정 태그가 잘못되었습니다.");
+        };
+    }
 }

@@ -13,4 +13,15 @@ public enum ECategory {
     ETC("기타");
 
     private final String categoryName;
+
+    public static ECategory fromString(String value) {
+        return switch (value.toUpperCase()) {
+            case "WESTERN" -> WESTERN;
+            case "KOREAN" -> KOREAN;
+            case "CHINESE" -> CHINESE;
+            case "JAPANESE" -> JAPANESE;
+            case "ETC" -> ETC;
+            default -> throw new IllegalArgumentException("음식 종류가 잘못되었습니다.");
+        };
+    }
 }
