@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum ESecurityProvider {
 
     DEFAULT("기본", "Default"),
-
+    KAKAO("카카오", "Kakao"),
     ;
 
     private final String koName;
@@ -17,6 +17,7 @@ public enum ESecurityProvider {
     public static ESecurityProvider fromString(String value) {
         return switch (value.toUpperCase()) {
             case "DEFAULT" -> DEFAULT;
+            case "KAKAO" -> KAKAO;
             default -> throw new IllegalArgumentException("Security Provider가 잘못되었습니다.");
         };
     }

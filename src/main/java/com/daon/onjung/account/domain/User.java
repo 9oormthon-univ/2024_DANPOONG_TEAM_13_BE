@@ -30,6 +30,9 @@ public class User extends Account {
     @Column(name = "nickname", length = 20, nullable = false)
     private String nickName;
 
+    @Column(name = "profile_img_url", length = 2080, nullable = true)
+    private String profileImgUrl;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -44,6 +47,7 @@ public class User extends Account {
             ESecurityProvider provider,
             String serialId,
             String password,
+            String profileImgUrl,
             String nickName,
             Boolean notificationAllowed
     ) {
@@ -53,6 +57,7 @@ public class User extends Account {
                 password,
                 notificationAllowed
         );
+        this.profileImgUrl = profileImgUrl;
         this.nickName = nickName;
         this.createdAt = LocalDateTime.now();
     }

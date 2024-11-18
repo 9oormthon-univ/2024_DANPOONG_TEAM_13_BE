@@ -14,14 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/auth")
 @Hidden
 public class AuthController {
     private final ReissueJsonWebTokenUseCase reissueJsonWebTokenUseCase;
@@ -30,7 +29,7 @@ public class AuthController {
     /**
      * 2.3 JWT 재발급
      */
-    @PostMapping("/reissue/token")
+    @PostMapping("/api/v1/auth/reissue/token")
     public ResponseDto<DefaultJsonWebTokenDto> reissueDefaultJsonWebToken(
             HttpServletRequest request
     ) {
@@ -43,7 +42,7 @@ public class AuthController {
     /**
      * 2.9 회원 탈퇴
      */
-    @DeleteMapping("")
+    @DeleteMapping("/api/v1/auth")
     public ResponseDto<?> deleteAccount(
             @AccountID UUID accountId
     ) {

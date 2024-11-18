@@ -3,13 +3,16 @@ package com.daon.onjung.security.config;
 import com.daon.onjung.core.constant.Constants;
 import com.daon.onjung.core.utility.JsonWebTokenUtil;
 import com.daon.onjung.security.application.usecase.AuthenticateJsonWebTokenUseCase;
+import com.daon.onjung.security.application.usecase.AuthenticateOauthUseCase;
 import com.daon.onjung.security.filter.ExceptionFilter;
 import com.daon.onjung.security.filter.GlobalLoggerFilter;
 import com.daon.onjung.security.filter.JsonWebTokenAuthenticationFilter;
+import com.daon.onjung.security.filter.OauthAuthenticationFilter;
 import com.daon.onjung.security.handler.common.DefaultAccessDeniedHandler;
 import com.daon.onjung.security.handler.common.DefaultAuthenticationEntryPoint;
 import com.daon.onjung.security.handler.login.DefaultLoginFailureHandler;
 import com.daon.onjung.security.handler.login.DefaultLoginSuccessHandler;
+import com.daon.onjung.security.handler.login.OauthLoginSuccessHandler;
 import com.daon.onjung.security.handler.logout.DefaultLogoutProcessHandler;
 import com.daon.onjung.security.handler.logout.DefaultLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
@@ -33,10 +37,13 @@ public class SecurityConfig {
     private final DefaultLogoutProcessHandler defaultLogoutProcessHandler;
     private final DefaultLogoutSuccessHandler defaultLogoutSuccessHandler;
 
+    private final OauthLoginSuccessHandler oauthLoginSuccessHandler;
+
     private final DefaultAccessDeniedHandler defaultAccessDeniedHandler;
     private final DefaultAuthenticationEntryPoint defaultAuthenticationEntryPoint;
 
     private final AuthenticateJsonWebTokenUseCase authenticateJsonWebTokenUseCase;
+    private final AuthenticateOauthUseCase authenticateOauthUseCase;
 
     private final JsonWebTokenUtil jsonWebTokenUtil;
 
@@ -75,6 +82,15 @@ public class SecurityConfig {
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedHandler(defaultAccessDeniedHandler)
                         .authenticationEntryPoint(defaultAuthenticationEntryPoint)
+                )
+
+                .addFilterBefore(
+                        new OauthAuthenticationFilter(
+                                "/api/v1/oauth/login",
+                                oauthLoginSuccessHandler,
+                                authenticateOauthUseCase
+                        ),
+                        UsernamePasswordAuthenticationFilter.class
                 )
 
                 .addFilterBefore(
