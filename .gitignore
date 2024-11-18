@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,macos,windows,intellij+all,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,macos,windows,intellij+all,java
 
+### ignore http-clinet.private.env.json
+http/http-client.private.env.json
+
 ### ignore application.yml ###
 src/main/resources/application-dev.yml
 src/main/resources/application-local.yml
