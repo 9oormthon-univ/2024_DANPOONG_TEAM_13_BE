@@ -6,15 +6,16 @@ import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.HeaderUtil;
+import com.daon.onjung.security.application.dto.request.UpdateDeviceTokenRequestDto;
 import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
 import com.daon.onjung.security.application.usecase.DeleteAccountUseCase;
 import com.daon.onjung.security.application.usecase.ReissueJsonWebTokenUseCase;
+import com.daon.onjung.security.application.usecase.UpdateDeviceTokenUseCase;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -23,8 +24,21 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Hidden
 public class AuthController {
+    private final UpdateDeviceTokenUseCase updateDeviceTokenUseCase;
     private final ReissueJsonWebTokenUseCase reissueJsonWebTokenUseCase;
     private final DeleteAccountUseCase deleteAccountUseCase;
+
+    /**
+     * 1.2 디바이스 토큰 갱신
+     */
+    @PatchMapping("/api/v1/auth/device-token")
+    public ResponseDto<?> updateDeviceToken(
+            @AccountID UUID accountId,
+            @RequestBody @Valid UpdateDeviceTokenRequestDto requestDto
+            ) {
+        updateDeviceTokenUseCase.execute(accountId, requestDto);
+        return ResponseDto.ok(null);
+    }
 
     /**
      * 1.3 JWT 재발급

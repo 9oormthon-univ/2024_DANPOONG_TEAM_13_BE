@@ -10,4 +10,9 @@ public class AccountService {
     public CustomUserPrincipal createCustomUserPrincipalByAccount(Account account) {
         return CustomUserPrincipal.create(account);
     }
+
+    public Account updateDeviceToken(Account account, String deviceToken) {
+        account.updateDeviceToken(deviceToken);
+        return account;
+    }
 }

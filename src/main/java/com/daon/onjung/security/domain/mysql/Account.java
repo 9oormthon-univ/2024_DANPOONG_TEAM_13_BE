@@ -51,6 +51,9 @@ public abstract class Account {
     @Column(name = "notification_allowed", nullable = false)
     private Boolean notificationAllowed;
 
+    @Column(name = "device_token", length = 255)
+    private String deviceToken;
+
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
@@ -68,6 +71,10 @@ public abstract class Account {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void updateDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public void updateNotificationAllowed(Boolean notificationAllowed) {

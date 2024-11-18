@@ -26,11 +26,11 @@ public class ReadOrCreateUserService implements ReadOrCreateUserUseCase {
 
     @Override
     @Transactional
-    public Account execute(KakaoOauth2UserInfo requestDto) {
+    public Account execute(KakaoOauth2UserInfo userInfo) {
 
-        return accountRepository.findBySerialIdAndProvider(requestDto.id(), ESecurityProvider.KAKAO)
+        return accountRepository.findBySerialIdAndProvider(userInfo.id(), ESecurityProvider.KAKAO)
                 .orElseGet(() -> {
-                    Account newAccount = userService.createUser(requestDto, bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+                    Account newAccount = userService.createUser(userInfo, bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
                     return accountRepository.save(newAccount);
                 });
     }
