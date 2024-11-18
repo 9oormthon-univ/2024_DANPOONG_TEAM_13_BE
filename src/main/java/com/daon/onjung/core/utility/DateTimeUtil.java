@@ -17,6 +17,7 @@ public class DateTimeUtil {
     public static final DateTimeFormatter ISOTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter KORDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"); // 새로운 포맷터 추가
     public static final DateTimeFormatter CustomDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (EEE)", Locale.KOREAN);
+    public static final DateTimeFormatter CustomDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH시 mm분", Locale.KOREAN);
     /**
      * String을 LocalDateTime으로 변환
      *
@@ -114,7 +115,7 @@ public class DateTimeUtil {
      * @param dateTime LocalDateTime
      * @return String
      */
-    public static String formatCustomTime(LocalDateTime dateTime) {
+    public static String convertLocalDateTimeToCustomDate(LocalDateTime dateTime) {
         Duration duration = Duration.between(dateTime, LocalDateTime.now());
         long minutesAgo = duration.toMinutes();
         long hoursAgo = duration.toHours();
@@ -126,5 +127,15 @@ public class DateTimeUtil {
         } else {
             return dateTime.format(CustomDateFormatter);
         }
+    }
+
+    /**
+     * 홈화면 시간 포맷팅: "yyyy.MM.dd HH시 mm분"
+     *
+     * @param dateTime LocalDateTime
+     * @return String
+     */
+    public static String convertLocalDateTimeToCustomDateTime(LocalDateTime dateTime) {
+        return dateTime.format(CustomDateTimeFormatter);
     }
 }
