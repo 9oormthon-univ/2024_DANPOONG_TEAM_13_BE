@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class LoginDefaultService implements LoginByDefaultUseCase {
+public class LoginByDefaultService implements LoginByDefaultUseCase {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final RefreshTokenService refreshTokenService;

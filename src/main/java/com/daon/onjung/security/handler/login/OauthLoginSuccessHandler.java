@@ -4,6 +4,7 @@ import com.daon.onjung.core.utility.HttpServletUtil;
 import com.daon.onjung.core.utility.JsonWebTokenUtil;
 import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
 import com.daon.onjung.security.application.usecase.LoginByOauthUseCase;
+import com.daon.onjung.security.application.usecase.ReadOrCreateUserUseCase;
 import com.daon.onjung.security.domain.mysql.Account;
 import com.daon.onjung.security.domain.type.ESecurityRole;
 import com.daon.onjung.security.info.KakaoOauth2UserInfo;
@@ -20,7 +21,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class OauthLoginSuccessHandler implements AuthenticationSuccessHandler {
 
+    private final ReadOrCreateUserUseCase readOrCreateUserUseCase;
     private final LoginByOauthUseCase loginByOauthUseCase;
+
     private final JsonWebTokenUtil jwtUtil;
     private final HttpServletUtil httpServletUtil;
 
@@ -33,12 +36,14 @@ public class OauthLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         KakaoOauth2UserInfo principal = (KakaoOauth2UserInfo) authentication.getPrincipal();
 
-        Account loginUser = loginByOauthUseCase.execute(principal);
+        Account loginUser = readOrCreateUserUseCase.execute(principal);
 
         DefaultJsonWebTokenDto jsonWebTokenDto = jwtUtil.generateDefaultJsonWebTokens(
                 loginUser.getId(),
                 ESecurityRole.USER
         );
+
+        loginByOauthUseCase.execute(loginUser.getId(), jsonWebTokenDto);
 
         httpServletUtil.onSuccessBodyResponseWithJWTBody(response, jsonWebTokenDto);
     }

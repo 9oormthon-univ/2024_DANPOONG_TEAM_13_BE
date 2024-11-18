@@ -27,7 +27,7 @@ public class AuthController {
     private final DeleteAccountUseCase deleteAccountUseCase;
 
     /**
-     * 2.3 JWT 재발급
+     * 1.3 JWT 재발급
      */
     @PostMapping("/api/v1/auth/reissue/token")
     public ResponseDto<DefaultJsonWebTokenDto> reissueDefaultJsonWebToken(
@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     /**
-     * 2.9 회원 탈퇴
+     * 2.2 회원 탈퇴
      */
     @DeleteMapping("/api/v1/auth")
     public ResponseDto<?> deleteAccount(

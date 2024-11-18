@@ -1,10 +1,11 @@
 package com.daon.onjung.security.application.usecase;
 
 import com.daon.onjung.core.annotation.bean.UseCase;
-import com.daon.onjung.security.domain.mysql.Account;
-import com.daon.onjung.security.info.KakaoOauth2UserInfo;
+import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
+
+import java.util.UUID;
 
 @UseCase
 public interface LoginByOauthUseCase {
-    Account execute(KakaoOauth2UserInfo requestDto);
+    void execute(UUID accountId, DefaultJsonWebTokenDto jsonWebTokenDto);
 }

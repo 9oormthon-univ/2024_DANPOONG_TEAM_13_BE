@@ -1,37 +1,29 @@
 package com.daon.onjung.security.application.service;
 
-import com.daon.onjung.account.domain.service.UserService;
+import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
 import com.daon.onjung.security.application.usecase.LoginByOauthUseCase;
-import com.daon.onjung.security.domain.mysql.Account;
-import com.daon.onjung.security.domain.type.ESecurityProvider;
-import com.daon.onjung.security.info.KakaoOauth2UserInfo;
-import com.daon.onjung.security.repository.mysql.AccountRepository;
+import com.daon.onjung.security.domain.service.RefreshTokenService;
+import com.daon.onjung.security.repository.redis.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Service
-@Slf4j
+@RequiredArgsConstructor
 public class LoginByOauthService implements LoginByOauthUseCase {
 
-    private final AccountRepository accountRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    private final UserService userService;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenService refreshTokenService;
 
     @Override
     @Transactional
-    public Account execute(KakaoOauth2UserInfo requestDto) {
+    public void execute(UUID accountId, DefaultJsonWebTokenDto jsonWebTokenDto) {
+        String refreshToken = jsonWebTokenDto.getRefreshToken();
 
-        return accountRepository.findBySerialIdAndProvider(requestDto.id(), ESecurityProvider.KAKAO)
-                .orElseGet(() -> {
-                    Account newAccount = userService.createUser(requestDto, bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
-                    return accountRepository.save(newAccount);
-                });
+        if (refreshToken != null) {
+            refreshTokenRepository.save(refreshTokenService.createRefreshToken(accountId, refreshToken));
+        }
     }
 }
