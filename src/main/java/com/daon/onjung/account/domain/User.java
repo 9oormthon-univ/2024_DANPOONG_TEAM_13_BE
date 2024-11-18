@@ -1,6 +1,5 @@
 package com.daon.onjung.account.domain;
 
-import com.daon.onjung.address.domain.Address;
 import com.daon.onjung.security.domain.mysql.Account;
 import com.daon.onjung.security.domain.type.ESecurityProvider;
 import com.daon.onjung.security.domain.type.ESecurityRole;
