@@ -1,4 +1,10 @@
 ### 4.1 전체 온기 통계 조회
 // @no-log
-GET {{host_url}}/api/v1/onjung/summaries
+GET {{host_url}}/api/v1/onjungs/summaries
 Authorization: Bearer {{access_token}}
+
+### 4.2 후원 횟수 조회
+// @no-log
+GET {{host_url}}/api/v1/onjungs/count
+Authorization: Bearer {{access_token}}
+
