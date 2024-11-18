@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "Onjung Bank Server API"
+    name: "Onjung Main Server API"
   profiles:
     active: local
 
