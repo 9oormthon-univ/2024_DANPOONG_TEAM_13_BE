@@ -3,7 +3,7 @@ package com.daon.onjung.security.handler.login;
 import com.daon.onjung.core.utility.HttpServletUtil;
 import com.daon.onjung.core.utility.JsonWebTokenUtil;
 import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
-import com.daon.onjung.security.application.usecase.LoginByOauthUseCase;
+import com.daon.onjung.security.application.usecase.LoginUserByOauthUseCase;
 import com.daon.onjung.security.application.usecase.ReadOrCreateUserUseCase;
 import com.daon.onjung.security.domain.mysql.Account;
 import com.daon.onjung.security.domain.type.ESecurityRole;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class OauthLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ReadOrCreateUserUseCase readOrCreateUserUseCase;
-    private final LoginByOauthUseCase loginByOauthUseCase;
+    private final LoginUserByOauthUseCase loginUserByOauthUseCase;
 
     private final JsonWebTokenUtil jwtUtil;
     private final HttpServletUtil httpServletUtil;
@@ -43,7 +43,7 @@ public class OauthLoginSuccessHandler implements AuthenticationSuccessHandler {
                 ESecurityRole.USER
         );
 
-        loginByOauthUseCase.execute(loginUser.getId(), jsonWebTokenDto);
+        loginUserByOauthUseCase.execute(loginUser.getId(), jsonWebTokenDto);
 
         httpServletUtil.onSuccessBodyResponseWithJWTBody(response, jsonWebTokenDto);
     }

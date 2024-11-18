@@ -30,7 +30,7 @@ public class User extends Account {
     @Column(name = "nickname", length = 20, nullable = false)
     private String nickName;
 
-    @Column(name = "profile_img_url", length = 2080, nullable = true)
+    @Column(name = "profile_img_url", length = 2080, nullable = false)
     private String profileImgUrl;
 
     /* -------------------------------------------- */

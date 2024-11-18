@@ -3,7 +3,7 @@ package com.daon.onjung.security.handler.login;
 import com.daon.onjung.core.utility.HttpServletUtil;
 import com.daon.onjung.core.utility.JsonWebTokenUtil;
 import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
-import com.daon.onjung.security.application.usecase.LoginByDefaultUseCase;
+import com.daon.onjung.security.application.usecase.LoginOwnerByDefaultUseCase;
 import com.daon.onjung.security.info.CustomUserPrincipal;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final LoginByDefaultUseCase loginByDefaultUseCase;
+    private final LoginOwnerByDefaultUseCase loginOwnerByDefaultUseCase;
 
     private final JsonWebTokenUtil jwtUtil;
     private final HttpServletUtil httpServletUtil;
@@ -36,7 +36,7 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
                 principal.getRole()
         );
 
-        loginByDefaultUseCase.execute(principal, jsonWebTokenDto);
+        loginOwnerByDefaultUseCase.execute(principal, jsonWebTokenDto);
 
         httpServletUtil.onSuccessBodyResponseWithJWTBody(response, jsonWebTokenDto);
     }

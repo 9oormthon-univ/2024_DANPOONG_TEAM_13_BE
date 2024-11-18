@@ -57,7 +57,6 @@ public class Owner extends Account {
             String password,
             EBankName bankName,
             String bankAccountNumber,
-            Store store,
             Boolean notificationAllowed
     ) {
         super(
@@ -68,7 +67,6 @@ public class Owner extends Account {
         );
         this.bankName = bankName;
         this.bankAccountNumber = bankAccountNumber;
-        this.store = store;
         this.createdAt = LocalDateTime.now();
     }
 

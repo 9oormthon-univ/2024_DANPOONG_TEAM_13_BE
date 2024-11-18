@@ -5,7 +5,7 @@ import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
 import com.daon.onjung.security.info.CustomUserPrincipal;
 
 @UseCase
-public interface LoginByDefaultUseCase {
+public interface LoginOwnerByDefaultUseCase {
 
     /**
      * Security에서 사용되는 Login 유스케이스

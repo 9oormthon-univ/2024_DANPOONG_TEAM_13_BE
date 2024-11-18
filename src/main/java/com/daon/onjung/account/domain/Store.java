@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,7 +38,7 @@ public class Store {
     @CollectionTable(name = "store_onjung_tags", joinColumns = @JoinColumn(name = "store_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "onjung_tags")
-    private EnumSet<EOnjungTag> onjungTags;
+    private Set<EOnjungTag> onjungTags = new HashSet<>();
 
     @Column(name = "title", length = 30, nullable = false)
     private String title;
@@ -89,7 +91,7 @@ public class Store {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Store(String title, String bannerImgUrl, EnumSet<EOnjungTag> onjungTags, String youtubeUrl, String logoImgUrl, String name, ECategory category, String introduction, String ocrStoreName, String ocrStoreAddress, Owner owner) {
+    public Store(String title, String bannerImgUrl, Set<EOnjungTag> onjungTags, String youtubeUrl, String logoImgUrl, String name, ECategory category, String introduction, String ocrStoreName, String ocrStoreAddress, Owner owner) {
        this.title = title;
        this.onjungTags = onjungTags;
        this.bannerImgUrl = bannerImgUrl;

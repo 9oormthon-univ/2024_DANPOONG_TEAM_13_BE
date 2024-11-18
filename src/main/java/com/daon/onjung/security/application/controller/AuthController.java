@@ -6,17 +6,22 @@ import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.HeaderUtil;
+import com.daon.onjung.security.application.dto.request.SignUpOwnerByDefaultRequestDto;
 import com.daon.onjung.security.application.dto.request.UpdateDeviceTokenRequestDto;
 import com.daon.onjung.security.application.dto.response.DefaultJsonWebTokenDto;
 import com.daon.onjung.security.application.usecase.DeleteAccountUseCase;
 import com.daon.onjung.security.application.usecase.ReissueJsonWebTokenUseCase;
+import com.daon.onjung.security.application.usecase.SignUpOwnerByDefaultUseCase;
 import com.daon.onjung.security.application.usecase.UpdateDeviceTokenUseCase;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -26,6 +31,7 @@ import java.util.UUID;
 public class AuthController {
     private final UpdateDeviceTokenUseCase updateDeviceTokenUseCase;
     private final ReissueJsonWebTokenUseCase reissueJsonWebTokenUseCase;
+    private final SignUpOwnerByDefaultUseCase signUpOwnerByDefaultUseCase;
     private final DeleteAccountUseCase deleteAccountUseCase;
 
     /**
@@ -51,6 +57,19 @@ public class AuthController {
                 .orElseThrow(() -> new CommonException(ErrorCode.INVALID_HEADER_ERROR));
 
         return ResponseDto.created(reissueJsonWebTokenUseCase.execute(refreshToken));
+    }
+
+    /**
+     * 2.1 가게 일반 회원가입 (데이터 삽입용)
+     */
+    @PostMapping(value = "/api/v1/auth/sign-up",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseDto<Void> signUpOwnerByDefault(
+            @RequestPart(value = "logo", required = false) MultipartFile logo,
+            @RequestPart(value = "banner", required = false) MultipartFile banner,
+            @Valid @RequestPart(value = "body")SignUpOwnerByDefaultRequestDto requestDto
+            ) {
+        signUpOwnerByDefaultUseCase.execute(logo, banner, requestDto);
+        return ResponseDto.created(null);
     }
 
     /**
