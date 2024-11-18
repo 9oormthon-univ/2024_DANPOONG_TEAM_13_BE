@@ -6,14 +6,19 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReadOnjungCountResponseDto extends SelfValidating<ReadOnjungCountResponseDto> {
+public class ReadOnjungBriefResponseDto extends SelfValidating<ReadOnjungBriefResponseDto> {
 
     @JsonProperty("total_onjung_count")
     private final Integer totalOnjungCount;
 
+    @JsonProperty("total_onjung_amount")
+    private final Integer totalOnjungAmount;
+
     @Builder
-    public ReadOnjungCountResponseDto(Integer totalOnjungCount) {
+    public ReadOnjungBriefResponseDto(Integer totalOnjungCount, Integer totalOnjungAmount) {
         this.totalOnjungCount = totalOnjungCount;
+        this.totalOnjungAmount = totalOnjungAmount;
+
         this.validateSelf();
     }
 }

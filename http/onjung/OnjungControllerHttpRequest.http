@@ -8,3 +8,7 @@ Authorization: Bearer {{access_token}}
 GET {{host_url}}/api/v1/onjungs/count
 Authorization: Bearer {{access_token}}
 
+### 4.3 온기 간단 정보 조회
+// @no-log
+GET {{host_url}}/api/v1/onjungs/briefs
+Authorization: Bearer {{access_token}}

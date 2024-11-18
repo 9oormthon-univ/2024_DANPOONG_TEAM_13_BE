@@ -49,4 +49,14 @@ public class OnjungService {
 
         return uniqueUsers.size();
     }
+
+    public Integer calculateTotalOnjungAmount(Onjung onjung) {
+        return onjung.getDonations().stream()
+                .map(Donation::getDonationAmount)
+                .reduce(0, Integer::sum) +
+                onjung.getReceipts().stream()
+                        .map(Receipt::getPaymentAmount)
+                        .reduce(0, Integer::sum) +
+                onjung.getShares().size() * 100;
+    }
 }

@@ -2,8 +2,10 @@ package com.daon.onjung.onjung.application.controller.query;
 
 import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
+import com.daon.onjung.onjung.application.dto.response.ReadOnjungBriefResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReadOnjungCountResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReadOnjungSummaryResponseDto;
+import com.daon.onjung.onjung.application.usecase.ReadOnjungBriefUseCase;
 import com.daon.onjung.onjung.application.usecase.ReadOnjungCountUseCase;
 import com.daon.onjung.onjung.application.usecase.ReadOnjungSummaryUseCase;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class OnjungQueryV1Controller {
 
     private final ReadOnjungSummaryUseCase readOnjungSummaryUseCase;
     private final ReadOnjungCountUseCase readOnjungCountUseCase;
+    private final ReadOnjungBriefUseCase readOnjungBriefUseCase;
 
     /**
      * 4.1 전체 온기 통계 조회하기
@@ -35,5 +38,15 @@ public class OnjungQueryV1Controller {
             @AccountID UUID accountId
     ) {
         return ResponseDto.ok(readOnjungCountUseCase.execute(accountId));
+    }
+
+    /**
+     * 4.3 온기 간단 정보 조회
+     */
+    @GetMapping("/api/v1/onjungs/briefs")
+    public ResponseDto<ReadOnjungBriefResponseDto> readOnjungBrief(
+            @AccountID UUID accountId
+    ) {
+        return ResponseDto.ok(readOnjungBriefUseCase.execute(accountId));
     }
 }
