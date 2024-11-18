@@ -54,8 +54,8 @@ public class ReadOnjungCountService implements ReadOnjungCountUseCase {
         // Onjung 생성
         Onjung onjung = onjungService.createOnjung(donations, receipts, shares);
 
-        // User의 총 온정 횟수 조회
-        Integer totalOnjungCount = onjungService.calculateTotalOnjungCount(onjung);
+        // User의 총 온정 횟수 조회 (가게 중복 제외)
+        Integer totalOnjungCount = onjungService.calculateTotalUniqueOnjungStoreCount(onjung);
 
         return ReadOnjungCountResponseDto.builder()
                 .totalOnjungCount(totalOnjungCount)

@@ -1,5 +1,6 @@
 package com.daon.onjung.onjung.domain.service;
 
+import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.onjung.domain.Donation;
 import com.daon.onjung.onjung.domain.Onjung;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class OnjungService {
 
+    // 기부, 영수증, 공유 객체를 받아서 온정 객체를 생성
     public Onjung createOnjung(
             List<Donation> donations,
             List<Receipt> receipts,
@@ -27,10 +29,32 @@ public class OnjungService {
                 .build();
     }
 
+    // 온정 객체를 받아서 총 온정 횟수를 계산
     public Integer calculateTotalOnjungCount(Onjung onjung) {
         return onjung.getDonations().size() + onjung.getReceipts().size() + onjung.getShares().size();
     }
 
+    // 온정 객체를 받아서 총 온정 횟수를 계산(가게 중복 제외)
+    public Integer calculateTotalUniqueOnjungStoreCount(Onjung onjung) {
+        Set<Store> uniqueStores = new HashSet<>();
+
+        // 각 리스트에서 Store 객체를 수집하여 Set에 추가
+        uniqueStores.addAll(onjung.getDonations().stream()
+                .map(Donation::getStore)
+                .collect(Collectors.toSet()));
+
+        uniqueStores.addAll(onjung.getReceipts().stream()
+                .map(Receipt::getStore)
+                .collect(Collectors.toSet()));
+
+        uniqueStores.addAll(onjung.getShares().stream()
+                .map(Share::getStore)
+                .collect(Collectors.toSet()));
+
+        return uniqueStores.size();
+    }
+
+    // 온정 객체를 받아서 총 함께한 온정인 수를 계산(중복 제외)
     public Integer calculateTotalUniqueOnjungUserCount(Onjung onjung) {
         Set<User> uniqueUsers = new HashSet<>();
 

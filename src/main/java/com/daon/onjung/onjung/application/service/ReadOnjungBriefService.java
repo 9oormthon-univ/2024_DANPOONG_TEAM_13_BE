@@ -52,8 +52,8 @@ public class ReadOnjungBriefService implements ReadOnjungBriefUseCase {
         // 온정 생성
         Onjung onjung = onjungService.createOnjung(donations, receipts, shares);
 
-        // 온정 총 개수 계산
-        Integer totalOnjungCount = onjungService.calculateTotalOnjungCount(onjung);
+        // 온정 총 개수 계산 (가게별 중복 제외)
+        Integer totalOnjungCount = onjungService.calculateTotalUniqueOnjungStoreCount(onjung);
 
         // 온정 총 금액 계산
         Integer totalOnjungAmount = onjungService.calculateTotalOnjungAmount(onjung);
