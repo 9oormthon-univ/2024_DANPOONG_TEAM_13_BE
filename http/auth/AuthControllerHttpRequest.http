@@ -1,6 +1,6 @@
 ### 1.1 사용자 로그인 (Kakao Oauth)
 // @no-log
-POST {{host_url}}/v1/oauth/login
+POST {{host_url}}/api/v1/oauth/login
 Content-Type: application/json
 
 {
@@ -15,8 +15,8 @@ Content-Type: application/json
 
 ### 1.2 디바이스 토큰 갱신
 // @no-log
-PATCH {{host_url}}/v1/auth/device-token
-Authorization : Bearer {{access_token}}
+PATCH {{host_url}}/api/v1/auth/device-token
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
@@ -25,17 +25,17 @@ Content-Type: application/json
 
 ### 1.3 JWT 재발급
 // @no-log
-POST {{host_url}}/v1/auth/reissue/token
-Authorization : Bearer {{refresh_token}}
+POST {{host_url}}/api/v1/auth/reissue/token
+Authorization: Bearer {{refresh_token}}
 
 ### 1.4 사용자 로그아웃
 // @no-log
 POST {{host_url}}/v1/auth/logout
-Authorization : Bearer {{access_token}}
+Authorization: Bearer {{access_token}}
 
 ### 2.1 가게 일반 회원가입 (데이터 삽입용)
 // @no-log
-POST {{host_url}}/v1/auth/sign-up
+POST {{host_url}}/api/v1/auth/sign-up
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
@@ -59,26 +59,26 @@ Content-Type: application/json
 	"password" : "{{auth.API_2_1.password}}",
 	"store_info" :
 	{
-		"onjung_tag" : "{{auth.API_2_1.onjung_tag}}",
-		"title" : "{{auth.API_2_1.title}}",
-		"youtube_url" : "{{auth.API_2_1.youtube_url}}",
-		"name" : "{{auth.API_2_1.name}}",
-		"category" : "{{auth.API_2_1.category}}",
-		"introduction" : "{{auth.API_2_1.introduction}}"
+		"onjung_tag" : ["{{auth.API_2_1.store_info.onjung_tag[0]}}", "{{auth.API_2_1.store_info.onjung_tag[1]}}"],
+		"title" : "{{auth.API_2_1.store_info.title}}",
+		"youtube_url" : "{{auth.API_2_1.store_info.youtube_url}}",
+		"name" : "{{auth.API_2_1.store_info.name}}",
+		"category" : "{{auth.API_2_1.store_info.category}}",
+		"introduction" : "{{auth.API_2_1.store_info.introduction}}"
 	},
 	"ocr_info" :
 	{
-		"store_name" : "{{auth.API_2_1.store_name}}",
-		"address_name" : "{{auth.API_2_1.address_name}}"
+		"store_name" : "{{auth.API_2_1.ocr_info.store_name}}",
+		"address_name" : "{{auth.API_2_1.ocr_info.address_name}}"
 	},
 	"bank_info" :
 	{
-		"name": "{{auth.API_2_1.bank_name}}",
-		"account_number" : "{{auth.API_2_1.account_number}}"
+		"name": "{{auth.API_2_1.bank_info.name}}",
+		"account_number" : "{{auth.API_2_1.bank_info.account_number}}"
 	}
 }
 
 ### 2.2 탈퇴하기
 // @no-log
-DELETE {{host_url}}/v1/auth
-Authorization : Bearer {{access_token}}
+DELETE {{host_url}}/api/v1/auth
+Authorization: Bearer {{access_token}}
