@@ -20,8 +20,10 @@ public class LoginUserByOauthService implements LoginUserByOauthUseCase {
     @Override
     @Transactional
     public void execute(UUID accountId, DefaultJsonWebTokenDto jsonWebTokenDto) {
+
         String refreshToken = jsonWebTokenDto.getRefreshToken();
 
+        // Refresh Token 저장
         if (refreshToken != null) {
             refreshTokenRepository.save(refreshTokenService.createRefreshToken(accountId, refreshToken));
         }

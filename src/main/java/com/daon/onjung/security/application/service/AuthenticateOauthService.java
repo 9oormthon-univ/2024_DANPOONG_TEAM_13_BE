@@ -26,7 +26,9 @@ public class AuthenticateOauthService implements AuthenticateOauthUseCase {
 
     @Override
     public KakaoOauth2UserInfo execute(OauthLoginRequestDto requestDto) {
+
         try {
+            // Kakao Oauth Provider 로부터 사용자 정보 제공받음
             JSONObject jsonObject = restClientUtil.sendGetMethodWithAuthorizationHeader(
                     kakaoUrl + kakaoPath, requestDto.accessToken()
             );

@@ -21,9 +21,11 @@ public class LoginOwnerByDefaultService implements LoginOwnerByDefaultUseCase {
     @Override
     @Transactional
     public void execute(CustomUserPrincipal principal, DefaultJsonWebTokenDto jsonWebTokenDto) {
+
         UUID accountId = principal.getId();
         String refreshToken = jsonWebTokenDto.getRefreshToken();
 
+        // Refresh Token 저장
         if (refreshToken != null) {
             refreshTokenRepository.save(refreshTokenService.createRefreshToken(accountId, refreshToken));
         }

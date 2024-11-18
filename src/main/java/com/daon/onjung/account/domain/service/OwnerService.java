@@ -1,7 +1,6 @@
 package com.daon.onjung.account.domain.service;
 
 import com.daon.onjung.account.domain.Owner;
-import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.security.domain.type.ESecurityProvider;
 import org.springframework.stereotype.Service;

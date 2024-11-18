@@ -21,6 +21,7 @@ public class AuthenticateJsonWebTokenService implements AuthenticateJsonWebToken
 
     @Override
     public CustomUserPrincipal execute(UUID accountId) {
+
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 

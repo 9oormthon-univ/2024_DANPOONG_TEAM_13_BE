@@ -31,6 +31,7 @@ public class ReissueJsonWebTokenService implements ReissueJsonWebTokenUseCase {
     @Override
     @Transactional
     public DefaultJsonWebTokenDto execute(String refreshTokenValue) {
+
         // refresh Token 검증. Redis에 있는 토큰인지 확인 -> accountId 추출
         RefreshToken refreshToken = refreshTokenRepository.findByValue(refreshTokenValue)
                 .orElseThrow(() -> new CommonException(ErrorCode.INVALID_TOKEN_ERROR));

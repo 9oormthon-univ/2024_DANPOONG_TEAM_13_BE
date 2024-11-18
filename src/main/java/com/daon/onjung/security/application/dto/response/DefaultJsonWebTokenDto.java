@@ -1,7 +1,7 @@
 package com.daon.onjung.security.application.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.daon.onjung.core.dto.SelfValidating;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;

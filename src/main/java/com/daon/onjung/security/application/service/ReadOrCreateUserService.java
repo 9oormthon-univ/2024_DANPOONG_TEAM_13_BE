@@ -7,7 +7,6 @@ import com.daon.onjung.security.domain.type.ESecurityProvider;
 import com.daon.onjung.security.info.KakaoOauth2UserInfo;
 import com.daon.onjung.security.repository.mysql.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
 public class ReadOrCreateUserService implements ReadOrCreateUserUseCase {
 
     private final AccountRepository accountRepository;
