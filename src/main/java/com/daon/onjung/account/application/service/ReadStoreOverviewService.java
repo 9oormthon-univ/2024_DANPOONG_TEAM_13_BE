@@ -87,9 +87,7 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
                     .map(String::trim)
                     .map(value -> Enum.valueOf(enumClass, value))
                     .toList();
-            log.info("Parsed Enums: {}", result);
         } catch (IllegalArgumentException e) {
-            log.error("Error parsing enums from input: {}", input, e);
             throw new RuntimeException("Invalid enum value provided: " + input, e);
         }
         return result;
