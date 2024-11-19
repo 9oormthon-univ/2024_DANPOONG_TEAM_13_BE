@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -18,6 +20,34 @@ public class DateTimeUtil {
     public static final DateTimeFormatter KORDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"); // 새로운 포맷터 추가
     public static final DateTimeFormatter CustomDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (EEE)", Locale.KOREAN);
     public static final DateTimeFormatter CustomDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH시 mm분", Locale.KOREAN);
+
+    private static final List<DateTimeFormatter> DATE_FORMATTERS = List.of(
+            DateTimeFormatter.ofPattern("yyyyMMdd"),
+            DateTimeFormatter.ofPattern("yyyyMMdd(E)"),
+            DateTimeFormatter.ofPattern("yyyyMMdd (E)"),
+            DateTimeFormatter.ofPattern("yyyyMMdd E"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("yyyy-M-d"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd(E)"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd (E)"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd E"),
+            DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+            DateTimeFormatter.ofPattern("yyyy/M/d"),
+            DateTimeFormatter.ofPattern("yyyy/MM/dd(E)"),
+            DateTimeFormatter.ofPattern("yyyy/MM/dd (E)"),
+            DateTimeFormatter.ofPattern("yyyy/MM/dd E"),
+            DateTimeFormatter.ofPattern("yyyy.MM.dd"),
+            DateTimeFormatter.ofPattern("yyyy.M.d"),
+            DateTimeFormatter.ofPattern("yyyy.MM.dd(E)"),
+            DateTimeFormatter.ofPattern("yyyy.MM.dd (E)"),
+            DateTimeFormatter.ofPattern("yyyy.MM.dd E"),
+            DateTimeFormatter.ofPattern("yyyy년 M월 d일"),
+            DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"),
+            DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)"),
+            DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 (E)"),
+            DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 E")
+    );
+
     /**
      * String을 LocalDateTime으로 변환
      *
@@ -137,5 +167,24 @@ public class DateTimeUtil {
      */
     public static String convertLocalDateTimeToCustomDateTime(LocalDateTime dateTime) {
         return dateTime.format(CustomDateTimeFormatter);
+    }
+
+
+    /**
+     * 날짜 문자열을 특정 포맷으로 변환
+     *
+     * @param dateString 날짜 문자열
+     * @return String
+     */
+    public static String formatDateString(String dateString) {
+        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
+            try {
+                LocalDate date = LocalDate.parse(dateString, formatter);
+                return date.format(ISODateFormatter);
+            } catch (DateTimeParseException e) {
+                // Ignore and try the next format
+            }
+        }
+        throw new IllegalArgumentException("Unrecognized date format: " + dateString);
     }
 }

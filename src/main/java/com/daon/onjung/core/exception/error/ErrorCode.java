@@ -25,6 +25,9 @@ public enum ErrorCode {
     UNSUPPORTED_MEDIA_TYPE(40006, HttpStatus.BAD_REQUEST, "지원하지 않는 미디어 타입입니다."),
     BAD_REQUEST_JSON(40007, HttpStatus.BAD_REQUEST, "잘못된 JSON 형식입니다."),
 
+    // OCR Error
+    OCR_RECOGNITION_ERROR(40010, HttpStatus.BAD_REQUEST, "영수증 인식에 실패하였습니다."),
+
     // Access Denied Error
     ACCESS_DENIED(40300, HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
     NOT_LOGIN_USER(40301, HttpStatus.FORBIDDEN, "로그인하지 않은 사용자입니다."),

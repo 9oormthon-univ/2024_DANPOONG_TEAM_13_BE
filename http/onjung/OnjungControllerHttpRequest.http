@@ -12,3 +12,15 @@ Authorization: Bearer {{access_token}}
 // @no-log
 GET {{host_url}}/api/v1/onjungs/briefs
 Authorization: Bearer {{access_token}}
+
+### 4.4 가게 방문 인증용 영수증 OCR 조회하기
+// @no-log
+POST {{host_url}}/api/v1/receipts/ocr
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer {{access_token}}
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="receipt.jpg"
+Content-Type: image/jpeg
+
+< /Users/kyeom/Desktop/receipt3.jpeg
