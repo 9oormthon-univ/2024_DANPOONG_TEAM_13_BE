@@ -1,15 +1,17 @@
 package com.daon.onjung.account.application.dto.response;
 
 import com.daon.onjung.account.domain.Store;
+import com.daon.onjung.core.dto.SelfValidating;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Getter
-public class ReadStoreOverviewsResponse {
+public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverviewsResponseDto> {
 
     @NotNull(message = "has_next는 null일 수 없습니다.")
     @JsonProperty("has_next")
@@ -18,12 +20,25 @@ public class ReadStoreOverviewsResponse {
     @JsonProperty("store_list")
     private final List<StoreOverviewDto> storeList;
 
-    public ReadStoreOverviewsResponse(
+    @Builder
+    public ReadStoreOverviewsResponseDto(
             Boolean hasNext,
             List<StoreOverviewDto> storeList
     ) {
         this.hasNext = hasNext;
         this.storeList = storeList;
+    }
+
+    public static ReadStoreOverviewsResponseDto fromPage(Page<Store> storePage) {
+        boolean hasNext = storePage.hasNext();
+        List<StoreOverviewDto> jobPostingList = storePage.getContent().stream()
+                .map(StoreOverviewDto::fromEntity)
+                .toList();
+
+        return ReadStoreOverviewsResponseDto.builder()
+                .hasNext(hasNext)
+                .storeList(jobPostingList)
+                .build();
     }
 
     @Getter
@@ -75,18 +90,18 @@ public class ReadStoreOverviewsResponse {
             this.address = address;
             this.donationCount = donationCount;
         }
-    }
 
-    public static StoreOverviewDto fromEntity(Store store) {
-        return StoreOverviewDto.builder()
-                .id(store.getId())
-                .tags(store.getTags())
-                .title(store.getTitle())
-                .bannerImgUrl(store.getBannerImgUrl())
-                .name(store.getName())
-                .address(store.getOcrStoreAddress())
-                .donationCount(String.valueOf(store.getDonationCount()))
-                .build();
+        public static StoreOverviewDto fromEntity(Store store) {
+            return StoreOverviewDto.builder()
+                    .id(store.getId())
+                    .tags(store.getTags())
+                    .title(store.getTitle())
+                    .bannerImgUrl(store.getBannerImgUrl())
+                    .name(store.getName())
+                    .address(store.getOcrStoreAddress())
+                    .donationCount(String.valueOf(store.getDonationCount()))
+                    .build();
+        }
     }
 }
 
