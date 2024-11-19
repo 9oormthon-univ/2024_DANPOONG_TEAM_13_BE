@@ -29,8 +29,9 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
             "LEFT JOIN s.onjungTags tag " +
             "WHERE (:title IS NULL OR s.title LIKE %:title%) " +
             "AND (:onjungTags IS NULL OR tag IN :onjungTags) " +
-            "GROUP BY s.id")
-    Page<Store> findStoresByEarliestEvent(
+            "GROUP BY s.id " +
+            "ORDER BY MIN(e.endDate) ASC")
+    Page<Store> findStoresByEarliestEventOrdered(
             @Param("title") String title,
             @Param("onjungTags") List<EOnjungTag> onjungTags,
             Pageable pageable
