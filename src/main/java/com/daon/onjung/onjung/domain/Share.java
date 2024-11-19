@@ -26,11 +26,8 @@ public class Share {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "payment_date", nullable = false)
-    private LocalDate paymentDate;
-
-    @Column(name = "payment_amount", nullable = false)
-    private Integer paymentAmount;
+    @Column(name = "count", nullable = false)
+    private Integer count;
 
     /* -------------------------------------------- */
     /* Many To One Mapping ------------------------ */
@@ -47,17 +44,20 @@ public class Share {
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Share(LocalDate paymentDate, Integer paymentAmount, User user, Store store) {
-        this.paymentDate = paymentDate;
-        this.paymentAmount = paymentAmount;
+    public Share(User user, Store store) {
+        this.count = 1;
         this.user = user;
         this.store = store;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
+    }
+
+    public void addCount() {
+        this.count++;
     }
 }

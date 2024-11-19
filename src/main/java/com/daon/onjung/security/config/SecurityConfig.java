@@ -66,7 +66,7 @@ public class SecurityConfig {
 
                 .formLogin(configurer -> configurer
                         .loginPage("/login")
-                        .loginProcessingUrl("/v1/auth/login")
+                        .loginProcessingUrl("/api/v1/auth/login")
                         .usernameParameter("serial_id")
                         .passwordParameter("password")
                         .successHandler(defaultLoginSuccessHandler)
@@ -74,7 +74,7 @@ public class SecurityConfig {
                 )
 
                 .logout(configurer -> configurer
-                        .logoutUrl("/v1/auth/logout")
+                        .logoutUrl("/api/v1/auth/logout")
                         .addLogoutHandler(defaultLogoutProcessHandler)
                         .logoutSuccessHandler(defaultLogoutSuccessHandler)
                 )

@@ -81,6 +81,10 @@ public class OnjungService {
                 onjung.getReceipts().stream()
                         .map(Receipt::getPaymentAmount)
                         .reduce(0, Integer::sum) +
-                onjung.getShares().size() * 100;
+                onjung.getShares().stream()
+                        .map(share -> {
+                            return share.getCount() * 100;
+                        })
+                        .reduce(0, Integer::sum);
     }
 }

@@ -37,3 +37,8 @@ Content-Type: application/json
   "payment_date": "{{onjung.API_4_5.payment_date}}",
   "payment_amount": "{{onjung.API_4_5.payment_amount}}"
 }
+
+### 4.6 온기 공유하기
+// @no-log
+PUT {{host_url}}/api/v1/stores/{{onjung.API_4_6.id}}/shares
+Authorization: Bearer {{access_token}}
