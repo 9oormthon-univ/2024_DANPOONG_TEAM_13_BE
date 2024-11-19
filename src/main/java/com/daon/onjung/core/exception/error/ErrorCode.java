@@ -14,6 +14,7 @@ public enum ErrorCode {
     // Not Found Error
     NOT_FOUND_END_POINT(40400, HttpStatus.NOT_FOUND, "존재하지 않는 API 엔드포인트입니다."),
     NOT_FOUND_RESOURCE(40404, HttpStatus.NOT_FOUND, "해당 리소스가 존재하지 않습니다."),
+    NOT_FOUND_MATCHED_STORE(40410, HttpStatus.NOT_FOUND, "영수증 내용과 일치하는 매장이 존재하지 않습니다."),
 
     // Invalid Argument Error
     MISSING_REQUEST_PARAMETER(40000, HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다."),
