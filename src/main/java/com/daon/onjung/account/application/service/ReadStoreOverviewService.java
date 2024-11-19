@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -25,19 +26,35 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
             Integer page,
             Integer size,
             String title,
-            List<EOnjungTag> tags,
+            String onjungTags,
             String sortByDonationCount
     ) {
-        Pageable pageable = PageRequest.of(page - 1, size,
-                sortByDonationCount.equalsIgnoreCase("asc") ? Sort.by("donationCount").ascending() : Sort.by("donationCount").descending());
+
+        Pageable pageable = PageRequest.of(page - 1, size);
 
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), (int) storeRepository.count());
 
-        List<Store> storeList = storeRepository.findByTitleContainingAndTagsIn(title, tags, pageable).getContent();
+        // 필터 파라미터 변환
+        List<EOnjungTag> onjungTagsList = parseEnums(onjungTags, EOnjungTag.class);
+
+        List<Store> storeList = storeRepository.findStoresByDonationCountWithDirection(title, onjungTagsList, sortByDonationCount, pageable).getContent();
+
+        // 상점이 없을 경우
+        if (storeList.isEmpty()) {
+            return new ReadStoreOverviewsResponseDto(false, List.of());
+        }
 
         Page<Store> storePage = new PageImpl<>(storeList.subList(start, end), pageable, storeList.size());
 
         return ReadStoreOverviewsResponseDto.fromPage(storePage);
+    }
+
+    private <E extends Enum<E>> List<E> parseEnums(String input, Class<E> enumClass) {
+        if (input == null || input.isEmpty()) return null;
+        return Arrays.stream(input.split(","))
+                .map(String::trim)
+                .map(value -> Enum.valueOf(enumClass, value))
+                .toList();
     }
 }

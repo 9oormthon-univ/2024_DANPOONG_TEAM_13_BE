@@ -1,0 +1,6 @@
+### 3.1 가게 리스트 조회
+// @no-log
+GET {{host_url}}/api/v1/stores/overviews?
+    page={{account.API_3_1.page}}&
+    size={{account.API_3_1.size}}
+Authorization: Bearer {{access_token}}

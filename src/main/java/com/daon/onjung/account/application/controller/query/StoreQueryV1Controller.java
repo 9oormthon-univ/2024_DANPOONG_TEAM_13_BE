@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1")
+@RequestMapping("api/v1")
 public class StoreQueryV1Controller {
 
     private final ReadStoreOverviewUseCase readStoreOverviewUseCase;
@@ -24,7 +25,7 @@ public class StoreQueryV1Controller {
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "search", required = false) String title,
-            @RequestParam(value = "tags", required = false) List<EOnjungTag> tags,
+            @RequestParam(value = "tags", required = false) String onjungTags,
             @RequestParam(value = "sortByDonationCount", required = false, defaultValue = "asc") String sortByDonationCount
     ) {
 
@@ -33,7 +34,7 @@ public class StoreQueryV1Controller {
                         page,
                         size,
                         title,
-                        tags,
+                        onjungTags,
                         sortByDonationCount
                 )
         );

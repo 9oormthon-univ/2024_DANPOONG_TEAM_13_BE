@@ -13,7 +13,7 @@ public interface ReadStoreOverviewUseCase {
      * @param page              페이지
      * @param size              페이지 크기
      * @param title             공고 제목
-     * @param tags              포함 태그
+     * @param onjungTags        포함 태그
      * @param sortByDonationCount   기부 횟수 정렬 (asc, desc)
      *
      * @return 상점 목록 조회 응답 DTO
@@ -23,7 +23,7 @@ public interface ReadStoreOverviewUseCase {
             Integer page,
             Integer size,
             String title,
-            List<EOnjungTag> tags,
+            String onjungTags,
             String sortByDonationCount
     );
 }
