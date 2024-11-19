@@ -106,11 +106,6 @@ public class Store {
        this.owner = owner;
     }
 
-    // donation count
-    public int getDonationCount() {
-        return events != null ? events.size() : 0;
-    }
-
     // get tags
     public List<String> getTags() {
         return onjungTags.stream()

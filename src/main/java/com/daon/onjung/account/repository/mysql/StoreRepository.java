@@ -21,21 +21,13 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
     @EntityGraph(attributePaths = {"onjungTags"})
     Optional<Store> findWithOnjungTagsById(Long id);
 
-    @Query("SELECT s FROM Store s " +
-            "LEFT JOIN s.events e " +
-            "WHERE (:title IS NOT NULL OR s.title LIKE %:title%) " +
-            "AND (:onjungTags IS NOT NULL OR EXISTS (" +
-            "    SELECT 1 FROM s.onjungTags tag " +
-            "    WHERE tag IN :onjungTags" +
-            ")) " +
-            "GROUP BY s.id " +
-            "ORDER BY " +
-            "CASE WHEN :sortByDonationCount = 'asc' THEN COUNT(e) END ASC, " +
-            "CASE WHEN :sortByDonationCount = 'desc' THEN COUNT(e) END DESC")
-    Page<Store> findStoresByDonationCountWithDirection(
-            @Param("title") String title,
-            @Param("onjungTags") List<EOnjungTag> onjungTags,
-            @Param("sortByDonationCount") String sortByDonationCount,
-            Pageable pageable
-    );
+
+    @Query("SELECT COUNT(s) FROM Share s WHERE s.store.id = :storeId")
+    long countSharesByStoreId(@Param("storeId") Long storeId);
+
+    @Query("SELECT COUNT(d) FROM Donation d WHERE d.store.id = :storeId")
+    long countDonationsByStoreId(@Param("storeId") Long storeId);
+
+    @Query("SELECT COUNT(r) FROM Receipt r WHERE r.store.id = :storeId")
+    long countReceiptsByStoreId(@Param("storeId") Long storeId);
 }
