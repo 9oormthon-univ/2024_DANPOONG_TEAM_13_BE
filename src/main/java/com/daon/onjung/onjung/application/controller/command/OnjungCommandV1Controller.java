@@ -4,6 +4,7 @@ import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.onjung.application.dto.request.CreateDonationRequestDto;
 import com.daon.onjung.onjung.application.dto.request.CreateReceiptRequestDto;
+import com.daon.onjung.onjung.application.dto.response.CreateDonationResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReceiptOCRResponseDto;
 import com.daon.onjung.onjung.application.usecase.CreateDonationUseCase;
 import com.daon.onjung.onjung.application.usecase.CreateOrUpdateShareUseCase;
@@ -65,13 +66,12 @@ public class OnjungCommandV1Controller {
      * 4.7 가게 후원 동참하기
      */
     @PostMapping("/api/v1/stores/{id}/donations")
-    public ResponseDto<Void> donateStore(
+    public ResponseDto<CreateDonationResponseDto> donateStore(
             @AccountID UUID accountId,
             @PathVariable Long id,
             @RequestBody @Valid CreateDonationRequestDto requestDto
     ) {
-        createDonationUseCase.execute(accountId, id, requestDto);
-        return ResponseDto.created(null);
+        return ResponseDto.created(createDonationUseCase.execute(accountId, id, requestDto));
     }
 
 }
