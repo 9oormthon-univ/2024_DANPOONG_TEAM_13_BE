@@ -54,13 +54,6 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
                     long donationCount = storeRepository.countDonationsByStoreId(store.getId());
                     long receiptCount = storeRepository.countReceiptsByStoreId(store.getId());
 
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("shareCount: " + shareCount + "donationCount: " + donationCount + "receiptCount: " + receiptCount);
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("----------------------------------------------------");
                     Integer totalOnjungCount = (int) (shareCount + donationCount + receiptCount);
 
                     return ReadStoreOverviewsResponseDto.StoreOverviewDto.fromEntity(store, totalOnjungCount);
