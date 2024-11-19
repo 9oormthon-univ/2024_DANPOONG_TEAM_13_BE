@@ -29,18 +29,6 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
         this.storeList = storeList;
     }
 
-    public static ReadStoreOverviewsResponseDto fromPage(Page<Store> storePage) {
-        boolean hasNext = storePage.hasNext();
-        List<StoreOverviewDto> jobPostingList = storePage.getContent().stream()
-                .map(StoreOverviewDto::fromEntity)
-                .toList();
-
-        return ReadStoreOverviewsResponseDto.builder()
-                .hasNext(hasNext)
-                .storeList(jobPostingList)
-                .build();
-    }
-
     @Getter
     public static class StoreOverviewDto {
 
@@ -68,9 +56,9 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
         @JsonProperty("address")
         private final String address;
 
-        @NotNull(message = "donation_count은 null일 수 없습니다.")
-        @JsonProperty("donation_count")
-        private final String donationCount;
+        @NotNull(message = "total_onjung_count은 null일 수 없습니다.")
+        @JsonProperty("total_onjung_count")
+        private final Integer totalOnjungCount;
 
         @Builder
         public StoreOverviewDto(
@@ -80,7 +68,7 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
                 String bannerImgUrl,
                 String name,
                 String address,
-                String donationCount
+                Integer totalOnjungCount
         ) {
             this.id = id;
             this.tags = tags;
@@ -88,10 +76,10 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
             this.bannerImgUrl = bannerImgUrl;
             this.name = name;
             this.address = address;
-            this.donationCount = donationCount;
+            this.totalOnjungCount = totalOnjungCount;
         }
 
-        public static StoreOverviewDto fromEntity(Store store) {
+        public static StoreOverviewDto fromEntity(Store store, Integer totalOnjungCount) {
             return StoreOverviewDto.builder()
                     .id(store.getId())
                     .tags(store.getTags())
@@ -99,9 +87,10 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
                     .bannerImgUrl(store.getBannerImgUrl())
                     .name(store.getName())
                     .address(store.getOcrStoreAddress())
-                    .donationCount(String.valueOf(store.getDonationCount()))
+                    .totalOnjungCount(totalOnjungCount)
                     .build();
         }
+
     }
 }
 

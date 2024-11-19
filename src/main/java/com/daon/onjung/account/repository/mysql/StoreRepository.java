@@ -21,6 +21,20 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
     @EntityGraph(attributePaths = {"onjungTags"})
     Optional<Store> findWithOnjungTagsById(Long id);
 
+    @Query("SELECT s FROM Store s " +
+            "LEFT JOIN s.events e ON e.endDate = ( " +
+            "   SELECT MIN(e1.endDate) FROM Event e1 " +
+            "   WHERE e1.store.id = s.id AND e1.endDate > CURRENT_DATE" +
+            ") " +
+            "LEFT JOIN s.onjungTags tag " +
+            "WHERE (:title IS NULL OR s.title LIKE %:title%) " +
+            "AND (:onjungTags IS NULL OR tag IN :onjungTags) " +
+            "GROUP BY s.id")
+    Page<Store> findStoresByEarliestEvent(
+            @Param("title") String title,
+            @Param("onjungTags") List<EOnjungTag> onjungTags,
+            Pageable pageable
+    );
 
     @Query("SELECT COUNT(s) FROM Share s WHERE s.store.id = :storeId")
     long countSharesByStoreId(@Param("storeId") Long storeId);
