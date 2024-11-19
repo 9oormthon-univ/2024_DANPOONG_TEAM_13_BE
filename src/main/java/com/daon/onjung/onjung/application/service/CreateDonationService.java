@@ -49,7 +49,7 @@ public class CreateDonationService implements CreateDonationUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 가게 조회
-        Store store = storeRepository.findById(storeId)
+        Store store = storeRepository.findWithOnjungTagsById(storeId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 이벤트 조회
