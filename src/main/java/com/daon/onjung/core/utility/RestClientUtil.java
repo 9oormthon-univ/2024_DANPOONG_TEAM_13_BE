@@ -72,19 +72,24 @@ public class RestClientUtil {
         }
     }
 
-    public JSONObject sendPostMethod(String url, Object body) {
-        return new JSONObject(Objects.requireNonNull(restClient.post()
-                .uri(url)
-                .contentType(APPLICATION_JSON)
-                .body(body)
-                .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                    throw new CommonException(ErrorCode.INVALID_ARGUMENT);
-                })
-                .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
-                    throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
-                })
-                .toEntity(JSONObject.class).getBody()));
+    public JSONObject sendPostMethod(String url, HttpHeaders headers, String body) {
+        try {
+            return new JSONObject(Objects.requireNonNull(restClient.post()
+                    .uri(url)
+                    .headers(httpHeaders -> httpHeaders.addAll(headers))
+                    .contentType(APPLICATION_JSON)
+                    .body(body)
+                    .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                        throw new CommonException(ErrorCode.INVALID_ARGUMENT);
+                    })
+                    .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
+                        throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
+                    })
+                    .toEntity(JSONObject.class).getBody()));
+        } catch (Exception e) {
+            throw new RuntimeException("Error sending POST request", e);
+        }
     }
 
 }

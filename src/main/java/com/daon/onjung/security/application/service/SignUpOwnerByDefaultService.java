@@ -12,6 +12,7 @@ import com.daon.onjung.security.application.usecase.SignUpOwnerByDefaultUseCase;
 import com.daon.onjung.security.domain.type.EImageType;
 import com.daon.onjung.security.domain.type.ESecurityProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase {
 
     private final OwnerRepository ownerRepository;
+    private final StoreRepository storeRepository;
 
     private final OwnerService ownerService;
     private final StoreService storeService;
 
     private final S3Util s3Util;
-    private final StoreRepository storeRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional
@@ -39,7 +41,7 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
         Owner owner = ownerService.createOwner(
                 ESecurityProvider.DEFAULT,
                 requestDto.serialId(),
-                requestDto.password(),
+                bCryptPasswordEncoder.encode(requestDto.password()),
                 requestDto.bankInfo().name(),
                 requestDto.bankInfo().accountNumber(),
                 true

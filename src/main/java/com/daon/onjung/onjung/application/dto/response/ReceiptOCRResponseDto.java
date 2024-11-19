@@ -32,7 +32,7 @@ public class ReceiptOCRResponseDto extends SelfValidating<ReceiptOCRDto> {
         this.validateSelf();
     }
 
-    public static ReceiptOCRResponseDto fromEntity(ReceiptOCRDto receiptOCRDto) {
+    public static ReceiptOCRResponseDto fromReceiptOCRDto(ReceiptOCRDto receiptOCRDto) {
         if (receiptOCRDto == null) {
             return ReceiptOCRResponseDto.builder()
                     .storeName(null)

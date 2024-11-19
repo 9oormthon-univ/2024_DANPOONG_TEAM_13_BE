@@ -49,7 +49,7 @@ public class Event {
     @Column(name = "bank_name")
     private EBankName bankName;
 
-    @Column(name = "bank_id", nullable = false)
+    @Column(name = "bank_id")
     private Long bankId;
 
     /* -------------------------------------------- */
@@ -63,7 +63,7 @@ public class Event {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Event(EStatus status, LocalDate startDate, LocalDate endDate, LocalDate storeDeliveryDate, LocalDate ticketIssueDate, LocalDate reportDate, EBankName bankName, Long bankId, Store store) {
+    public Event(EStatus status, LocalDate startDate, LocalDate endDate, LocalDate storeDeliveryDate, LocalDate ticketIssueDate, LocalDate reportDate, EBankName bankName, Store store) {
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -71,7 +71,11 @@ public class Event {
         this.ticketIssueDate = ticketIssueDate;
         this.reportDate = reportDate;
         this.bankName = bankName;
-        this.bankId = bankId;
         this.store = store;
+    }
+
+    public void updateBankInfo(EBankName bankName, Long bankId) {
+        this.bankName = bankName;
+        this.bankId = bankId;
     }
 }

@@ -42,3 +42,13 @@ Content-Type: application/json
 // @no-log
 PUT {{host_url}}/api/v1/stores/{{onjung.API_4_6.id}}/shares
 Authorization: Bearer {{access_token}}
+
+### 4.7 가게 후원 동참하기
+// @no-log
+POST {{host_url}}/api/v1/stores/{{onjung.API_4_7.id}}/donations
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "donation_amount": {{onjung.API_4_7.donation_amount}}
+}

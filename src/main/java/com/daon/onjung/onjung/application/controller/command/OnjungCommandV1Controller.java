@@ -2,8 +2,10 @@ package com.daon.onjung.onjung.application.controller.command;
 
 import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
+import com.daon.onjung.onjung.application.dto.request.CreateDonationRequestDto;
 import com.daon.onjung.onjung.application.dto.request.CreateReceiptRequestDto;
 import com.daon.onjung.onjung.application.dto.response.ReceiptOCRResponseDto;
+import com.daon.onjung.onjung.application.usecase.CreateDonationUseCase;
 import com.daon.onjung.onjung.application.usecase.CreateOrUpdateShareUseCase;
 import com.daon.onjung.onjung.application.usecase.CreateReceiptUseCase;
 import com.daon.onjung.onjung.application.usecase.ReceiptOCRUseCase;
@@ -21,6 +23,7 @@ public class OnjungCommandV1Controller {
     private final ReceiptOCRUseCase receiptOCRUseCase;
     private final CreateReceiptUseCase createReceiptUseCase;
     private final CreateOrUpdateShareUseCase createOrUpdateShareUseCase;
+    private final CreateDonationUseCase createDonationUseCase;
 
     /**
      * 4.4 가게 방문 인증용 영수증 OCR 조회하기
@@ -56,6 +59,19 @@ public class OnjungCommandV1Controller {
             return ResponseDto.created(null);
         }
         return ResponseDto.ok(null);
+    }
+
+    /**
+     * 4.7 가게 후원 동참하기
+     */
+    @PostMapping("/api/v1/stores/{id}/donations")
+    public ResponseDto<Void> donateStore(
+            @AccountID UUID accountId,
+            @PathVariable Long id,
+            @RequestBody @Valid CreateDonationRequestDto requestDto
+    ) {
+        createDonationUseCase.execute(accountId, id, requestDto);
+        return ResponseDto.created(null);
     }
 
 }

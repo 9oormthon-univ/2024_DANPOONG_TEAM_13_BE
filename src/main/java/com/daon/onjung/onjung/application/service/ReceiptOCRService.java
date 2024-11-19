@@ -24,7 +24,7 @@ public class ReceiptOCRService implements ReceiptOCRUseCase {
         MultiValueMap<String, Object> body = ocrUtil.createOCRRequestBody(file);
 
         try {
-            return ReceiptOCRResponseDto.fromEntity(
+            return ReceiptOCRResponseDto.fromReceiptOCRDto(
                     ocrUtil.mapToReceiptOCRDto(
                             restClientUtil.sendMultipartFormDataPostMethod(url, headers, body)
                     )
