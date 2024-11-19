@@ -72,8 +72,8 @@ public class CreateDonationService implements CreateDonationUseCase {
 
             // 이벤트에 은행 정보 업데이트
             event.updateBankInfo(
-                    EBankName.fromString(createVirtualAccountResponseDto.bankName()),
-                    createVirtualAccountResponseDto.bankId()
+                    EBankName.fromString(createVirtualAccountResponseDto.data().bankName()),
+                    createVirtualAccountResponseDto.data().bankId()
             );
             eventRepository.save(event);
         }
