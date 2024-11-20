@@ -47,7 +47,7 @@ public class QrUtil {
 
             // QR 코드 생성
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode(baseUrl, BarcodeFormat.QR_CODE, 136, 136, hintMap);
+            BitMatrix bitMatrix = qrCodeWriter.encode(baseUrl, BarcodeFormat.QR_CODE, 153, 153, hintMap);
 
             // QR 코드 이미지 생성
             BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
