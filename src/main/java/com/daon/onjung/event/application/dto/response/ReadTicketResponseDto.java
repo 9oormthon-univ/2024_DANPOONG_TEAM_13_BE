@@ -121,7 +121,7 @@ public class ReadTicketResponseDto {
             return StoreInfoDto.builder()
                     .logoImgUrl(store.getLogoImgUrl())
                     .name(store.getName())
-                    .category(store.getCategory().getCategoryName())
+                    .category(store.getCategory().name())
                     .address(store.getOcrStoreAddress())
                     .build();
         }
