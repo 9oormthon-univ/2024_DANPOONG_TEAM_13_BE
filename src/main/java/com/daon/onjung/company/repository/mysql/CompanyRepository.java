@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    List<String> findAllCompanyImages();
+    // company images만 반환하는 메서드
+    List<String> findAllImgUrlBy();
 }

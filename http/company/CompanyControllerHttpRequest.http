@@ -2,3 +2,22 @@
 // @no-log
 GET {{host_url}}/api/v1/company/briefs
 Authorization: Bearer {{access_token}}
+
+### 6.2 온기를 전한 기업 추가 (데이터 삽입용)
+// @no-log
+POST {{host_url}}/api/v1/company
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="company_image"; filename="image.png"
+Content-Type: image/png
+
+< /Users/eunji/Desktop/image1.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+{
+	"name": "{{company.API_6_2.name}}"
+}

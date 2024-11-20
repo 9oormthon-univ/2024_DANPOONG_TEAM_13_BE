@@ -38,6 +38,7 @@ public class S3Util {
             String key = switch (eImageType) {
                 case BANNER_IMG -> "account_" + serialId + "/banner_" + fileName;
                 case LOGO_IMG -> "account_" + serialId + "/logo_" + fileName;
+                case COMPANY_IMG -> "company_" + serialId + "/image_" + fileName;
             };
 
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, file.getInputStream(), objectMetadata);

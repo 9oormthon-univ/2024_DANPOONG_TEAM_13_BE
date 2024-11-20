@@ -28,6 +28,7 @@ public class Constants {
             "/api/v1/auth/sign-up",
             "/api/v1/auth/login",
             "/api/v1/auth/users",
+            "/api/v1/company",
 
             // Swagger
             "/api-docs.html",
