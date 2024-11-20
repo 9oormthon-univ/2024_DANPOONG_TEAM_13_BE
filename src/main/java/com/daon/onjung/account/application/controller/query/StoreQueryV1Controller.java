@@ -43,7 +43,7 @@ public class StoreQueryV1Controller {
     }
 
     /**
-     * 3.1 가게 상세 정보 조회
+     * 3.2 가게 상세 정보 조회
      */
     @GetMapping("/stores/{id}/details")
     public ResponseDto<ReadStoreDetailResponseDto> readStoreDetail(
