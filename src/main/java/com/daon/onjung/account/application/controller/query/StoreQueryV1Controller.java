@@ -1,13 +1,15 @@
 package com.daon.onjung.account.application.controller.query;
 
+import com.daon.onjung.account.application.dto.response.ReadStoreDetailResponseDto;
 import com.daon.onjung.account.application.dto.response.ReadStoreOverviewsResponseDto;
+import com.daon.onjung.account.application.usecase.ReadStoreDetailUseCase;
 import com.daon.onjung.account.application.usecase.ReadStoreOverviewUseCase;
+import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,7 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class StoreQueryV1Controller {
 
     private final ReadStoreOverviewUseCase readStoreOverviewUseCase;
+    private final ReadStoreDetailUseCase readStoreDetailUseCase;
 
+    /**
+     * 3.1 가게 리스트 조회
+     */
     @GetMapping("/stores/overviews")
     public ResponseDto<ReadStoreOverviewsResponseDto> readStoreList(
             @RequestParam(value = "page") Integer page,
@@ -33,6 +39,18 @@ public class StoreQueryV1Controller {
                         onjungTags,
                         sortByOnjungCount
                 )
+        );
+    }
+
+    /**
+     * 3.1 가게 상세 정보 조회
+     */
+    @GetMapping("/stores/{id}/details")
+    public ResponseDto<ReadStoreDetailResponseDto> readStoreDetail(
+            @PathVariable Long id
+    ) {
+        return ResponseDto.ok(
+                readStoreDetailUseCase.execute(id)
         );
     }
 }
