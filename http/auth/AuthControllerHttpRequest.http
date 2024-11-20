@@ -55,13 +55,13 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="logo"; filename="image.png"
 Content-Type: image/png
 
-< /Users/kyeom/Desktop/image1.png
+< /Users/eunji/Desktop/image1.png
 
 --boundary
 Content-Disposition: form-data; name="banner"; filename="image.png"
 Content-Type: image/png
 
-< /Users/kyeom/Desktop/image2.png
+< /Users/eunji/Desktop/image2.png
 
 --boundary
 Content-Disposition: form-data; name="body"
