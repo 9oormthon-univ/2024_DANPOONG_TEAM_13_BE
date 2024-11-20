@@ -1,0 +1,4 @@
+### 6.1 온기를 전한 기업들 조회
+// @no-log
+GET {{host_url}}/api/v1/company/briefs
+Authorization: Bearer {{access_token}}
