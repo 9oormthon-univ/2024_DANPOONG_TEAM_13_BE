@@ -194,6 +194,28 @@ public class DateTimeUtil {
 
 
     /**
+     * 나의 식권 조회 시간 포맷팅: "yyyy.MM.dd"
+     *
+     * @param date LocalDateTime
+     * @return String
+     */
+    public static String convertLocalDateTimeToDotSeparatedDateTime(LocalDate date) {
+        return date.format(DotSeparatedDateFormatter);
+    }
+
+
+    /**
+     * String을 LocalDate 형식으로 변환 (yyyy. MM. dd)
+     *
+     * @param date LocalDate
+     * @return String
+     */
+    public static LocalDate convertDotSeparatedToLocalDate(String date) {
+        return LocalDate.parse(date, DotSeparatedDateFormatter);
+    }
+
+
+    /**
      * 날짜 문자열을 특정 포맷으로 변환
      *
      * @param dateString 날짜 문자열
