@@ -29,10 +29,11 @@ public class ReadTicketResponseDto {
         this.ticketDtos = ticketDtos;
     }
 
-    public static ReadTicketResponseDto fromEntity(
+    public static ReadTicketResponseDto fromPage(
             List<TicketDto> ticketDtos,
             boolean hasNext
     ) {
+
         return ReadTicketResponseDto.builder()
                 .hasNext(hasNext)
                 .ticketDtos(ticketDtos)
@@ -72,10 +73,10 @@ public class ReadTicketResponseDto {
             this.isValidate = isValidate;
         }
 
-        public static TicketDto fromEntity(Ticket ticket, StoreInfoDto storeInfoDto) {
+        public static TicketDto fromEntity(Ticket ticket, Store store) {
             return TicketDto.builder()
                     .id(ticket.getId())
-                    .storeInfo(StoreInfoDto.fromEntity(ticket.getStore()))
+                    .storeInfo(StoreInfoDto.fromEntity(store))
                     .expirationDate(DateTimeUtil.DotSeparatedDateFormatter.format(ticket.getExpirationDate()))
                     .ticketPrice(ticket.getTicketPrice())
                     .isValidate(ticket.getIsValidate())

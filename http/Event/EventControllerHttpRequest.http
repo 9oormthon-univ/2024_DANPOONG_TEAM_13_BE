@@ -1,0 +1,6 @@
+### 5.3 나의 식권 조회
+// @no-log
+GET {{host_url}}/api/v1/tickets?
+    page={{event.API_5_3.page}}&
+    size={{event.API_5_3.size}}
+Authorization: Bearer {{access_token}}
