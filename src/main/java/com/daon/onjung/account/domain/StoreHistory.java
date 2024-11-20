@@ -29,6 +29,9 @@ public class StoreHistory {
     @Column(name = "content", length = 30, nullable = false)
     private String content;
 
+    @Column(name = "amount")
+    private Integer amount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stores_id", nullable = false)
     private Store store;

@@ -219,10 +219,10 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
 
         public static StoreHistoryDto fromEntity(StoreHistory storeHistory) {
             return StoreHistoryDto.builder()
-                    .date(String.valueOf(storeHistory.getActionDate()))
+                    .date(DateTimeUtil.convertLocalDateToKORYearMonthString(storeHistory.getActionDate()))
                     .storeHistoryInfo(StoreHistoryInfo.fromEntity(
                             storeHistory.getContent(),
-                            DateTimeUtil.convertLocalDateToKORYearMonthString(storeHistory.getActionDate())
+                            storeHistory.getAmount() + "만원"
                     ))
                     .build();
         }
