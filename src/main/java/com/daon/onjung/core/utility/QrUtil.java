@@ -34,30 +34,36 @@ public class QrUtil {
      * @throws WriterException
      * @throws IOException
      */
-    public byte[] generateQrCodeImageByte(Long ticketId) throws WriterException, IOException {
+    public byte[] generateQrCodeImageByte(Long ticketId) {
 
-        // QR 코드에 포함될 데이터 생성
-        String baseUrl = url + path + ticketId;
+        try {
+            // QR 코드에 포함될 데이터 생성
+            String baseUrl = url + path + ticketId;
 
-        // QR코드 생성 옵션 설정
-        Map<EncodeHintType, Object> hintMap = new HashMap<>();
-        hintMap.put(EncodeHintType.MARGIN, 0);
-        hintMap.put(EncodeHintType.CHARACTER_SET,"UTF-8");
+            // QR코드 생성 옵션 설정
+            Map<EncodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.MARGIN, 0);
+            hintMap.put(EncodeHintType.CHARACTER_SET,"UTF-8");
 
-        // QR 코드 생성
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(baseUrl, BarcodeFormat.QR_CODE, 136, 136, hintMap);
+            // QR 코드 생성
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(baseUrl, BarcodeFormat.QR_CODE, 136, 136, hintMap);
 
-        // QR 코드 이미지 생성
-        BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            // QR 코드 이미지 생성
+            BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-        // QR 코드 이미지를 바이트 배열로 변환, byteArrayOutputStream에 저장
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(qrCodeImage,"png", byteArrayOutputStream);
-        byteArrayOutputStream.flush();
-        byte[] qrCodeBytes = byteArrayOutputStream.toByteArray();
-        byteArrayOutputStream.close();
+            // QR 코드 이미지를 바이트 배열로 변환, byteArrayOutputStream에 저장
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(qrCodeImage,"png", byteArrayOutputStream);
+            byteArrayOutputStream.flush();
+            byte[] qrCodeBytes = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
 
-        return qrCodeBytes;
+            return qrCodeBytes;
+        } catch (WriterException e) {
+            throw new RuntimeException("Error occurred during QR code generation.", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error occurred while processing the QR code image.", e);
+        }
     }
 }
