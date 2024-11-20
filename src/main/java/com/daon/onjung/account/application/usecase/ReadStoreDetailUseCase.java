@@ -7,9 +7,9 @@ import com.daon.onjung.core.annotation.bean.UseCase;
 public interface ReadStoreDetailUseCase {
     /**
      * 상점 상세 정보 조회하기
-     * @param storeId 상점 ID
+     * @param id 상점 ID
      * @return 상점 상세 정보 조회 응답 DTO
      */
 
-    ReadStoreDetailResponseDto execute(Long storeId);
+    ReadStoreDetailResponseDto execute(Long id);
 }
