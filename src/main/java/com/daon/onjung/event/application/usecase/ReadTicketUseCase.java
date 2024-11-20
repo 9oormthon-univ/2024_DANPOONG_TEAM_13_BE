@@ -11,7 +11,6 @@ public interface ReadTicketUseCase {
      * 추천 매장 리스트 조회하기
      * @param page              페이지
      * @param size              페이지 크기
-     * @param status            식권 사용 여부
      * @param accountId         계정 ID
      * @return 식권 목록 조회 응답 DTO
      */
@@ -19,7 +18,6 @@ public interface ReadTicketUseCase {
     ReadTicketResponseDto execute(
             Integer page,
             Integer size,
-            String status,
             UUID accountId
     );
 }

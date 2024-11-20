@@ -26,14 +26,12 @@ public class TicketQueryV1Controller {
     public ResponseDto<ReadTicketResponseDto> readTicketList(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
-            @RequestParam(value = "status", required = false, defaultValue = "AVAILABLE,UNAVAILABLE,EXPIRED") String status,
             @AccountID UUID accountId
     ) {
         return ResponseDto.ok(
                 readTicketUseCase.execute(
                         page,
                         size,
-                        status,
                         accountId
                 )
         );

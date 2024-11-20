@@ -30,7 +30,6 @@ public class ReadTicketService implements ReadTicketUseCase {
     public ReadTicketResponseDto execute(
             Integer page,
             Integer size,
-            String status,
             UUID accountId
     ) {
 
