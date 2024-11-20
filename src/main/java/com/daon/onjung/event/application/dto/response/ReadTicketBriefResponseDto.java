@@ -10,17 +10,17 @@ public class ReadTicketBriefResponseDto {
 
     @NotNull(message = "qr_base64는 null일 수 없습니다.")
     @JsonProperty("qr_base64")
-    private final String qrBase64;
+    private final byte[] qrBase64;
 
     @Builder
     public ReadTicketBriefResponseDto(
-            String qrBase64
+            byte[] qrBase64
     ) {
         this.qrBase64 = qrBase64;
     }
 
     public static ReadTicketBriefResponseDto fromEntity(
-            String qrBase64
+            byte[] qrBase64
     ) {
 
         return ReadTicketBriefResponseDto.builder()
