@@ -1,7 +1,9 @@
 package com.daon.onjung.account.application.dto.response;
 
 import com.daon.onjung.account.domain.Store;
+import com.daon.onjung.account.domain.StoreHistory;
 import com.daon.onjung.core.dto.SelfValidating;
+import com.daon.onjung.core.utility.DateTimeUtil;
 import lombok.Builder;
 import lombok.Getter;
 import jakarta.validation.constraints.NotNull;
@@ -158,13 +160,13 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
         @JsonProperty("total_donator_count")
         private final Integer totalDonatorCount;
 
-        @NotNull(message = "used_ticket_count는 null일 수 없습니다.")
-        @JsonProperty("used_ticket_count")
-        private final Integer usedTicketCount;
+        @NotNull(message = "total_donation_amount는 null일 수 없습니다.")
+        @JsonProperty("total_donation_amount")
+        private final Integer totalDonationAmount;
 
-        @NotNull(message = "total_ticket_payment_amount는 null일 수 없습니다.")
-        @JsonProperty("total_ticket_payment_amount")
-        private final Integer totalTicketPaymentAmount;
+        @NotNull(message = "total_receipt_amount는 null일 수 없습니다.")
+        @JsonProperty("total_receipt_amount")
+        private final Integer totalReceiptAmount;
 
         @NotNull(message = "total_shared_amount는 null일 수 없습니다.")
         @JsonProperty("total_shared_amount")
@@ -173,26 +175,26 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
         @Builder
         public OnjungInfoDto(
                 Integer totalDonatorCount,
-                Integer usedTicketCount,
-                Integer totalTicketPaymentAmount,
+                Integer totalDonationAmount,
+                Integer totalReceiptAmount,
                 Integer totalSharedAmount
         ) {
             this.totalDonatorCount = totalDonatorCount;
-            this.usedTicketCount = usedTicketCount;
-            this.totalTicketPaymentAmount = totalTicketPaymentAmount;
+            this.totalDonationAmount = totalDonationAmount;
+            this.totalReceiptAmount = totalReceiptAmount;
             this.totalSharedAmount = totalSharedAmount;
         }
 
         public static OnjungInfoDto fromEntity(
                 Integer totalDonatorCount,
-                Integer usedTicketCount,
-                Integer totalTicketPaymentAmount,
+                Integer totalDonationAmount,
+                Integer totalReceiptAmount,
                 Integer totalSharedAmount
         ) {
             return OnjungInfoDto.builder()
                     .totalDonatorCount(totalDonatorCount)
-                    .usedTicketCount(usedTicketCount)
-                    .totalTicketPaymentAmount(totalTicketPaymentAmount)
+                    .totalDonationAmount(totalDonationAmount)
+                    .totalReceiptAmount(totalReceiptAmount)
                     .totalSharedAmount(totalSharedAmount)
                     .build();
         }
@@ -215,12 +217,16 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
             this.storeHistoryInfo = storeHistoryInfo;
         }
 
-        public static StoreHistoryDto fromEntity(String date, StoreHistoryInfo storeHistoryInfo) {
+        public static StoreHistoryDto fromEntity(StoreHistory storeHistory) {
             return StoreHistoryDto.builder()
-                    .date(date)
-                    .storeHistoryInfo(storeHistoryInfo)
+                    .date(String.valueOf(storeHistory.getActionDate()))
+                    .storeHistoryInfo(StoreHistoryInfo.fromEntity(
+                            storeHistory.getContent(),
+                            DateTimeUtil.convertLocalDateToKORYearMonthString(storeHistory.getActionDate())
+                    ))
                     .build();
         }
+
 
         @Getter
         public static class StoreHistoryInfo {
