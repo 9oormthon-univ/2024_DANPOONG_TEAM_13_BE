@@ -11,7 +11,7 @@ public class CompanyService {
     ) {
         return Company.builder()
                 .name(name)
-                .imgUrl(imgUrl)
+                .imgUrl(imgUrl != null ? imgUrl : "")
                 .build();
     }
 }

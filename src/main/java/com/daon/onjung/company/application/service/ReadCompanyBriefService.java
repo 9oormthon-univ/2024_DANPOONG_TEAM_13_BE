@@ -14,7 +14,7 @@ public class ReadCompanyBriefService implements ReadCompanyBriefUseCase {
     // company images만 반환하는 메서드
     public ReadCompanyBriefResponseDto execute() {
         return ReadCompanyBriefResponseDto.fromEntity(
-                companyRepository.findAllImgUrlBy()
+                companyRepository.findAllImgUrls()
         );
     }
 }
