@@ -7,6 +7,8 @@ import com.daon.onjung.account.domain.StoreHistory;
 import com.daon.onjung.account.repository.mysql.StoreHistoryRepository;
 import com.daon.onjung.account.repository.mysql.StoreRepository;
 import com.daon.onjung.core.dto.ReadVirtualAccountResponseDto;
+import com.daon.onjung.core.exception.error.ErrorCode;
+import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.event.domain.Event;
@@ -37,10 +39,10 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
     @Transactional(readOnly = true)
     public ReadStoreDetailResponseDto execute(Long id) {
         Store store = storeRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         Event event = eventRepository.findINPROGRESSEventByStoreId(id)
-                .orElse(null);
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 상점 정보
         ReadStoreDetailResponseDto.StoreInfoDto storeInfoDto = ReadStoreDetailResponseDto.StoreInfoDto.fromEntity(store);
