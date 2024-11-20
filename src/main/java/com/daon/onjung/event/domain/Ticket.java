@@ -60,7 +60,7 @@ public class Ticket {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Ticket(LocalDate expirationDate, int ticketPrice, boolean isValidate, Store store, User user, Event event) {
+    public Ticket(LocalDate expirationDate, Integer ticketPrice, Boolean isValidate, Store store, User user, Event event) {
         this.expirationDate = expirationDate;
         this.ticketPrice = ticketPrice;
         this.isValidate = isValidate;

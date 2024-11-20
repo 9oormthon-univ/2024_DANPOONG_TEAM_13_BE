@@ -53,29 +53,17 @@ public class CreateDonationService implements CreateDonationUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 이벤트 조회
-        Event event = eventRepository.findINPROGRESSEventByStoreId(storeId)
+        Event event = eventRepository.findById(requestDto.eventId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 동참 생성
-        Donation donation = donationService.createDonation(user, store, requestDto.donationAmount());
+        Donation donation = donationService.createDonation(user, store, event, requestDto.donationAmount());
         donationRepository.save(donation);
 
         // 해당 이벤트에 생성된 가상 계좌가 있는지 확인
+        // TODO: Domain Service 로직으로 이동
         if (event.getBankId() == null) {
-            // 은행에 가상계좌 생성 요청
-            String url = bankUtil.createCreateVirtualAccountRequestUrl();
-            HttpHeaders headers = bankUtil.createVirtualAccountRequestHeaders();
-            String body = bankUtil.createCreateVirtualAccountRequestBody(event.getId(), EBankName.KAKAO.toString());
-
-            CreateVirtualAccountResponseDto createVirtualAccountResponseDto =
-                    bankUtil.mapToCreateVirtualAccountResponseDto(restClientUtil.sendPostMethod(url, headers, body));
-
-            // 이벤트에 은행 정보 업데이트
-            event.updateBankInfo(
-                    EBankName.fromString(createVirtualAccountResponseDto.data().bankName()),
-                    createVirtualAccountResponseDto.data().bankId()
-            );
-            eventRepository.save(event);
+            throw new CommonException(ErrorCode.NOT_FOUND_RESOURCE);
         }
 
         // 은행에 동참금액 입금
@@ -83,8 +71,7 @@ public class CreateDonationService implements CreateDonationUseCase {
         HttpHeaders headers = bankUtil.createVirtualAccountRequestHeaders();
         String body = bankUtil.createDepositVirtualAccountRequestBody(requestDto.donationAmount(), user.getNickName());
 
-        DepositOrTransferVirtualAccountResponseDto depositOrTransferVirtualAccountResponseDto =
-                bankUtil.mapToDepositOrTransferVirtualAccountResponseDto(restClientUtil.sendPostMethod(url, headers, body));
+        restClientUtil.sendPostMethod(url, headers, body);
 
         return CreateDonationResponseDto.of(donation, store);
     }

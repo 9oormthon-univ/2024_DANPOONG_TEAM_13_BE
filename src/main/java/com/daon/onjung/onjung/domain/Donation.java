@@ -2,6 +2,7 @@ package com.daon.onjung.onjung.domain;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
+import com.daon.onjung.event.domain.Event;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,14 +46,19 @@ public class Donation {
     @JoinColumn(name = "stores_id", nullable = false)
     private Store store;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "events_id", nullable = false)
+    private Event event;
+
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Donation(Integer donationAmount, User user, Store store) {
+    public Donation(Integer donationAmount, User user, Store store, Event event) {
         this.donationAmount = donationAmount;
         this.user = user;
         this.store = store;
+        this.event = event;
         this.createdAt = LocalDateTime.now();
     }
 }

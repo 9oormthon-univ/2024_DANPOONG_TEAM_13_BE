@@ -50,7 +50,7 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
         // event 정보
         Integer totalAmount = getTotalAmount(id);
 
-        ReadStoreDetailResponseDto.EventInfoDto eventInfoDto = ReadStoreDetailResponseDto.EventInfoDto.fromEntity(totalAmount, eventService.getRestOfDate(event));
+        ReadStoreDetailResponseDto.EventInfoDto eventInfoDto = ReadStoreDetailResponseDto.EventInfoDto.of(event.getId(), totalAmount, eventService.getRestOfDate(event));
 
         // onjung 정보 (null 값 대신 0으로
         Integer totalOnjungCount = Optional.ofNullable(storeRepository.countUsersByStoreId(id)).orElse(0);

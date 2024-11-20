@@ -63,19 +63,21 @@ public class Event {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Event(EStatus status, LocalDate startDate, LocalDate endDate, LocalDate storeDeliveryDate, LocalDate ticketIssueDate, LocalDate reportDate, EBankName bankName, Store store) {
-        this.status = status;
+    public Event(LocalDate startDate, LocalDate endDate, Store store) {
+        this.status = EStatus.IN_PROGRESS;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.storeDeliveryDate = storeDeliveryDate;
-        this.ticketIssueDate = ticketIssueDate;
-        this.reportDate = reportDate;
-        this.bankName = bankName;
         this.store = store;
     }
 
     public void updateBankInfo(EBankName bankName, Long bankId) {
         this.bankName = bankName;
         this.bankId = bankId;
+    }
+
+    public void completeEvent() {
+        this.status = EStatus.TICKET_ISSUE;
+        this.storeDeliveryDate = LocalDate.now();
+        this.ticketIssueDate = LocalDate.now();
     }
 }
