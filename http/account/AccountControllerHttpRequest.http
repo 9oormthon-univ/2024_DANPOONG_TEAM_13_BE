@@ -4,3 +4,8 @@ GET {{host_url}}/api/v1/stores/overviews?
     page={{account.API_3_1.page}}&
     size={{account.API_3_1.size}}
 Authorization: Bearer {{access_token}}
+
+### 3.2 가게 상세 정보 조회
+// @no-log
+GET {{host_url}}/api/v1/stores/{{account.API_3_2.id}}/details
+Authorization: Bearer {{access_token}}
