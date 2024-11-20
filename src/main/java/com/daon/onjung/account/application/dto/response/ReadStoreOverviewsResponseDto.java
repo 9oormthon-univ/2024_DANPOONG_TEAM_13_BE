@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -27,6 +26,16 @@ public class ReadStoreOverviewsResponseDto extends SelfValidating<ReadStoreOverv
     ) {
         this.hasNext = hasNext;
         this.storeList = storeList;
+    }
+
+    public static ReadStoreOverviewsResponseDto fromEntity(
+            List<StoreOverviewDto> storeList,
+            boolean hasNext
+    ) {
+        return ReadStoreOverviewsResponseDto.builder()
+                .hasNext(hasNext)
+                .storeList(storeList)
+                .build();
     }
 
     @Getter

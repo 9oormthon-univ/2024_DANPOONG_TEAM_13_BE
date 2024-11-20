@@ -3,22 +3,22 @@ package com.daon.onjung.account.application.service;
 import com.daon.onjung.account.application.dto.response.ReadStoreOverviewsResponseDto;
 import com.daon.onjung.account.application.usecase.ReadStoreOverviewUseCase;
 import com.daon.onjung.account.domain.Store;
+import com.daon.onjung.account.domain.service.StoreService;
 import com.daon.onjung.account.domain.type.EOnjungTag;
 import com.daon.onjung.account.repository.mysql.StoreRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
     private final StoreRepository storeRepository;
+
+    private final StoreService storeService;
 
     @Override
     @Transactional(readOnly = true)
@@ -33,14 +33,12 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         Pageable pageable = PageRequest.of(page - 1, size);
 
         // 필터 파라미터 변환
-        List<EOnjungTag> onjungTagsList = parseEnums(onjungTags, EOnjungTag.class);
+        List<EOnjungTag> onjungTagsList = storeService.convertToOnjungTags(onjungTags);
 
         // title null 처리
-        if (title != null && title.isBlank()) {
-            title = null;
-        }
+        title = storeService.convertToTitle(title);
 
-        List<Store> storeList = storeRepository.findStoresByEarliestEvent(title, onjungTagsList, pageable).getContent();
+        Page<Store> storeList = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList, pageable);
 
         // 상점이 없을 경우
         if (storeList.isEmpty()) {
@@ -73,23 +71,10 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         int end = Math.min(start + pageable.getPageSize(), storeOverviewDtos.size());
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
 
-        return ReadStoreOverviewsResponseDto.builder()
-                .hasNext(end < storeOverviewDtos.size())
-                .storeList(pagedStoreOverviewDtos)
-                .build();
-    }
-
-    private <E extends Enum<E>> List<E> parseEnums(String input, Class<E> enumClass) {
-        if (input == null || input.isEmpty()) return List.of();
-        List<E> result;
-        try {
-            result = Arrays.stream(input.split(","))
-                    .map(String::trim)
-                    .map(value -> Enum.valueOf(enumClass, value))
-                    .toList();
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Invalid enum value provided: " + input, e);
-        }
-        return result;
+// 응답 생성
+        return ReadStoreOverviewsResponseDto.fromEntity(
+                pagedStoreOverviewDtos,
+                end < storeOverviewDtos.size() // hasNext 계산
+        );
     }
 }

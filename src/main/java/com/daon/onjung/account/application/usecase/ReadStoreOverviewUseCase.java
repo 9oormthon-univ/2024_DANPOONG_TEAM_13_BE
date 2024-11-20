@@ -1,10 +1,7 @@
 package com.daon.onjung.account.application.usecase;
 
 import com.daon.onjung.account.application.dto.response.ReadStoreOverviewsResponseDto;
-import com.daon.onjung.account.domain.type.EOnjungTag;
 import com.daon.onjung.core.annotation.bean.UseCase;
-
-import java.util.List;
 
 @UseCase
 public interface ReadStoreOverviewUseCase {
