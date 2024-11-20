@@ -20,9 +20,10 @@ public class RestClientUtil {
 
     private final RestClient restClient = RestClient.create();
 
-    public JSONObject sendGetMethod(String url) {
+    public JSONObject sendGetMethod(String url, HttpHeaders headers) {
         return new JSONObject(Objects.requireNonNull(restClient.get()
                 .uri(url)
+                .headers(httpHeaders -> httpHeaders.addAll(headers))
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
                     throw new CommonException(ErrorCode.INVALID_ARGUMENT);
