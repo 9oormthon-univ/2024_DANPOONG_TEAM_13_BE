@@ -55,6 +55,10 @@ public enum ErrorCode {
     QR_CODE_GENERATION_ERROR(50300, HttpStatus.INTERNAL_SERVER_ERROR, "QR 코드 생성 중 오류가 발생했습니다."),
     QR_CODE_IMAGE_PROCESSING_ERROR(50301, HttpStatus.INTERNAL_SERVER_ERROR, "QR 코드 이미지 처리 중 오류가 발생했습니다."),
 
+    // AES Error
+    AES_ENCRYPTION_ERROR(50400, HttpStatus.INTERNAL_SERVER_ERROR, "AES 암호화 중 오류가 발생했습니다."),
+    AES_DECRYPTION_ERROR(50401, HttpStatus.INTERNAL_SERVER_ERROR, "AES 복호화 중 오류가 발생했습니다.");
+
 
     private final Integer code;
     private final HttpStatus httpStatus;
