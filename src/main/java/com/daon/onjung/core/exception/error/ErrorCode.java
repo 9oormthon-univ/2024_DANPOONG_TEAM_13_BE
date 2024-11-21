@@ -50,7 +50,10 @@ public enum ErrorCode {
 
     // External Server Error
     EXTERNAL_SERVER_ERROR(50200, HttpStatus.BAD_GATEWAY, "서버 외부 에러입니다."),
-    ;
+
+    // Qr Code Error
+    QR_CODE_GENERATION_ERROR(50300, HttpStatus.INTERNAL_SERVER_ERROR, "QR 코드 생성 중 오류가 발생했습니다."),
+    QR_CODE_IMAGE_PROCESSING_ERROR(50301, HttpStatus.INTERNAL_SERVER_ERROR, "QR 코드 이미지 처리 중 오류가 발생했습니다."),
 
 
     private final Integer code;

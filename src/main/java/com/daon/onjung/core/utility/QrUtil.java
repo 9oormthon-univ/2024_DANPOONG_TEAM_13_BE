@@ -1,5 +1,7 @@
 package com.daon.onjung.core.utility;
 
+import com.daon.onjung.core.exception.error.ErrorCode;
+import com.daon.onjung.core.exception.type.CommonException;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,8 +47,9 @@ public class QrUtil {
      * @param id
      * @return 배경 이미지와 합성된 QR 코드 이미지를 바이트 배열 형태로 반환
      */
-    public byte[] generateQrCodeImageByte(Long id) {
+    public byte[] generateQrCodeImageByte(String id) {
         try {
+
             // QR 코드 데이터 생성
             String baseUrl = url + path + id;
 
@@ -109,9 +112,9 @@ public class QrUtil {
             return combinedImageBytes;
 
         } catch (WriterException e) {
-            throw new RuntimeException("Error occurred during QR code generation.", e);
+            throw new CommonException(ErrorCode.QR_CODE_GENERATION_ERROR);
         } catch (IOException e) {
-            throw new RuntimeException("Error occurred while processing the QR code image.", e);
+            throw new CommonException(ErrorCode.QR_CODE_IMAGE_PROCESSING_ERROR);
         }
     }
 }
