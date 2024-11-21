@@ -42,13 +42,13 @@ public class QrUtil {
      * 주어진 링크를 인코딩하여 QR 코드 이미지를 생성하고,
      * 배경 이미지와 로고를 결합하여 byte 배열 형태로 반환하는 메서드
      *
-     * @param ticketId
+     * @param id
      * @return 배경 이미지와 합성된 QR 코드 이미지를 바이트 배열 형태로 반환
      */
-    public byte[] generateQrCodeImageByte(Long ticketId) {
+    public byte[] generateQrCodeImageByte(Long id) {
         try {
             // QR 코드 데이터 생성
-            String baseUrl = url + path + ticketId;
+            String baseUrl = url + path + id;
 
             // QR 코드 생성 옵션 설정
             Map<EncodeHintType, Object> hintMap = new HashMap<>();
