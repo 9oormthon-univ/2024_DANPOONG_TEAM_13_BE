@@ -10,6 +10,7 @@ import com.daon.onjung.core.dto.ReadVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
+import com.daon.onjung.core.utility.DateTimeUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.event.domain.Event;
 import com.daon.onjung.event.domain.service.EventService;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +70,26 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
 
         List<StoreHistory> storeHistories = storeHistoryRepository.findByStoreOrderByActionDateAsc(store);
 
-        List<ReadStoreDetailResponseDto.StoreHistoryDto> storeHistoryDtos = storeHistories.stream()
-                .map(ReadStoreDetailResponseDto.StoreHistoryDto::fromEntity)
+        // 그룹화: actionDate를 기준으로 그룹화
+        Map<String, List<StoreHistory>> groupedByYearMonth = storeHistories.stream()
+                .collect(Collectors.groupingBy(
+                        sh -> DateTimeUtil.convertLocalDateToKORYearMonthString(sh.getActionDate()) // "yyyy년 MM월" 기준 그룹화
+                ));
+
+
+        List<ReadStoreDetailResponseDto.StoreHistoryDto> storeHistoryDtos = groupedByYearMonth.entrySet().stream()
+                .map(entry -> {
+                    String yearMonth = entry.getKey();
+                    List<ReadStoreDetailResponseDto.StoreHistoryDto.StoreHistoryInfo> infos = entry.getValue().stream()
+                            .map(ReadStoreDetailResponseDto.StoreHistoryDto::fromEntity) // StoreHistory -> StoreHistoryDto 변환
+                            .flatMap(dto -> dto.getStoreHistoryInfo().stream()) // StoreHistoryInfo만 추출
+                            .toList();
+
+                    return ReadStoreDetailResponseDto.StoreHistoryDto.builder()
+                            .date(yearMonth)
+                            .storeHistoryInfo(infos)
+                            .build();
+                })
                 .toList();
 
         return ReadStoreDetailResponseDto.fromEntity(storeInfoDto, eventInfoDto, onjungInfoDto, storeHistoryDtos);

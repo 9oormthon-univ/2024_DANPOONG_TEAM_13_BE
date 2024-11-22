@@ -3,6 +3,7 @@ package com.daon.onjung.account.application.dto.response;
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.StoreHistory;
 import com.daon.onjung.core.dto.SelfValidating;
+import com.daon.onjung.core.utility.AmountUtil;
 import com.daon.onjung.core.utility.DateTimeUtil;
 import lombok.Builder;
 import lombok.Getter;
@@ -215,21 +216,25 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
 
         @NotNull(message = "info는 null일 수 없습니다.")
         @JsonProperty("info")
-        private final StoreHistoryInfo storeHistoryInfo;
+        private final List<StoreHistoryInfo> storeHistoryInfo;
 
         @Builder
-        public StoreHistoryDto(String date, StoreHistoryInfo storeHistoryInfo) {
+        public StoreHistoryDto(String date, List<StoreHistoryInfo> storeHistoryInfo) {
             this.date = date;
             this.storeHistoryInfo = storeHistoryInfo;
         }
 
         public static StoreHistoryDto fromEntity(StoreHistory storeHistory) {
             return StoreHistoryDto.builder()
-                    .date(DateTimeUtil.convertLocalDateToKORYearMonthString(storeHistory.getActionDate()))
-                    .storeHistoryInfo(StoreHistoryInfo.fromEntity(
-                            storeHistory.getContent(),
-                            storeHistory.getAmount() + "만원"
-                    ))
+                    .date(DateTimeUtil.convertLocalDateToString(storeHistory.getActionDate()))
+                    .storeHistoryInfo(
+                            List.of(
+                                    StoreHistoryInfo.fromEntity(
+                                            storeHistory.getContent(),
+                                            AmountUtil.convertToWon(storeHistory.getAmount())
+                                    )
+                            )
+                    )
                     .build();
         }
 
