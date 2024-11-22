@@ -9,3 +9,13 @@ Authorization: Bearer {{access_token}}
 // @no-log
 GET {{host_url}}/api/v1/tickets/{{event.API_5_4.id}}/briefs
 Authorization: Bearer {{access_token}}
+
+### 5.5 식권 사용하기
+// @no-log
+POST {{host_url}}/api/v1/tickets/validate
+Content-Type: application/json
+
+{
+  "hashed_ticket_id": "{{event.API_5_5.hashed_ticket_id}}",
+  "password": "{{event.API_5_5.password}}"
+}
