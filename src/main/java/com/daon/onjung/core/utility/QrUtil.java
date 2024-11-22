@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public class QrUtil {
             BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix, matrixToImageConfig);
 
             // 배경 이미지 로드 (디자인 파일 경로) - 배경이 없으면 로고 이미지가 흰색으로 안 보이는 이슈 있음.
-            BufferedImage originalBackgroundImage = ImageIO.read(new File(bg_img_url));
+            BufferedImage originalBackgroundImage = ImageIO.read(new URL(bg_img_url));
 
             // 배경 이미지를 QR 코드 크기로 리사이즈
             BufferedImage backgroundImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_ARGB);
@@ -78,7 +79,7 @@ public class QrUtil {
             bgGraphics.dispose();
 
             // 로고 이미지 로드
-            BufferedImage logoImage = ImageIO.read(new File(logo_img_url));
+            BufferedImage logoImage = ImageIO.read(new URL(logo_img_url));
 
             // 배경 이미지 위에 QR 코드 합성
             BufferedImage combinedImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_ARGB);
