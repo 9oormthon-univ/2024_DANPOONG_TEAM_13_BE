@@ -1,3 +1,10 @@
+### 5.2 온기 우편함 조회
+// @no-log
+GET {{host_url}}/api/v1/onjungs/events/overviews?
+    page={{event.API_5_2.page}}&
+    size={{event.API_5_2.size}}
+Authorization: Bearer {{access_token}}
+
 ### 5.3 나의 식권 조회
 // @no-log
 GET {{host_url}}/api/v1/tickets?
