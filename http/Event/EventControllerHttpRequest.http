@@ -19,3 +19,8 @@ Content-Type: application/json
   "hashed_ticket_id": "{{event.API_5_5.hashed_ticket_id}}",
   "password": "{{event.API_5_5.password}}"
 }
+
+### 5.6 보유한 티켓 수 조회하기
+// @no-log
+GET {{host_url}}/api/v1/users/tickets/count
+Authorization: Bearer {{access_token}}

@@ -3,8 +3,10 @@ package com.daon.onjung.event.application.controller.query;
 import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.event.application.dto.response.ReadTicketBriefResponseDto;
+import com.daon.onjung.event.application.dto.response.ReadTicketCountResponseDto;
 import com.daon.onjung.event.application.dto.response.ReadTicketResponseDto;
 import com.daon.onjung.event.application.usecase.ReadTicketBriefUseCase;
+import com.daon.onjung.event.application.usecase.ReadTicketCountUseCase;
 import com.daon.onjung.event.application.usecase.ReadTicketUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class TicketQueryV1Controller {
 
     private final ReadTicketUseCase readTicketUseCase;
     private final ReadTicketBriefUseCase readTicketBriefUseCase;
+    private final ReadTicketCountUseCase readTicketCountUseCase;
 
     /**
      * 5.3 나의 식권 조회하기
@@ -47,6 +50,20 @@ public class TicketQueryV1Controller {
         return ResponseDto.ok(
                 readTicketBriefUseCase.execute(
                         id
+                )
+        );
+    }
+
+    /**
+     * 5.6 보유한 티켓 개수 조회하기
+     */
+    @GetMapping("/users/tickets/count")
+    public ResponseDto<ReadTicketCountResponseDto> readTicketCount(
+            @AccountID UUID accountId
+    ) {
+        return ResponseDto.ok(
+                readTicketCountUseCase.execute(
+                        accountId
                 )
         );
     }
