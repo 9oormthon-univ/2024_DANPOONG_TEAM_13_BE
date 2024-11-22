@@ -1,6 +1,7 @@
 package com.daon.onjung.event.application.service;
 
 import com.daon.onjung.account.domain.Store;
+import com.daon.onjung.account.domain.User;
 import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
@@ -145,13 +146,16 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
 
             // 이미 티켓을 발급받은 유저인지 확인
             if (!issuedUserIds.contains(userId)) {
+
+                User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
                 // 티켓 발급
                 Ticket ticket = ticketService.createTicket(
                         LocalDate.now().plusDays(30),
                         10000,
                         true,
                         store,
-                        userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE)),
+                        user,
                         currentEvent
                 );
                 ticketRepository.save(ticket);
@@ -159,13 +163,12 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
                 // 푸시 알림 발송
                 url = firebaseUtil.createFirebaseRequestUrl();
                 headers = firebaseUtil.createFirebaseRequestHeaders();
-                String deviceToken = userRepository.findById(userId).
-                        orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE)).getDeviceToken();
+                String deviceToken = user.getDeviceToken();
                 if (deviceToken == null) {
                     log.info("유저 {}의 디바이스 토큰이 없어 푸시 알림 발송 불가", userId);
                     continue;
                 }
-                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken);
+                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken, store.getName(), user.getNickName());
 
                 restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
 
