@@ -27,3 +27,8 @@ Authorization: Bearer {{access_token}}
 // @no-log
 GET {{host_url}}/api/v1/users/overviews
 Authorization: Bearer {{access_token}}
+
+### 3.5 푸시알림 설정 변경(토글)
+// @no-log
+PATCH {{host_url}}/api/v1/users/notification-allowed
+Authorization: Bearer {{access_token}}

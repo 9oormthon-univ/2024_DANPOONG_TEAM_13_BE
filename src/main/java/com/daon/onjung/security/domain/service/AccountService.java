@@ -15,4 +15,9 @@ public class AccountService {
         account.updateDeviceToken(deviceToken);
         return account;
     }
+
+    public Account updateNotificationAllowed(Account account) {
+        account.updateNotificationAllowed();
+        return account;
+    }
 }

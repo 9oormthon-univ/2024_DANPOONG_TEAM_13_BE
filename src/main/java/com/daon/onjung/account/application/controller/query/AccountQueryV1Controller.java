@@ -58,7 +58,7 @@ public class AccountQueryV1Controller {
     }
 
     /**
-     * 3.3 사용자 정보 조회
+     * 3.4 사용자 정보 조회
      */
     @GetMapping("/users/overviews")
     public ResponseDto<ReadUserOverviewsResponseDto> readUserOverview(

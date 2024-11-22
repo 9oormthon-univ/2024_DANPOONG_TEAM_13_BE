@@ -77,8 +77,8 @@ public abstract class Account {
         this.deviceToken = deviceToken;
     }
 
-    public void updateNotificationAllowed(Boolean notificationAllowed) {
-        this.notificationAllowed = notificationAllowed;
+    public void updateNotificationAllowed() {
+        this.notificationAllowed = !this.notificationAllowed;
     }
 
     public abstract ESecurityRole getRole();
