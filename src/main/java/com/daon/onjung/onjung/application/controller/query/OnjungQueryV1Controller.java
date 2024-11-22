@@ -5,9 +5,11 @@ import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReadOnjungBriefResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReadOnjungCountResponseDto;
 import com.daon.onjung.onjung.application.dto.response.ReadOnjungSummaryResponseDto;
+import com.daon.onjung.onjung.application.dto.response.ReadUserOnjungOverviewResponseDto;
 import com.daon.onjung.onjung.application.usecase.ReadOnjungBriefUseCase;
 import com.daon.onjung.onjung.application.usecase.ReadOnjungCountUseCase;
 import com.daon.onjung.onjung.application.usecase.ReadOnjungSummaryUseCase;
+import com.daon.onjung.onjung.application.usecase.ReadUserOnjungOverviewUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ public class OnjungQueryV1Controller {
     private final ReadOnjungSummaryUseCase readOnjungSummaryUseCase;
     private final ReadOnjungCountUseCase readOnjungCountUseCase;
     private final ReadOnjungBriefUseCase readOnjungBriefUseCase;
+    private final ReadUserOnjungOverviewUseCase readUserOnjungOverviewUseCase;
 
     /**
      * 4.1 전체 온기 통계 조회하기
@@ -48,5 +51,15 @@ public class OnjungQueryV1Controller {
             @AccountID UUID accountId
     ) {
         return ResponseDto.ok(readOnjungBriefUseCase.execute(accountId));
+    }
+
+    /**
+     * 4.8 나의 온기 조회
+     */
+    @GetMapping("/api/v1/users/onjungs/overviews")
+    public ResponseDto<ReadUserOnjungOverviewResponseDto> readUserOnjungOverview(
+            @AccountID UUID accountId
+    ) {
+        return ResponseDto.ok(readUserOnjungOverviewUseCase.execute(accountId));
     }
 }

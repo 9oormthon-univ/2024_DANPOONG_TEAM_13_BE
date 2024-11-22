@@ -17,7 +17,6 @@ import com.daon.onjung.event.domain.Ticket;
 import com.daon.onjung.event.domain.event.EventScheduled;
 import com.daon.onjung.event.domain.service.EventService;
 import com.daon.onjung.event.domain.service.TicketService;
-import com.daon.onjung.event.domain.type.EStatus;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import com.daon.onjung.event.repository.mysql.TicketRepository;
 import com.daon.onjung.onjung.repository.mysql.DonationRepository;
@@ -177,7 +176,7 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
                             store.getCategory().toString(),
                             store.getOcrStoreAddress(),
                             store.getLogoImgUrl(),
-                            DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(ticket.getExpirationDate())
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(ticket.getExpirationDate())
                     );
                     restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
                 }

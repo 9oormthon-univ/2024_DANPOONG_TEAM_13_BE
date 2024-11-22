@@ -77,7 +77,7 @@ public class ReadTicketResponseDto {
             return TicketDto.builder()
                     .id(ticket.getId())
                     .storeInfo(StoreInfoDto.fromEntity(store))
-                    .expirationDate(DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(ticket.getExpirationDate()))
+                    .expirationDate(DateTimeUtil.convertLocalDateToDotSeparatedDateTime(ticket.getExpirationDate()))
                     .ticketPrice(ticket.getTicketPrice())
                     .isValidate(ticket.getIsValidate())
                     .build();

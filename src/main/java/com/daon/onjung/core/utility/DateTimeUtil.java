@@ -196,10 +196,10 @@ public class DateTimeUtil {
     /**
      * 나의 식권 조회 시간 포맷팅: "yyyy.MM.dd"
      *
-     * @param date LocalDateTime
+     * @param date LocalDate
      * @return String
      */
-    public static String convertLocalDateTimeToDotSeparatedDateTime(LocalDate date) {
+    public static String convertLocalDateToDotSeparatedDateTime(LocalDate date) {
         return date.format(DotSeparatedDateFormatter);
     }
 
@@ -212,6 +212,16 @@ public class DateTimeUtil {
      */
     public static LocalDate convertDotSeparatedToLocalDate(String date) {
         return LocalDate.parse(date, DotSeparatedDateFormatter);
+    }
+
+    /**
+     * 나의 온기 조회 시간 포맷팅: "yyyy.MM.dd"
+     *
+     * @param dateTime LocalDate
+     * @return String
+     */
+    public static String convertLocalDateTimeToDotSeparatedDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DotSeparatedDateFormatter);
     }
 
 

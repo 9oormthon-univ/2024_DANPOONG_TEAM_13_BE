@@ -52,3 +52,8 @@ Content-Type: application/json
 {
   "donation_amount": {{onjung.API_4_7.donation_amount}}
 }
+
+### 4.8 나의 온기 조회하기
+// @no-log
+GET {{host_url}}/api/v1/users/onjungs/overviews
+Authorization: Bearer {{access_token}}
