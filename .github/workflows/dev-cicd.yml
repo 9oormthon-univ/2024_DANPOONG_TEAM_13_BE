@@ -42,6 +42,7 @@ jobs:
       ### firebase-key.json 설정
       - name: Set Firebase Key
         run: |
+          mkdir -p ./src/main/resources/firebase
           echo "${{ secrets.FIREBASE_KEY_JSON }}" | base64 --decode > ./src/main/resources/firebase/firebase-key.json
 
       ### gradlew 실행 권한 부여
