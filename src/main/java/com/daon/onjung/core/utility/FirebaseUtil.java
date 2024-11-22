@@ -64,12 +64,12 @@ public class FirebaseUtil {
         return headers;
     }
 
-    public String createFirebaseRequestBody(String deviceToken, String storeName) {
+    public String createFirebaseRequestBody(String deviceToken) {
         JSONObject messageBody = new JSONObject();
 
         JSONObject notificationJson = new JSONObject();
-        notificationJson.put(JSON_BODY_KEY_TITLE, storeName + " 가게의 식권에 당첨됐어요!");
-        notificationJson.put(JSON_BODY_KEY_BODY, "축하합니다! " + storeName + " 가게의 식권에 당첨되셨습니다. 지금 바로 확인해보세요!");
+        notificationJson.put(JSON_BODY_KEY_TITLE, "\uD83C\uDF89 1만원 금액 식권 당첨");
+        notificationJson.put(JSON_BODY_KEY_BODY, "지금 바로 클릭해서 따뜻한 한 끼를 확인해 보세요!");
 
         JSONObject messageJson = new JSONObject();
         messageJson.put(JSON_BODY_KEY_TOKEN, deviceToken);

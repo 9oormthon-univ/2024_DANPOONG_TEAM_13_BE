@@ -161,8 +161,11 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
                 headers = firebaseUtil.createFirebaseRequestHeaders();
                 String deviceToken = userRepository.findById(userId).
                         orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE)).getDeviceToken();
-                String storeName = store.getName();
-                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken, storeName);
+                if (deviceToken == null) {
+                    log.info("유저 {}의 디바이스 토큰이 없어 푸시 알림 발송 불가", userId);
+                    continue;
+                }
+                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken);
 
                 restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
 
