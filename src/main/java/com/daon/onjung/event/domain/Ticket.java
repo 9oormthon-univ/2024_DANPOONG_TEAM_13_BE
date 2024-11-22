@@ -26,7 +26,7 @@ public class Ticket {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "expidation_date", nullable = false)
+    @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
     @Column(name = "ticket_price", nullable = false)

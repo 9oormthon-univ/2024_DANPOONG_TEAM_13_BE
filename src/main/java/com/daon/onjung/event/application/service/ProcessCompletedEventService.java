@@ -8,6 +8,7 @@ import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
+import com.daon.onjung.core.utility.DateTimeUtil;
 import com.daon.onjung.core.utility.FirebaseUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.event.application.usecase.ProcessCompletedEventUseCase;
@@ -160,17 +161,26 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
                 );
                 ticketRepository.save(ticket);
 
-                // 푸시 알림 발송
-                url = firebaseUtil.createFirebaseRequestUrl();
-                headers = firebaseUtil.createFirebaseRequestHeaders();
+                // 유저의 디바이스 토큰 여부 확인
                 String deviceToken = user.getDeviceToken();
                 if (deviceToken == null) {
-                    log.info("유저 {}의 디바이스 토큰이 없어 푸시 알림 발송 불가", userId);
-                    continue;
+                    log.info("유저 {}의 디바이스 토큰이 없어 푸시 알림 발송 불가", user.getNickName());
                 }
-                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken, store.getName(), user.getNickName());
-
-                restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
+                else {
+                    // 푸시 알림 발송
+                    url = firebaseUtil.createFirebaseRequestUrl();
+                    headers = firebaseUtil.createFirebaseRequestHeaders();
+                    String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(
+                            deviceToken,
+                            store.getName(),
+                            user.getNickName(),
+                            store.getCategory().toString(),
+                            store.getOcrStoreAddress(),
+                            store.getLogoImgUrl(),
+                            DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(ticket.getExpirationDate())
+                    );
+                    restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
+                }
 
                 // 발급된 유저 기록 및 발급된 티켓 수 증가
                 issuedUserIds.add(userId);

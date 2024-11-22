@@ -1,5 +1,6 @@
 package com.daon.onjung.core.utility;
 
+import com.daon.onjung.account.domain.type.ECategory;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -64,7 +65,15 @@ public class FirebaseUtil {
         return headers;
     }
 
-    public String createFirebaseRequestBody(String deviceToken , String storeName, String userName) {
+    public String createFirebaseRequestBody(
+            String deviceToken,
+            String storeName,
+            String userName,
+            String category,
+            String address,
+            String logoImgUrl,
+            String expirationDate
+    ) {
         JSONObject messageBody = new JSONObject();
 
         JSONObject notificationJson = new JSONObject();
@@ -72,8 +81,12 @@ public class FirebaseUtil {
         notificationJson.put(JSON_BODY_KEY_BODY, "지금 바로 클릭해서 따뜻한 한 끼를 확인해 보세요!");
 
         JSONObject dataJson = new JSONObject();
-        dataJson.put("storeName", storeName); // 가게명
-        dataJson.put("userName", userName);  // 유저명
+        dataJson.put("store_name", storeName);
+        dataJson.put("user_name", userName);
+        dataJson.put("category", category);
+        dataJson.put("address", address);
+        dataJson.put("logo_img_url", logoImgUrl);
+        dataJson.put("expiration_date", expirationDate);
 
         JSONObject messageJson = new JSONObject();
         messageJson.put(JSON_BODY_KEY_TOKEN, deviceToken);
