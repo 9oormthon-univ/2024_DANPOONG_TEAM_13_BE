@@ -1,6 +1,8 @@
 package com.daon.onjung.event.application.dto.response;
 
+import com.daon.onjung.account.domain.type.EOnjungTag;
 import com.daon.onjung.event.domain.type.EStatus;
+import com.daon.onjung.onjung.domain.type.EOnjungType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -45,6 +47,10 @@ public class ReadOnjungEventOverviewResponseDto {
         @JsonProperty("store_info")
         private final StoreInfoDto storeInfo;
 
+        @NotNull(message = "onjung_type은 null일 수 없습니다.")
+        @JsonProperty("onjung_type")
+        private final EOnjungType onjungType;
+
         @NotNull(message = "status는 null일 수 없습니다.")
         @JsonProperty("status")
         private final EStatus status;
@@ -64,6 +70,7 @@ public class ReadOnjungEventOverviewResponseDto {
         @Builder
         public EventDto(
                 StoreInfoDto storeInfo,
+                EOnjungType onjungType,
                 EStatus status,
                 String eventPeriod,
                 String storeDeliveryDate,
@@ -71,6 +78,7 @@ public class ReadOnjungEventOverviewResponseDto {
                 String reportDate
         ) {
             this.storeInfo = storeInfo;
+            this.onjungType = onjungType;
             this.status = status;
             this.eventPeriod = eventPeriod;
             this.storeDeliveryDate = storeDeliveryDate;
@@ -80,6 +88,7 @@ public class ReadOnjungEventOverviewResponseDto {
 
         public static EventDto fromEntity(
                 StoreInfoDto storeInfo,
+                EOnjungType onjungType,
                 EStatus status,
                 String eventPeriod,
                 String storeDeliveryDate,
@@ -89,6 +98,7 @@ public class ReadOnjungEventOverviewResponseDto {
 
             return EventDto.builder()
                     .storeInfo(storeInfo)
+                    .onjungType(onjungType)
                     .status(status)
                     .eventPeriod(eventPeriod)
                     .storeDeliveryDate(storeDeliveryDate)
