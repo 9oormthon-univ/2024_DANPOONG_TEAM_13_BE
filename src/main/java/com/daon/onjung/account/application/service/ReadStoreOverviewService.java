@@ -69,6 +69,17 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         // 페이지네이션
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), storeOverviewDtos.size());
+
+        // 페이지 범위가 유효한지 확인
+        if (start >= storeOverviewDtos.size()) {
+            // start가 list의 크기보다 크면 빈 리스트를 반환
+            return ReadStoreOverviewsResponseDto.fromEntity(
+                    List.of(),
+                    false // hasNext 계산
+            );
+        }
+
+        System.out.println("start: " + start + "end: " + end);
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
 
         // 응답 생성

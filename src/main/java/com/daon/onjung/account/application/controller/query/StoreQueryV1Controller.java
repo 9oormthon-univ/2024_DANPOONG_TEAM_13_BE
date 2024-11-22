@@ -27,7 +27,7 @@ public class StoreQueryV1Controller {
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "search", required = false) String title,
-            @RequestParam(value = "onjungTags", required = false, defaultValue = "PATRIOT,GOOD_PRICE,UNDERFED_CHILD") String onjungTags,
+            @RequestParam(value = "onjungTags", required = false, defaultValue = "DISABLED_GROUP,GOOD_PRICE,UNDERFED_CHILD") String onjungTags,
             @RequestParam(value = "sortByOnjungCount", required = false, defaultValue = "desc") String sortByOnjungCount
     ) {
 
