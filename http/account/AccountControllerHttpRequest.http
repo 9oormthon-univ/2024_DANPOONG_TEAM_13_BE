@@ -22,3 +22,8 @@ Authorization: Bearer {{access_token}}
   "content": "{{account.API_3_3.content}}",
   "amount": {{account.API_3_3.amount}}
 }
+
+### 3.4 사용자 정보 조회
+// @no-log
+GET {{host_url}}/api/v1/users/overviews
+Authorization: Bearer {{access_token}}

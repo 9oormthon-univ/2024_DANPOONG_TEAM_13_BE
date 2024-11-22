@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class StoreCommandV1Controller {
+public class AccountCommandV1Controller {
 
     private final CreateStoreHistoryUseCase createStoreHistoryUseCase;
 
