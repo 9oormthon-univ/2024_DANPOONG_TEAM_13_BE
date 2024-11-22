@@ -7,7 +7,7 @@ http/http-client.private.env.json
 ### ignore application.yml ###
 src/main/resources/application-dev.yml
 src/main/resources/application-local.yml
-src/main/resources/firebase/firebase_service_key.json
+src/main/resources/firebase/firebase-key.json
 .gradle/*
 build/*
 

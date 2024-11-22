@@ -17,72 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HttpServletUtil {
 
-    @Value("${web-engine.client-url}")
-    private String clientUrl;
-
-    @Value("${web-engine.cookie-domain}")
-    private String cookieDomain;
-
-    @Value("${json-web-token.refresh-token-expire-period}")
-    private Long refreshTokenExpirePeriod;
-
     private final ObjectMapper objectMapper;
-
-    public void onSuccessRedirectResponseWithJWTCookie(
-            HttpServletResponse response,
-            DefaultJsonWebTokenDto tokenDto
-    ) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.CREATED.value());
-
-        CookieUtil.addCookie(
-                response,
-                cookieDomain,
-                Constants.ACCESS_TOKEN,
-                tokenDto.getAccessToken()
-        );
-        CookieUtil.addSecureCookie(
-                response,
-                cookieDomain,
-                Constants.REFRESH_TOKEN,
-                tokenDto.getRefreshToken(),
-                (int) (refreshTokenExpirePeriod / 1000L)
-        );
-
-        response.sendRedirect(String.format("%s/%s", clientUrl, "profile"));
-    }
-
-    public void onSuccessBodyResponseWithJWTCookie(
-            HttpServletResponse response,
-            DefaultJsonWebTokenDto tokenDto
-    ) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.CREATED.value());
-
-        CookieUtil.addCookie(
-                response,
-                cookieDomain,
-                Constants.ACCESS_TOKEN,
-                tokenDto.getAccessToken()
-        );
-        CookieUtil.addSecureCookie(
-                response,
-                cookieDomain,
-                Constants.REFRESH_TOKEN,
-                tokenDto.getRefreshToken(),
-                (int) (refreshTokenExpirePeriod / 1000L)
-        );
-
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("success", true);
-        result.put("data", null);
-        result.put("error", null);
-
-        response.getWriter().write(objectMapper.writeValueAsString(result));
-    }
 
     public void onSuccessBodyResponseWithJWTBody(
             HttpServletResponse response,

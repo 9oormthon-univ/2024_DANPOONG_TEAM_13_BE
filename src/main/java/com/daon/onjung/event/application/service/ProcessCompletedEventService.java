@@ -7,6 +7,7 @@ import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
+import com.daon.onjung.core.utility.FirebaseUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.event.application.usecase.ProcessCompletedEventUseCase;
 import com.daon.onjung.event.domain.Event;
@@ -44,6 +45,7 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
 
     private final RestClientUtil restClientUtil;
     private final BankUtil bankUtil;
+    private final FirebaseUtil firebaseUtil;
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -89,8 +91,8 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
         applicationEventPublisher.publishEvent(
                 EventScheduled.builder()
                         .eventId(newEvent.getId())
-                        .scheduledTime(newEvent.getEndDate().plusDays(1).atStartOfDay())
-//                        .scheduledTime(LocalDateTime.now().plusMinutes(1)) // 테스트용 1분 뒤
+//                        .scheduledTime(newEvent.getEndDate().plusDays(1).atStartOfDay())
+                        .scheduledTime(LocalDateTime.now().plusMinutes(1)) // 테스트용 1분 뒤
                         .build()
         );
 
@@ -153,6 +155,16 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
                         currentEvent
                 );
                 ticketRepository.save(ticket);
+
+                // 푸시 알림 발송
+                url = firebaseUtil.createFirebaseRequestUrl();
+                headers = firebaseUtil.createFirebaseRequestHeaders();
+                String deviceToken = userRepository.findById(userId).
+                        orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE)).getDeviceToken();
+                String storeName = store.getName();
+                String firebaseRequestBody = firebaseUtil.createFirebaseRequestBody(deviceToken, storeName);
+
+                restClientUtil.sendPostMethod(url, headers, firebaseRequestBody);
 
                 // 발급된 유저 기록 및 발급된 티켓 수 증가
                 issuedUserIds.add(userId);

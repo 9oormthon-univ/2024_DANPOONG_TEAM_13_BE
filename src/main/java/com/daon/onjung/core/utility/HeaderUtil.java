@@ -17,13 +17,4 @@ public class HeaderUtil {
         return Optional.of(unpreparedToken.substring(prefix.length()));
     }
 
-//    public static Optional<String> refineHeader(StompHeaderAccessor request, String header, String prefix) {
-//        String unpreparedToken = request.getFirstNativeHeader(header);
-//
-//        if (!StringUtils.hasText(unpreparedToken) || !unpreparedToken.startsWith(prefix)) {
-//            return Optional.empty();
-//        }
-//
-//        return Optional.of(unpreparedToken.substring(prefix.length()));
-//    }
 }

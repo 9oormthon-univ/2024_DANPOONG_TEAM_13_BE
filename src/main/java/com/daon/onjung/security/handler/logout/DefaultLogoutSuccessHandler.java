@@ -1,8 +1,6 @@
 package com.daon.onjung.security.handler.logout;
 
-import com.daon.onjung.core.constant.Constants;
 import com.daon.onjung.core.exception.error.ErrorCode;
-import com.daon.onjung.core.utility.CookieUtil;
 import com.daon.onjung.core.utility.HttpServletUtil;
 import com.daon.onjung.security.handler.common.AbstractFailureHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,16 +29,6 @@ public class DefaultLogoutSuccessHandler
         if (authentication == null) {
             setErrorResponse(response, refineErrorCode(request));
             return;
-        }
-
-        // User-Agent 헤더를 통해 요청이 브라우저에서 온 것인지 확인
-        String userAgent = request.getHeader("User-Agent");
-
-        // 브라우저에서 온 요청인 경우 쿠키를 삭제함
-        if (userAgent != null && userAgent.contains("Mozilla")) {
-            CookieUtil.deleteCookie(request, response, Constants.ACCESS_TOKEN);
-            CookieUtil.deleteCookie(request, response, Constants.REFRESH_TOKEN);
-            CookieUtil.deleteCookie(request, response, "JSESSIONID");
         }
 
         httpServletUtil.onSuccessBodyResponse(response, HttpStatus.OK);
