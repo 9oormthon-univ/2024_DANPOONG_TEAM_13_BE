@@ -71,10 +71,10 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         int end = Math.min(start + pageable.getPageSize(), storeOverviewDtos.size());
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
 
-        // 응답 생성 - 변경
+        // 응답 생성
         return ReadStoreOverviewsResponseDto.fromEntity(
                 pagedStoreOverviewDtos,
-                end < storeList.getTotalElements() // hasNext 계산
+                end < storeOverviewDtos.size() // hasNext 계산
         );
     }
 }

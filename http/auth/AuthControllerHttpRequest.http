@@ -55,13 +55,13 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="logo"; filename="image.png"
 Content-Type: image/png
 
-< /Users/eunji/Desktop/image1.png
+< /Users/kyeom/Desktop/image1.png
 
 --boundary
 Content-Disposition: form-data; name="banner"; filename="image.png"
 Content-Type: image/png
 
-< /Users/eunji/Desktop/image2.png
+< /Users/kyeom/Desktop/image2.png
 
 --boundary
 Content-Disposition: form-data; name="body"
@@ -72,7 +72,7 @@ Content-Type: application/json
 	"password" : "{{auth.API_2_1.password}}",
 	"store_info" :
 	{
-		"onjung_tag" : ["{{auth.API_2_1.store_info.onjung_tag[0]}}", "{{auth.API_2_1.store_info.onjung_tag[1]}}"],
+		"onjung_tag" : ["{{auth.API_2_1.store_info.onjung_tag[0]}}"],
 		"title" : "{{auth.API_2_1.store_info.title}}",
 		"youtube_url" : "{{auth.API_2_1.store_info.youtube_url}}",
 		"name" : "{{auth.API_2_1.store_info.name}}",
