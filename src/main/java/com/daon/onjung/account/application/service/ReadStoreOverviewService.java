@@ -38,7 +38,7 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         // title null 처리
         title = storeService.convertToTitle(title);
 
-        Page<Store> storeList = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList, pageable);
+        List<Store> storeList = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList);
 
         // 상점이 없을 경우
         if (storeList.isEmpty()) {
@@ -71,7 +71,7 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         int end = Math.min(start + pageable.getPageSize(), storeOverviewDtos.size());
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
 
-// 응답 생성
+        // 응답 생성
         return ReadStoreOverviewsResponseDto.fromEntity(
                 pagedStoreOverviewDtos,
                 end < storeList.getTotalElements() // hasNext 계산
