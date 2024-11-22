@@ -3,7 +3,6 @@ package com.daon.onjung.account.application.dto.response;
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.StoreHistory;
 import com.daon.onjung.core.dto.SelfValidating;
-import com.daon.onjung.core.utility.AmountUtil;
 import com.daon.onjung.core.utility.DateTimeUtil;
 import lombok.Builder;
 import lombok.Getter;
@@ -231,7 +230,7 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
                             List.of(
                                     StoreHistoryInfo.fromEntity(
                                             storeHistory.getContent(),
-                                            AmountUtil.convertToWon(storeHistory.getAmount())
+                                            storeHistory.getAmount() / 10000 + "만원"
                                     )
                             )
                     )
