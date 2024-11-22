@@ -23,7 +23,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="file"; filename="receipt.jpg"
 Content-Type: image/jpeg
 
-< /Users/kyeom/Desktop/receipt3.jpeg
+< /Users/kyeom/Desktop/receipt.jpeg
 
 ### 4.5 영수증 리뷰 등록하기
 // @no-log

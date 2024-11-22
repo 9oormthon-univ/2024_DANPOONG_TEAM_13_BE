@@ -1,6 +1,7 @@
 package com.daon.onjung.core.utility;
 
 import com.daon.onjung.core.dto.ReceiptOCRDto;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,15 @@ public class OCRUtil {
     @Value("${naver-cloud.ocr.key}")
     private String ocrKey;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public OCRUtil() {
+        this.objectMapper = new ObjectMapper();
+
+        // 추가 필드를 무시하고 DTO에 정의된 필드만 매핑
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
 
     public String createOCRRequestUrl() {
         return UriComponentsBuilder.fromHttpUrl(ocrUrl)

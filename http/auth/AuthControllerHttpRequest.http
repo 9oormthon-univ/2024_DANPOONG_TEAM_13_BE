@@ -11,6 +11,19 @@ password={{auth.API_LOGIN_SUPER_USER.password}}
     client.global.set("refresh_token", response.body.data.refresh_token);
 %}
 
+### 테스트용 더미5 로그인
+// @no-log
+POST {{host_url}}/api/v1/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+serial_id={{auth.API_LOGIN_DUMMY5.serial_id}}&
+password={{auth.API_LOGIN_DUMMY5.password}}
+
+> {%
+    client.global.set("access_token", response.body.data.access_token);
+    client.global.set("refresh_token", response.body.data.refresh_token);
+%}
+
 ### 1.1 사용자 로그인 (Kakao Oauth)
 // @no-log
 POST {{host_url}}/api/v1/oauth/login
