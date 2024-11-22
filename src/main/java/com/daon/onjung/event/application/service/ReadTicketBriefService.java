@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ReadTicketBriefService implements ReadTicketBriefUseCase {
 
-    private final TicketRepository ticketRepository;
-
     private final QrUtil qrUtil;
     private final AESUtil aesUtil;
 
