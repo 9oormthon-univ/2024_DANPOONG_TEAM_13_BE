@@ -47,11 +47,11 @@ public class ReadTicketValidateService implements ReadTicketValidateUseCase {
         }
 
         // uuid로 account의 password 조회
-        Account account = accountRepository.findPasswordById(ticket.getStore().getOwner().getId())
+        String password = accountRepository.findPasswordByTicket(ticket)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 비밀번호 확인
-        boolean matches = bCryptPasswordEncoder.matches(requestDto.password(), account.getPassword());
+        boolean matches = bCryptPasswordEncoder.matches(requestDto.password(), password);
 
         if (!matches) {
             return ReadTicketValidateResponseDto.fromEntity(false, "비밀번호가 일치하지 않습니다.");
