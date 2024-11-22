@@ -74,7 +74,7 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
 // 응답 생성
         return ReadStoreOverviewsResponseDto.fromEntity(
                 pagedStoreOverviewDtos,
-                end < storeOverviewDtos.size() // hasNext 계산
+                end < storeList.getTotalElements() // hasNext 계산
         );
     }
 }
