@@ -9,3 +9,16 @@ Authorization: Bearer {{access_token}}
 // @no-log
 GET {{host_url}}/api/v1/stores/{{account.API_3_2.id}}/details
 Authorization: Bearer {{access_token}}
+
+### 3.3 가게 히스토리 등록하기
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{account.API_3_3.store_id}},
+  "action_date": "{{account.API_3_3.action_date}}",
+  "content": "{{account.API_3_3.content}}",
+  "amount": {{account.API_3_3.amount}}
+}
