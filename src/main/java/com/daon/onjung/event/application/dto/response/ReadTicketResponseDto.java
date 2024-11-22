@@ -46,7 +46,7 @@ public class ReadTicketResponseDto {
         @JsonProperty("id")
         private final Long id;
 
-        @JsonProperty("store_ingo")
+        @JsonProperty("store_info")
         private final StoreInfoDto storeInfo;
 
         @JsonProperty("expiration_date")
