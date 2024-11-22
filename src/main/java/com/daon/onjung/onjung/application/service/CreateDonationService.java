@@ -53,7 +53,7 @@ public class CreateDonationService implements CreateDonationUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 이벤트 조회
-        Event event = eventRepository.findById(requestDto.eventId())
+        Event event = eventRepository.findINPROGRESSEventByStoreId(storeId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 동참 생성

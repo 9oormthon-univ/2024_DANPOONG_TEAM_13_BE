@@ -131,10 +131,6 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
     @Getter
     public static class EventInfoDto {
 
-        @NotNull(message = "id는 null일 수 없습니다.")
-        @JsonProperty("id")
-        private final Long id;
-
         @NotNull(message = "total_amount는 null일 수 없습니다.")
         @JsonProperty("total_amount")
         private final Integer totalAmount;
@@ -144,15 +140,13 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
         private final Integer restOfDate;
 
         @Builder
-        public EventInfoDto(Integer totalAmount, Integer restOfDate, Long id) {
-            this.id = id;
+        public EventInfoDto(Integer totalAmount, Integer restOfDate) {
             this.totalAmount = totalAmount;
             this.restOfDate = restOfDate;
         }
 
-        public static EventInfoDto of(Long id, Integer totalAmount, Integer restOfDate) {
+        public static EventInfoDto of(Integer totalAmount, Integer restOfDate) {
             return EventInfoDto.builder()
-                    .id(id)
                     .totalAmount(totalAmount)
                     .restOfDate(restOfDate)
                     .build();

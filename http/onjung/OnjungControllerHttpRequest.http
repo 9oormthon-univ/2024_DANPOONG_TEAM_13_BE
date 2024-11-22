@@ -50,6 +50,5 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "event_id": {{onjung.API_4_7.event_id}},
   "donation_amount": {{onjung.API_4_7.donation_amount}}
 }
