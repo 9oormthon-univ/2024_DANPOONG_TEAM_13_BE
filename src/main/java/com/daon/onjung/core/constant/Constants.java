@@ -28,7 +28,12 @@ public class Constants {
             "/api/v1/auth/sign-up",
             "/api/v1/auth/login",
             "/api/v1/auth/users",
+
+            // company 등록 메서드
             "/api/v1/company",
+
+            // 티켓 유효성 검사 메서드
+            "/api/v1/tickets/validate",
 
             // Swagger
             "/api-docs.html",

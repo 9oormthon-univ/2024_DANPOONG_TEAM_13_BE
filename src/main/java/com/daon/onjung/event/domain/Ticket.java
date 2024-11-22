@@ -69,4 +69,8 @@ public class Ticket {
         this.event = event;
         this.createdAt = LocalDateTime.now();
     }
+
+    public void updateIsValidate(Boolean isValidate) {
+        this.isValidate = isValidate;
+    }
 }

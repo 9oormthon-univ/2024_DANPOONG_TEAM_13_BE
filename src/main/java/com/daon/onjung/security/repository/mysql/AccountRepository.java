@@ -13,4 +13,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     Optional<Account> findBySerialId(String serialId);
 
     Optional<Account> findBySerialIdAndProvider(String serialId, ESecurityProvider provider);
+
+    // id로 password 조회
+    Optional<String> findPasswordById(UUID uuid);
 }
