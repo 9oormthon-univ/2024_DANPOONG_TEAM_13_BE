@@ -79,7 +79,6 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
             );
         }
 
-        System.out.println("start: " + start + "end: " + end);
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
 
         // 응답 생성
