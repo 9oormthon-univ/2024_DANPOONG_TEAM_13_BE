@@ -40,9 +40,10 @@ public class StoreHistory {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public StoreHistory(LocalDate actionDate, String content, Store store) {
+    public StoreHistory(LocalDate actionDate, String content, Integer amount, Store store) {
         this.actionDate = actionDate;
         this.content = content;
         this.store = store;
+        this.amount = amount;
     }
 }
