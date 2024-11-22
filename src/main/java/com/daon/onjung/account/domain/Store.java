@@ -40,7 +40,7 @@ public class Store {
     @Column(name = "onjung_tags")
     private Set<EOnjungTag> onjungTags = new HashSet<>();
 
-    @Column(name = "title", length = 30, nullable = false)
+    @Column(name = "title", length = 100, nullable = false)
     private String title;
 
     @Column(name = "youtube_url", length = 2080, nullable = false)
@@ -49,14 +49,14 @@ public class Store {
     @Column(name = "logo_img_url", length = 2080, nullable = false)
     private String logoImgUrl;
 
-    @Column(name = "name", length = 15, nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private ECategory category;
 
-    @Column(name = "introduction", length = 100, nullable = false)
+    @Column(name = "introduction", length = 2000, nullable = false)
     private String introduction;
 
     @Column(name = "ocr_store_name", length = 50, nullable = false)
