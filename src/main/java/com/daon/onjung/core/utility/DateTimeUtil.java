@@ -200,9 +200,30 @@ public class DateTimeUtil {
      * @return String
      */
     public static String convertLocalDateToDotSeparatedDateTime(LocalDate date) {
+<<<<<<< HEAD
         return date.format(DotSeparatedDateFormatter);
     }
 
+=======
+        if (date == null) {
+            return null; // 온기 우편함 조회 null 처리
+        }
+
+        return date.format(DotSeparatedDateFormatter);
+    }
+
+    /**
+     * 나의 온기 우편함 조회 시간 포맷팅: "yyyy.MM.dd"
+     *
+     * @param startDate LocalDateTime
+     * @param endDate LocalDateTime
+     * @return String
+     */
+    public static String convertLocalDatesToDotSeparatedDatePeriod(LocalDate startDate, LocalDate endDate) {
+        return startDate.format(DotSeparatedDateFormatter) + " - " + endDate.format(DotSeparatedDateFormatter);
+    }
+
+>>>>>>> efeafaf (🐞 bugfix/#16 : datetime util 네이밍 변경)
 
     /**
      * String을 LocalDate 형식으로 변환 (yyyy. MM. dd)
