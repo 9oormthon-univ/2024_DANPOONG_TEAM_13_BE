@@ -6,10 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ScheduledEventJobRepository extends CrudRepository<ScheduledEventJob, String> {
     @NotNull List<ScheduledEventJob> findAll();
 
-    void deleteByEventId(Long eventId);
+    Optional<ScheduledEventJob> findByEventId(Long eventId);
 }

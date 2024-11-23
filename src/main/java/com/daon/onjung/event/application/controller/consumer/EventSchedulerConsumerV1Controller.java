@@ -21,7 +21,8 @@ public class EventSchedulerConsumerV1Controller implements Job {
         Long eventId = context.getJobDetail().getJobDataMap().getLong("eventId");
 
         // eventId를 통해 ScheduledEventJob을 삭제
-        scheduledEventJobRepository.deleteByEventId(eventId);
+        scheduledEventJobRepository.findByEventId(eventId)
+                .ifPresent(scheduledEventJobRepository::delete);
         log.info("ScheduledEventJob 삭제 완료. eventId: {}", eventId);
 
         processCompletedEventUseCase.execute(eventId);
