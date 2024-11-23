@@ -47,10 +47,9 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
 
     // Share, donation, receipt 에 포함된 중복된 값을 제외한 user의 수
     @Query("SELECT COUNT(DISTINCT u) FROM User u " +
-            "JOIN Share s ON u.id = s.user.id " +
-            "JOIN Donation d ON u.id = d.user.id " +
-            "JOIN Receipt r ON u.id = r.user.id " +
-            "WHERE s.store.id = :storeId OR d.store.id = :storeId OR r.store.id = :storeId")
+            "WHERE EXISTS (SELECT 1 FROM Share s WHERE s.user.id = u.id AND s.store.id = :storeId) " +
+            "   OR EXISTS (SELECT 1 FROM Donation d WHERE d.user.id = u.id AND d.store.id = :storeId) " +
+            "   OR EXISTS (SELECT 1 FROM Receipt r WHERE r.user.id = u.id AND r.store.id = :storeId)")
     Integer countUsersByStoreId(@Param("storeId") Long storeId);
 
     // 총 Donation의 금액
