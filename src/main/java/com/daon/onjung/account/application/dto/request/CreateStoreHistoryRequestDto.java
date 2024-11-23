@@ -15,6 +15,6 @@ public record CreateStoreHistoryRequestDto(
         String content,
 
         @JsonProperty("amount")
-        Integer amount
+        String amount
 ) {
 }

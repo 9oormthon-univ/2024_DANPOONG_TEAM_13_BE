@@ -11,7 +11,7 @@ public class StoreHistoryService {
     public StoreHistory createStoreHistory(
             LocalDate actionDate,
             String content,
-            Integer amount,
+            String amount,
             Store store
     ) {
         return StoreHistory.builder()

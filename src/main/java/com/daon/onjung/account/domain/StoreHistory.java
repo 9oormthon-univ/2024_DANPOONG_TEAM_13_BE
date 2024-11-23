@@ -30,7 +30,7 @@ public class StoreHistory {
     private String content;
 
     @Column(name = "amount")
-    private Integer amount;
+    private String amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stores_id", nullable = false)
@@ -40,7 +40,7 @@ public class StoreHistory {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public StoreHistory(LocalDate actionDate, String content, Integer amount, Store store) {
+    public StoreHistory(LocalDate actionDate, String content, String amount, Store store) {
         this.actionDate = actionDate;
         this.content = content;
         this.store = store;

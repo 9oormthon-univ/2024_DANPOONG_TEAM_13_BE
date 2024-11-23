@@ -224,7 +224,7 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
                             List.of(
                                     StoreHistoryInfo.fromEntity(
                                             storeHistory.getContent(),
-                                            storeHistory.getAmount() / 10000 + "만원"
+                                            storeHistory.getAmount()
                                     )
                             )
                     )
