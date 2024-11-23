@@ -12,8 +12,8 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@RedisHash(value = "ScheduledJob", timeToLive = 60 * 60 * 24 * 14) // 14일
-@RedisHash(value = "ScheduledJob", timeToLive = 60 * 5) // 테스트용 5분
+@RedisHash(value = "ScheduledJob", timeToLive = 60 * 60 * 24 * 14) // 14일
+//@RedisHash(value = "ScheduledJob", timeToLive = 60 * 5) // 테스트용 5분
 public class ScheduledEventJob {
     @Id
     private String jobId;
