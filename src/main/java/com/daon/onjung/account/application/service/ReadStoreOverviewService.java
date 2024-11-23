@@ -12,6 +12,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,15 +39,16 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         // title null 처리
         title = storeService.convertToTitle(title);
 
-        List<Store> storeList = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList);
+        Page<Store> storesPage = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList, pageable);
 
+        /*
         // 상점이 없을 경우
         if (storeList.isEmpty()) {
             return new ReadStoreOverviewsResponseDto(false, List.of());
         }
-
+         */
         // total onjung count별 정렬
-        List<ReadStoreOverviewsResponseDto.StoreOverviewDto> storeOverviewDtos = storeList.stream()
+        List<ReadStoreOverviewsResponseDto.StoreOverviewDto> storeOverviewDtos = storesPage.stream()
                 .map(store -> {
                     long shareCount = storeRepository.countSharesByStoreId(store.getId());
                     long donationCount = storeRepository.countDonationsByStoreId(store.getId());
@@ -64,7 +66,7 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
                         return Integer.compare(o2.getTotalOnjungCount(), o1.getTotalOnjungCount());
                     }
                 })
-                .toList();
+                .collect(Collectors.toList());
 
         // 페이지네이션
         int start = (int) pageable.getOffset();
@@ -80,11 +82,11 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         }
 
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> pagedStoreOverviewDtos = storeOverviewDtos.subList(start, end);
-
+      
         // 응답 생성
         return ReadStoreOverviewsResponseDto.fromEntity(
-                pagedStoreOverviewDtos,
-                end < storeOverviewDtos.size() // hasNext 계산
+                storeOverviewDtos,
+                storesPage.hasNext() // hasNext 계산
         );
     }
 }

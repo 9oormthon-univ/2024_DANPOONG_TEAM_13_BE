@@ -2,6 +2,8 @@ package com.daon.onjung.account.repository.mysql;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.type.EOnjungTag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,9 +33,10 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
             "AND (:onjungTags IS NULL OR tag IN :onjungTags) " +
             "GROUP BY s.id " +
             "ORDER BY MIN(e.endDate) ASC")
-    List<Store> findStoresByEarliestEventOrdered(
+    Page<Store> findStoresByEarliestEventOrdered(
             @Param("title") String title,
-            @Param("onjungTags") List<EOnjungTag> onjungTags
+            @Param("onjungTags") List<EOnjungTag> onjungTags,
+            Pageable pageable
     );
 
     @Query("SELECT COUNT(s) FROM Share s WHERE s.store.id = :storeId")
