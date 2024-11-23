@@ -66,4 +66,5 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
     // store id와 일치하는 share의 count에 100을 곱한 금액
     @Query("SELECT SUM(s.count * 100) FROM Share s WHERE s.store.id = :storeId")
     Integer sumShareAmountByStoreId(@Param("storeId") Long storeId);
+
 }
