@@ -54,7 +54,7 @@ public class CreateDonationResponseDto extends SelfValidating<CreateDonationResp
     public static CreateDonationResponseDto of(Donation donation, Store store) {
         return CreateDonationResponseDto.builder()
                 .donationAmount(donation.getDonationAmount())
-                .issueDate(DateTimeUtil.convertLocalDateTimeToCustomDateTime(donation.getCreatedAt()))
+                .issueDate(DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(donation.getCreatedAt()))
                 .storeInfo(StoreInfoDto.builder()
                         .logoImgUrl(store.getLogoImgUrl())
                         .tag(store.getOnjungTags())
