@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
@@ -17,6 +18,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     // 가게와 localdate로 event의 start date와 end date 사이에 있는 이벤트를 반환
     @Query("SELECT e FROM Event e WHERE e.store.id = :store AND e.startDate <= :date AND e.endDate >= :date ORDER BY e.id ASC")
-    Optional<Event> findTopEventByStoreAndLocalDate(@Param("store") Long storeId, @Param("date") LocalDate date);
+    List<Event> findTopEventByStoreAndLocalDate(@Param("store") Long storeId, @Param("date") LocalDate date);
 
 }
