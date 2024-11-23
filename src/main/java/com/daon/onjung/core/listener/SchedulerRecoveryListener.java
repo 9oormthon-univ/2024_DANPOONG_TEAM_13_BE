@@ -30,6 +30,14 @@ public class SchedulerRecoveryListener implements CommandLineRunner {
             return;
         }
         for (ScheduledEventJob job : pendingJobs) {
+            if (job == null) {
+                log.warn("조회된 Job 중 null 객체가 존재합니다.");
+                continue;
+            }
+            if (job.getScheduledTime() == null) {
+                log.warn("Job의 scheduledTime 값이 null입니다. eventId: {}", job.getEventId());
+                continue;
+            }
             if (job.getScheduledTime().isAfter(now)) {
                 log.info("미래 작업 스케줄러에 재등록. eventId: {}", job.getEventId());
                 scheduleJob(job);
