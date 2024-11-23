@@ -1,7 +1,6 @@
 package com.daon.onjung.event.application.service;
 
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.account.repository.mysql.StoreRepository;
 import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
@@ -64,64 +63,64 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
 
         Onjung onjung = onjungService.createOnjung(donations, receipts, shares);
 
-        List<Object> sortedOnjungByCreatedAtDesc = onjungService.sortOnjungByCreatedAtDesc(onjung);
+        List<Object> sortedOnjungByCreatedAtDesc = onjungService.sortOnjungByCreatedAt(onjung);
 
         List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAtDesc.stream()
                 .map(entity -> {
                     if (entity instanceof Donation donation) {
-                    // donation 날짜가 포함된 이벤트 가져오기
+                        // donation 날짜가 포함된 이벤트 가져오기
                         Event event = eventRepository.findTopEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
                                 .stream()
                                 .findFirst() // 첫 번째 값만 가져옴
                                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                    donation.getStore().getId(),
-                                    donation.getStore().getLogoImgUrl(),
-                                    donation.getStore().getTitle(),
-                                    donation.getStore().getName()
-                            ),
-                            DateTimeUtil.convertLocalDateTimeToSHORTKORString(donation.getCreatedAt()),
-                            EOnjungType.fromString("DONATION"),
-                            event.getStatus(),
-                            DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
-                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
-                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
-                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
-                    );
+                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                        donation.getStore().getId(),
+                                        donation.getStore().getLogoImgUrl(),
+                                        donation.getStore().getTitle(),
+                                        donation.getStore().getName()
+                                ),
+                                DateTimeUtil.convertLocalDateTimeToSHORTKORString(donation.getCreatedAt()),
+                                EOnjungType.fromString("DONATION"),
+                                event.getStatus(),
+                                DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
+                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
+                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
+                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
+                        );
                     } else if (entity instanceof Receipt receipt) {
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                    receipt.getStore().getId(),
-                                    receipt.getStore().getLogoImgUrl(),
-                                    receipt.getStore().getTitle(),
-                                    receipt.getStore().getName()
-                            ),
-                                DateTimeUtil.convertLocalDateTimeToSHORTKORString(receipt.getCreatedAt()),
-                            EOnjungType.fromString("RECEIPT"),
+                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                        receipt.getStore().getId(),
+                                        receipt.getStore().getLogoImgUrl(),
+                                        receipt.getStore().getTitle(),
+                                        receipt.getStore().getName()
+                                ),
+                                DateTimeUtil.convertLocalDateTimeToSHORTKORString(receipt.getPaymentDate().atTime(0, 0)),
+                                EOnjungType.fromString("RECEIPT"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(receipt.getPaymentDate()),
-                            null,
-                            null,
-                            null
-                    );
+                                null,
+                                null,
+                                null
+                        );
                     } else if (entity instanceof Share share) {
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                    share.getStore().getId(),
-                                    share.getStore().getLogoImgUrl(),
-                                    share.getStore().getTitle(),
-                                    share.getStore().getName()
-                            ),
+                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                        share.getStore().getId(),
+                                        share.getStore().getLogoImgUrl(),
+                                        share.getStore().getTitle(),
+                                        share.getStore().getName()
+                                ),
                                 DateTimeUtil.convertLocalDateTimeToSHORTKORString(share.getCreatedAt().atTime(0, 0)),
-                            EOnjungType.fromString("SHARE"),
+                                EOnjungType.fromString("SHARE"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(share.getCreatedAt()),
                                 null,
                                 null,
                                 null
-                    );
+                        );
                     }
                     throw new CommonException(ErrorCode.INVALID_ARGUMENT);
                 })
