@@ -111,6 +111,10 @@ public class ReadOnjungEventOverviewResponseDto {
         @Getter
         public static class StoreInfoDto {
 
+            @NotNull
+            @JsonProperty("id")
+            private final Long id;
+
             @NotNull(message = "logo_img_url은 null일 수 없습니다.")
             @JsonProperty("logo_img_url")
             private final String logoImgUrl;
@@ -125,22 +129,26 @@ public class ReadOnjungEventOverviewResponseDto {
 
             @Builder
             public StoreInfoDto(
+                    Long id,
                     String logoImgUrl,
                     String title,
                     String name
             ) {
+                this.id = id;
                 this.logoImgUrl = logoImgUrl;
                 this.title = title;
                 this.name = name;
             }
 
             public static StoreInfoDto fromEntity(
+                    Long id,
                     String logoImgUrl,
                     String title,
                     String name
             ) {
 
                 return StoreInfoDto.builder()
+                        .id(id)
                         .logoImgUrl(logoImgUrl)
                         .title(title)
                         .name(name)

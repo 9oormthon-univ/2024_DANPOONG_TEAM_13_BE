@@ -69,51 +69,54 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
         List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAt.stream()
                 .map(entity -> {
                     if (entity instanceof Donation donation) {
-                        // donation 날짜가 포함된 이벤트 가져오기
-                        Event event = eventRepository.findEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
-                                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+                    // donation 날짜가 포함된 이벤트 가져오기
+                    Event event = eventRepository.findEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
+                            .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                        donation.getStore().getLogoImgUrl(),
-                                        donation.getStore().getTitle(),
-                                        donation.getStore().getName()
-                                ),
-                                EOnjungType.fromString("DONATION"),
-                                event.getStatus(),
-                                DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
-                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
-                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
-                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
-                        );
+                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                    donation.getStore().getId(),
+                                    donation.getStore().getLogoImgUrl(),
+                                    donation.getStore().getTitle(),
+                                    donation.getStore().getName()
+                            ),
+                            EOnjungType.fromString("DONATION"),
+                            event.getStatus(),
+                            DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
+                    );
                     } else if (entity instanceof Receipt receipt) {
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                        receipt.getStore().getLogoImgUrl(),
-                                        receipt.getStore().getTitle(),
-                                        receipt.getStore().getName()
-                                ),
-                                EOnjungType.fromString("RECEIPT"),
+                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                    receipt.getStore().getId(),
+                                    receipt.getStore().getLogoImgUrl(),
+                                    receipt.getStore().getTitle(),
+                                    receipt.getStore().getName()
+                            ),
+                            EOnjungType.fromString("RECEIPT"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(receipt.getCreatedAt().toLocalDate()),
-                                null,
-                                null,
-                                null
-                        );
+                            null,
+                            null,
+                            null
+                    );
                     } else if (entity instanceof Share share) {
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
-                                ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                        share.getStore().getLogoImgUrl(),
-                                        share.getStore().getTitle(),
-                                        share.getStore().getName()
-                                ),
-                                EOnjungType.fromString("SHARE"),
+                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                    share.getStore().getId(),
+                                    share.getStore().getLogoImgUrl(),
+                                    share.getStore().getTitle(),
+                                    share.getStore().getName()
+                            ),
+                            EOnjungType.fromString("SHARE"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(share.getCreatedAt()),
                                 null,
                                 null,
                                 null
-                        );
+                    );
                     }
                     throw new CommonException(ErrorCode.INVALID_ARGUMENT);
                 })
