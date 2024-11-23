@@ -1,6 +1,5 @@
 package com.daon.onjung.event.application.service;
 
-import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.account.repository.mysql.StoreRepository;
 import com.daon.onjung.account.repository.mysql.UserRepository;
@@ -11,7 +10,15 @@ import com.daon.onjung.event.application.dto.response.ReadOnjungEventOverviewRes
 import com.daon.onjung.event.application.usecase.ReadOnjungEventOverviewUseCase;
 import com.daon.onjung.event.domain.Event;
 import com.daon.onjung.event.repository.mysql.EventRepository;
+import com.daon.onjung.onjung.domain.Donation;
+import com.daon.onjung.onjung.domain.Onjung;
+import com.daon.onjung.onjung.domain.Receipt;
+import com.daon.onjung.onjung.domain.Share;
+import com.daon.onjung.onjung.domain.service.OnjungService;
 import com.daon.onjung.onjung.domain.type.EOnjungType;
+import com.daon.onjung.onjung.repository.mysql.DonationRepository;
+import com.daon.onjung.onjung.repository.mysql.ReceiptRepository;
+import com.daon.onjung.onjung.repository.mysql.ShareRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,6 +38,11 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final StoreRepository storeRepository;
+    private final DonationRepository donationRepository;
+    private final ReceiptRepository receiptRepository;
+    private final ShareRepository shareRepository;
+
+    private final OnjungService onjungService;
 
     @Override
     @Transactional(readOnly = true)
@@ -47,34 +58,71 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        // store와 onjung 객체를 매핑한 데이터 조회
-        List<Object[]> allRelationByUser = storeRepository.findStoreActionsByUser(user);
+        List<Donation> donations = donationRepository.findAllByUser(user);
+        List<Receipt> receipts = receiptRepository.findAllByUser(user);
+        List<Share> shares = shareRepository.findAllByUser(user);
 
-        List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = allRelationByUser.stream()
-                .map(row -> {
-                    // Object[] 배열에서 데이터 추출
-                    Store store = (Store) row[0];       // 첫 번째 요소: Store 객체
-                    String relationType = (String) row[1]; // 두 번째 요소: Relation Type (DONATION, RECEIPT, SHARE)
+        Onjung onjung = onjungService.createOnjung(donations, receipts, shares);
 
+        List<Object> sortedOnjungByCreatedAt = onjungService.sortOnjungByCreatedAt(onjung);
+
+        List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAt.stream()
+                .map(entity -> {
+                    if (entity instanceof Donation donation) {
                     // Store에 해당하는 가장 최근 이벤트 가져오기
-                    Event event = eventRepository.findMostRecentEventByStore(store);
+                    Event event = eventRepository.findMostRecentEventByStore(donation.getStore());
 
-                    return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
+                        return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
                             ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
-                                    store.getLogoImgUrl(),
-                                    store.getTitle(),
-                                    store.getName()
+                                    donation.getStore().getLogoImgUrl(),
+                                    donation.getStore().getTitle(),
+                                    donation.getStore().getName()
                             ),
-                            EOnjungType.fromString(relationType),
+                            EOnjungType.fromString("DONATION"),
                             event.getStatus(),
                             DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
                             DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
                             DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
                             DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
                     );
+                    } else if (entity instanceof Receipt receipt) {
+                    // Store에 해당하는 가장 최근 이벤트 가져오기
+                    Event event = eventRepository.findMostRecentEventByStore(receipt.getStore());
+
+                        return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
+                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                    receipt.getStore().getLogoImgUrl(),
+                                    receipt.getStore().getTitle(),
+                                    receipt.getStore().getName()
+                            ),
+                            EOnjungType.fromString("RECEIPT"),
+                            event.getStatus(),
+                            DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
+                    );
+                    } else if (entity instanceof Share share) {
+                    // Store에 해당하는 가장 최근 이벤트 가져오기
+                    Event event = eventRepository.findMostRecentEventByStore(share.getStore());
+
+                        return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
+                            ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
+                                    share.getStore().getLogoImgUrl(),
+                                    share.getStore().getTitle(),
+                                    share.getStore().getName()
+                            ),
+                            EOnjungType.fromString("SHARE"),
+                            event.getStatus(),
+                            DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getStoreDeliveryDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getTicketIssueDate()),
+                            DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
+                    );
+                    }
+                    throw new CommonException(ErrorCode.INVALID_ARGUMENT);
                 })
-                .filter(Objects::nonNull) // null 값 제거
-                .collect(Collectors.<ReadOnjungEventOverviewResponseDto.EventDto>toList());
+                .collect(Collectors.toList());
 
 
         // 페이지네이션
