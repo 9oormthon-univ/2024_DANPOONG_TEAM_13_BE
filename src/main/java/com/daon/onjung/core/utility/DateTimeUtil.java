@@ -18,6 +18,7 @@ public class DateTimeUtil {
     public static final DateTimeFormatter ISODateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter ISOTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter KORDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"); // 새로운 포맷터 추가
+    public static final DateTimeFormatter SHORTKORDateFormatter = DateTimeFormatter.ofPattern("yy년 MM월 dd일");
     public static final DateTimeFormatter KORYearMonthDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월"); // 새로운 포맷터 추가
     public static final DateTimeFormatter DotSeparatedDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
     public static final DateTimeFormatter CustomDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (EEE)", Locale.KOREAN);
@@ -118,6 +119,16 @@ public class DateTimeUtil {
      */
     public static String convertLocalDateToKORString(LocalDateTime date) {
         return date.format(KORDateFormatter);
+    }
+
+    /**
+     * LocalDateTime을 짧은 한국어 날짜 형식으로 변환 (yy년 MM월 dd일)
+     *
+     * @param date LocalDateTime
+     * @return String
+     */
+    public static String convertLocalDateTimeToSHORTKORString(LocalDateTime date) {
+        return date.format(SHORTKORDateFormatter);
     }
 
     /**

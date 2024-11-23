@@ -82,6 +82,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                                     donation.getStore().getTitle(),
                                     donation.getStore().getName()
                             ),
+                            DateTimeUtil.convertLocalDateTimeToSHORTKORString(donation.getCreatedAt()),
                             EOnjungType.fromString("DONATION"),
                             event.getStatus(),
                             DateTimeUtil.convertLocalDatesToDotSeparatedDatePeriod(event.getStartDate(), event.getEndDate()),
@@ -97,6 +98,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                                     receipt.getStore().getTitle(),
                                     receipt.getStore().getName()
                             ),
+                                DateTimeUtil.convertLocalDateTimeToSHORTKORString(receipt.getCreatedAt()),
                             EOnjungType.fromString("RECEIPT"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(receipt.getCreatedAt().toLocalDate()),
@@ -112,6 +114,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                                     share.getStore().getTitle(),
                                     share.getStore().getName()
                             ),
+                                DateTimeUtil.convertLocalDateTimeToSHORTKORString(share.getCreatedAt().atTime(0, 0)),
                             EOnjungType.fromString("SHARE"),
                                 EStatus.COMPLETED,
                                 DateTimeUtil.convertLocalDateToDotSeparatedDateTime(share.getCreatedAt()),

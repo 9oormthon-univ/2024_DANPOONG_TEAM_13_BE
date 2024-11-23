@@ -47,6 +47,10 @@ public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjun
         @JsonProperty("store_info")
         private final StoreInfoDto storeInfo;
 
+        @NotNull(message = "created_date은 null일 수 없습니다.")
+        @JsonProperty("created_date")
+        private final String createdDate;
+
         @NotNull(message = "onjung_type은 null일 수 없습니다.")
         @JsonProperty("onjung_type")
         private final EOnjungType onjungType;
@@ -70,6 +74,7 @@ public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjun
         @Builder
         public EventDto(
                 StoreInfoDto storeInfo,
+                String createdDate,
                 EOnjungType onjungType,
                 EStatus status,
                 String eventPeriod,
@@ -78,6 +83,7 @@ public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjun
                 String reportDate
         ) {
             this.storeInfo = storeInfo;
+            this.createdDate = createdDate;
             this.onjungType = onjungType;
             this.status = status;
             this.eventPeriod = eventPeriod;
@@ -88,6 +94,7 @@ public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjun
 
         public static EventDto fromEntity(
                 StoreInfoDto storeInfo,
+                String createdDate,
                 EOnjungType onjungType,
                 EStatus status,
                 String eventPeriod,
@@ -98,6 +105,7 @@ public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjun
 
             return EventDto.builder()
                     .storeInfo(storeInfo)
+                    .createdDate(createdDate)
                     .onjungType(onjungType)
                     .status(status)
                     .eventPeriod(eventPeriod)
