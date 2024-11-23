@@ -4,6 +4,7 @@ import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.account.repository.mysql.UserRepository;
+import com.daon.onjung.core.domain.service.ScheduledEventJobService;
 import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
@@ -14,7 +15,6 @@ import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.event.application.usecase.ProcessCompletedEventUseCase;
 import com.daon.onjung.event.domain.Event;
 import com.daon.onjung.event.domain.Ticket;
-import com.daon.onjung.event.domain.event.EventScheduled;
 import com.daon.onjung.event.domain.service.EventService;
 import com.daon.onjung.event.domain.service.TicketService;
 import com.daon.onjung.event.repository.mysql.EventRepository;
@@ -43,6 +43,7 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
 
     private final EventService eventService;
     private final TicketService ticketService;
+    private final ScheduledEventJobService scheduledEventJobService;
 
     private final RestClientUtil restClientUtil;
     private final BankUtil bankUtil;
@@ -90,11 +91,11 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
 
         // 새롭게 생성된 이벤트에 대한 종료일자에 맞춘 이벤트 발행. 발행한 이벤트는 이벤트 리스너에 의해 스케줄러에 등록됨
         applicationEventPublisher.publishEvent(
-                EventScheduled.builder()
-                        .eventId(newEvent.getId())
-//                        .scheduledTime(newEvent.getEndDate().plusDays(1).atStartOfDay())
-                        .scheduledTime(LocalDateTime.now().plusMinutes(1)) // 테스트용 1분 뒤
-                        .build()
+                scheduledEventJobService.createScheduledJob(
+                        newEvent.getId(),
+//                        newEvent.getEndDate().plusDays(1).atStartOfDay()
+                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+                )
         );
 
         // 종료된 이벤트와 연결된 가상계좌에 모급된 금액을 조회

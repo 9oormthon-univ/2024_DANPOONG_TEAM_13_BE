@@ -7,12 +7,12 @@ import com.daon.onjung.account.domain.service.StoreService;
 import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.account.repository.mysql.OwnerRepository;
 import com.daon.onjung.account.repository.mysql.StoreRepository;
+import com.daon.onjung.core.domain.service.ScheduledEventJobService;
 import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
 import com.daon.onjung.core.utility.BankUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
 import com.daon.onjung.core.utility.S3Util;
 import com.daon.onjung.event.domain.Event;
-import com.daon.onjung.event.domain.event.EventScheduled;
 import com.daon.onjung.event.domain.service.EventService;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import com.daon.onjung.security.application.dto.request.SignUpOwnerByDefaultRequestDto;
@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +41,7 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
     private final OwnerService ownerService;
     private final StoreService storeService;
     private final EventService eventService;
+    private final ScheduledEventJobService scheduledEventJobService;
 
     private final S3Util s3Util;
     private final BankUtil bankUtil;
@@ -116,11 +116,11 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
 
         // 생성한 이벤트에 대해 이벤트 발행
         applicationEventPublisher.publishEvent(
-                EventScheduled.builder()
-                        .eventId(event.getId())
-//                        .scheduledTime(event.getEndDate().plusDays(1).atStartOfDay())
-                        .scheduledTime(LocalDateTime.now().plusMinutes(1)) // 테스트용 1분 뒤
-                        .build()
+                scheduledEventJobService.createScheduledJob(
+                        event.getId(),
+//                        event.getEndDate().plusDays(1).atStartOfDay()
+                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+                )
         );
 
     }
