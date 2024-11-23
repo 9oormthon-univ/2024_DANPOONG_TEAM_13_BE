@@ -16,7 +16,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Optional<Event> findINPROGRESSEventByStoreId(@Param("storeId") Long storeId);
 
     // 가게와 localdate로 event의 start date와 end date 사이에 있는 이벤트를 반환
-    @Query("SELECT e FROM Event e WHERE e.store.id = :store AND e.startDate <= :date AND e.endDate >= :date")
-    Optional<Event> findEventByStoreAndLocalDate(@Param("store") Long storeId, @Param("date") LocalDate date);
-
+    @Query("SELECT e FROM Event e WHERE e.store.id = :store AND e.startDate <= :date AND e.endDate >= :date ORDER BY e.startDate DESC")
+    Optional<Event> findFirstEventByStoreAndLocalDate(@Param("store") Long storeId, @Param("date") LocalDate date);
 }
