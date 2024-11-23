@@ -1,4 +1,4 @@
-package com.daon.onjung.core.domain;
+package com.daon.onjung.event.domain.redis;
 
 import lombok.AccessLevel;
 import lombok.Builder;

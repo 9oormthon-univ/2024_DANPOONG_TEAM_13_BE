@@ -1,6 +1,6 @@
-package com.daon.onjung.core.domain.service;
+package com.daon.onjung.event.domain.service;
 
-import com.daon.onjung.core.domain.ScheduledEventJob;
+import com.daon.onjung.event.domain.redis.ScheduledEventJob;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

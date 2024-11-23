@@ -7,7 +7,7 @@ import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.DateTimeUtil;
 import com.daon.onjung.event.application.dto.response.ReadOnjungEventOverviewResponseDto;
 import com.daon.onjung.event.application.usecase.ReadOnjungEventOverviewUseCase;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import com.daon.onjung.event.domain.type.EStatus;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import com.daon.onjung.onjung.domain.Donation;

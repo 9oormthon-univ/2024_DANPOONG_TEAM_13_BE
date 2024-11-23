@@ -1,12 +1,10 @@
 package com.daon.onjung.event.repository.mysql;
 
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.event.domain.Ticket;
+import com.daon.onjung.event.domain.mysql.Ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 

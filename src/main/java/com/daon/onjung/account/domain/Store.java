@@ -2,7 +2,7 @@ package com.daon.onjung.account.domain;
 
 import com.daon.onjung.account.domain.type.ECategory;
 import com.daon.onjung.account.domain.type.EOnjungTag;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

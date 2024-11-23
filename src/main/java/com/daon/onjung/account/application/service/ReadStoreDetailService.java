@@ -12,7 +12,7 @@ import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
 import com.daon.onjung.core.utility.DateTimeUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import com.daon.onjung.event.domain.service.EventService;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

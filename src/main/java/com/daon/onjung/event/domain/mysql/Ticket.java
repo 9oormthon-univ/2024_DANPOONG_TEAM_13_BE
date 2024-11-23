@@ -1,4 +1,4 @@
-package com.daon.onjung.event.domain;
+package com.daon.onjung.event.domain.mysql;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;

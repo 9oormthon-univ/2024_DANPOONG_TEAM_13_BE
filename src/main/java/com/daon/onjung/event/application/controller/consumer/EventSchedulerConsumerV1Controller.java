@@ -1,6 +1,6 @@
 package com.daon.onjung.event.application.controller.consumer;
 
-import com.daon.onjung.core.repository.redis.ScheduledEventJobRepository;
+import com.daon.onjung.event.repository.redis.ScheduledEventJobRepository;
 import com.daon.onjung.event.application.usecase.ProcessCompletedEventUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -2,8 +2,7 @@ package com.daon.onjung.event.domain.service;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.type.EBankName;
-import com.daon.onjung.event.domain.Event;
-import com.daon.onjung.event.domain.type.EStatus;
+import com.daon.onjung.event.domain.mysql.Event;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

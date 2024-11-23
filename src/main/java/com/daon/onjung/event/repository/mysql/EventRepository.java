@@ -1,7 +1,6 @@
 package com.daon.onjung.event.repository.mysql;
 
-import com.daon.onjung.account.domain.Store;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

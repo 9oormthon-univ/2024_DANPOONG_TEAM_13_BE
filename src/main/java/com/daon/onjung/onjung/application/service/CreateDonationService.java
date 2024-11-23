@@ -2,16 +2,13 @@ package com.daon.onjung.onjung.application.service;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.account.repository.mysql.StoreRepository;
 import com.daon.onjung.account.repository.mysql.UserRepository;
-import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
-import com.daon.onjung.core.dto.DepositOrTransferVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.BankUtil;
 import com.daon.onjung.core.utility.RestClientUtil;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import com.daon.onjung.onjung.application.dto.request.CreateDonationRequestDto;
 import com.daon.onjung.onjung.application.dto.response.CreateDonationResponseDto;

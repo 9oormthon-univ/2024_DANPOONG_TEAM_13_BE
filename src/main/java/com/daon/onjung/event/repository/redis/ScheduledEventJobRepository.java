@@ -1,6 +1,6 @@
-package com.daon.onjung.core.repository.redis;
+package com.daon.onjung.event.repository.redis;
 
-import com.daon.onjung.core.domain.ScheduledEventJob;
+import com.daon.onjung.event.domain.redis.ScheduledEventJob;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

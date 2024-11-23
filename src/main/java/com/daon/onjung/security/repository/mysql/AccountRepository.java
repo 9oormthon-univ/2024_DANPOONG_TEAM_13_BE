@@ -1,6 +1,6 @@
 package com.daon.onjung.security.repository.mysql;
 
-import com.daon.onjung.event.domain.Ticket;
+import com.daon.onjung.event.domain.mysql.Ticket;
 import com.daon.onjung.security.domain.mysql.Account;
 import com.daon.onjung.security.domain.type.ESecurityProvider;
 import io.lettuce.core.dynamic.annotation.Param;

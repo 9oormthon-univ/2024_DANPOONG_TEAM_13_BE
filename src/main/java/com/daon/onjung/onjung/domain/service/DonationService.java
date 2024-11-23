@@ -2,7 +2,7 @@ package com.daon.onjung.onjung.domain.service;
 
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.event.domain.Event;
+import com.daon.onjung.event.domain.mysql.Event;
 import com.daon.onjung.onjung.domain.Donation;
 import org.springframework.stereotype.Service;
 

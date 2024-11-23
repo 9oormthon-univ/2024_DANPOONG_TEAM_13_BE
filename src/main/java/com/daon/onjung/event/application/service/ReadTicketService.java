@@ -7,7 +7,7 @@ import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.event.application.dto.response.ReadTicketResponseDto;
 import com.daon.onjung.event.application.usecase.ReadTicketUseCase;
-import com.daon.onjung.event.domain.Ticket;
+import com.daon.onjung.event.domain.mysql.Ticket;
 import com.daon.onjung.event.repository.mysql.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

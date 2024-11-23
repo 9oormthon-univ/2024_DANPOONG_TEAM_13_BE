@@ -1,9 +1,9 @@
 package com.daon.onjung.core.listener;
 
-import com.daon.onjung.core.domain.ScheduledEventJob;
+import com.daon.onjung.event.domain.redis.ScheduledEventJob;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
-import com.daon.onjung.core.repository.redis.ScheduledEventJobRepository;
+import com.daon.onjung.event.repository.redis.ScheduledEventJobRepository;
 import com.daon.onjung.event.application.controller.consumer.EventSchedulerConsumerV1Controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

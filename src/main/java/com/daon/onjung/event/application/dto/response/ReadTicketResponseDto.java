@@ -3,7 +3,7 @@ package com.daon.onjung.event.application.dto.response;
 import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.core.utility.DateTimeUtil;
-import com.daon.onjung.event.domain.Ticket;
+import com.daon.onjung.event.domain.mysql.Ticket;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
