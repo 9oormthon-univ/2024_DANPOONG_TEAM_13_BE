@@ -1,6 +1,7 @@
 package com.daon.onjung.event.application.dto.response;
 
 import com.daon.onjung.account.domain.Store;
+import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.core.utility.DateTimeUtil;
 import com.daon.onjung.event.domain.Ticket;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +12,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ReadTicketResponseDto {
+public class ReadTicketResponseDto extends SelfValidating<ReadTicketResponseDto> {
 
     @NotNull(message = "has_next는 null일 수 없습니다.")
     @JsonProperty("has_next")

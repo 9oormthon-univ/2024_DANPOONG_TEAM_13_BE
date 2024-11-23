@@ -1,6 +1,6 @@
 package com.daon.onjung.event.application.dto.response;
 
-import com.daon.onjung.account.domain.type.EOnjungTag;
+import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.event.domain.type.EStatus;
 import com.daon.onjung.onjung.domain.type.EOnjungType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +11,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ReadOnjungEventOverviewResponseDto {
+public class ReadOnjungEventOverviewResponseDto extends SelfValidating<ReadOnjungEventOverviewResponseDto> {
 
     @NotNull(message = "has_next는 null일 수 없습니다.")
     @JsonProperty("has_next")

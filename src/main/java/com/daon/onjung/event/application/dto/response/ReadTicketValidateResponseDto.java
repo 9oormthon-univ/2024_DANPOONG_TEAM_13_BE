@@ -1,11 +1,12 @@
 package com.daon.onjung.event.application.dto.response;
 
+import com.daon.onjung.core.dto.SelfValidating;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReadTicketValidateResponseDto {
+public class ReadTicketValidateResponseDto extends SelfValidating<ReadTicketValidateResponseDto> {
 
     @JsonProperty("is_valid")
     private final Boolean isValid;

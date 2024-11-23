@@ -1,12 +1,13 @@
 package com.daon.onjung.event.application.dto.response;
 
+import com.daon.onjung.core.dto.SelfValidating;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReadTicketBriefResponseDto {
+public class ReadTicketBriefResponseDto extends SelfValidating<ReadTicketBriefResponseDto> {
 
     @NotNull(message = "qr_base64는 null일 수 없습니다.")
     @JsonProperty("qr_base64")
