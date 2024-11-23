@@ -118,8 +118,8 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
         applicationEventPublisher.publishEvent(
                 scheduledEventJobService.createScheduledJob(
                         event.getId(),
-//                        event.getEndDate().plusDays(1).atStartOfDay()
-                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+                        event.getEndDate().plusDays(1).atStartOfDay()
+//                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
                 )
         );
 
