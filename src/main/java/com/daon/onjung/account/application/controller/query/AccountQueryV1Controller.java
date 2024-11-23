@@ -5,7 +5,7 @@ import com.daon.onjung.account.application.dto.response.ReadStoreOverviewsRespon
 import com.daon.onjung.account.application.dto.response.ReadUserOverviewsResponseDto;
 import com.daon.onjung.account.application.usecase.ReadStoreDetailUseCase;
 import com.daon.onjung.account.application.usecase.ReadStoreOverviewUseCase;
-import com.daon.onjung.account.application.usecase.ReadUserOverviewsUseCase;
+import com.daon.onjung.account.application.usecase.ReadUserOverviewUseCase;
 import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class AccountQueryV1Controller {
 
     private final ReadStoreOverviewUseCase readStoreOverviewUseCase;
     private final ReadStoreDetailUseCase readStoreDetailUseCase;
-    private final ReadUserOverviewsUseCase readUserOverviewsUseCase;
+    private final ReadUserOverviewUseCase readUserOverviewUseCase;
 
     /**
      * 3.1 가게 리스트 조회
@@ -65,7 +65,7 @@ public class AccountQueryV1Controller {
             @AccountID UUID accountId
     ) {
         return ResponseDto.ok(
-                readUserOverviewsUseCase.execute(accountId)
+                readUserOverviewUseCase.execute(accountId)
         );
     }
 }

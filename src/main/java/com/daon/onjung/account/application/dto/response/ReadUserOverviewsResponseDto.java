@@ -18,13 +18,19 @@ public class ReadUserOverviewsResponseDto extends SelfValidating<ReadUserOvervie
     @JsonProperty("profile_img_url")
     private final String profileImgUrl;
 
+    @NotNull(message = "notification_allowed은 null이 될 수 없습니다.")
+    @JsonProperty("notification_allowed")
+    private final Boolean notificationAllowed;
+
     @Builder
     public ReadUserOverviewsResponseDto(
             String userName,
-            String profileImgUrl
+            String profileImgUrl,
+            Boolean notificationAllowed
     ) {
         this.userName = userName;
         this.profileImgUrl = profileImgUrl;
+        this.notificationAllowed = notificationAllowed;
         this.validateSelf();
     }
 
@@ -34,6 +40,7 @@ public class ReadUserOverviewsResponseDto extends SelfValidating<ReadUserOvervie
         return ReadUserOverviewsResponseDto.builder()
                 .userName(user.getNickName())
                 .profileImgUrl(user.getProfileImgUrl())
+                .notificationAllowed(user.getNotificationAllowed())
                 .build();
     }
 }
