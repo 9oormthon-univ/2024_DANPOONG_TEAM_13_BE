@@ -14,14 +14,14 @@ public class SchedulerConfig {
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean(AutowiringSpringBeanJobFactory jobFactory) {
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
-        factoryBean.setJobFactory(jobFactory); // Spring 빈으로 관리되는 JobFactory 주입
+        factoryBean.setJobFactory(jobFactory);
         return factoryBean;
     }
 
     @Bean
     public AutowiringSpringBeanJobFactory jobFactory(AutowireCapableBeanFactory beanFactory) {
         AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();
-        jobFactory.setBeanFactory(beanFactory); // Spring의 BeanFactory 주입
+        jobFactory.setBeanFactory(beanFactory);
         return jobFactory;
     }
 
@@ -32,7 +32,7 @@ public class SchedulerConfig {
         @Override
         protected Object createJobInstance(TriggerFiredBundle bundle) throws Exception {
             Object job = super.createJobInstance(bundle);
-            beanFactory.autowireBean(job); // Spring 의존성 주입
+            beanFactory.autowireBean(job);
             return job;
         }
     }

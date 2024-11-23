@@ -1,0 +1,798 @@
+### 더미1 삽입
+// @no-log
+POST {{host_url}}/api/v1/auth/sign-up
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="image.jpeg"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/1_profile.jpeg
+
+--boundary
+Content-Disposition: form-data; name="banner"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/1_banner.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+{
+	"serial_id" : "{{dummy.dummy1.serial_id}}",
+	"password" : "{{dummy.dummy1.password}}",
+	"store_info" :
+	{
+		"onjung_tag" : ["{{dummy.dummy1.store_info.onjung_tag[0]}}"],
+		"title" : "{{dummy.dummy1.store_info.title}}",
+		"youtube_url" : "{{dummy.dummy1.store_info.youtube_url}}",
+		"name" : "{{dummy.dummy1.store_info.name}}",
+		"category" : "{{dummy.dummy1.store_info.category}}",
+		"introduction" : "{{dummy.dummy1.store_info.introduction}}"
+	},
+	"ocr_info" :
+	{
+		"store_name" : "{{dummy.dummy1.ocr_info.store_name}}",
+		"address_name" : "{{dummy.dummy1.ocr_info.address_name}}"
+	},
+	"bank_info" :
+	{
+		"name": "{{dummy.dummy1.bank_info.name}}",
+		"account_number" : "{{dummy.dummy1.bank_info.account_number}}"
+	}
+}
+
+### 더미2 삽입
+// @no-log
+POST {{host_url}}/api/v1/auth/sign-up
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/2_profile.jpeg
+
+--boundary
+Content-Disposition: form-data; name="banner"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/2_banner.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+
+{
+    "serial_id" : "{{dummy.dummy2.serial_id}}",
+    "password" : "{{dummy.dummy2.password}}",
+    "store_info" :
+    {
+        "onjung_tag" : ["{{dummy.dummy2.store_info.onjung_tag[0]}}"],
+        "title" : "{{dummy.dummy2.store_info.title}}",
+        "youtube_url" : "{{dummy.dummy2.store_info.youtube_url}}",
+        "name" : "{{dummy.dummy2.store_info.name}}",
+
+        "category" : "{{dummy.dummy2.store_info.category}}",
+        "introduction" : "{{dummy.dummy2.store_info.introduction}}"
+    },
+    "ocr_info" :
+    {
+        "store_name" : "{{dummy.dummy2.ocr_info.store_name}}",
+        "address_name" : "{{dummy.dummy2.ocr_info.address_name}}"
+    },
+    "bank_info" :
+    {
+        "name": "{{dummy.dummy2.bank_info.name}}",
+        "account_number" : "{{dummy.dummy2.bank_info.account_number}}"
+    }
+}
+
+### 더미3 삽입
+// @no-log
+POST {{host_url}}/api/v1/auth/sign-up
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/3_profile.jpeg
+
+--boundary
+Content-Disposition: form-data; name="banner"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/3_banner.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+{
+    "serial_id" : "{{dummy.dummy3.serial_id}}",
+    "password" : "{{dummy.dummy3.password}}",
+    "store_info" :
+    {
+        "onjung_tag" : ["{{dummy.dummy3.store_info.onjung_tag[0]}}"],
+        "title" : "{{dummy.dummy3.store_info.title}}",
+        "youtube_url" : "{{dummy.dummy3.store_info.youtube_url}}",
+        "name" : "{{dummy.dummy3.store_info.name}}",
+        "category" : "{{dummy.dummy3.store_info.category}}",
+        "introduction" : "{{dummy.dummy3.store_info.introduction}}"
+    },
+    "ocr_info" :
+    {
+        "store_name" : "{{dummy.dummy3.ocr_info.store_name}}",
+        "address_name" : "{{dummy.dummy3.ocr_info.address_name}}"
+    },
+    "bank_info" :
+    {
+        "name": "{{dummy.dummy3.bank_info.name}}",
+        "account_number" : "{{dummy.dummy3.bank_info.account_number}}"
+    }
+}
+
+### 더미4 삽입
+// @no-log
+POST {{host_url}}/api/v1/auth/sign-up
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/4_profile.png
+
+--boundary
+Content-Disposition: form-data; name="banner"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/4_banner.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+{
+    "serial_id" : "{{dummy.dummy4.serial_id}}",
+    "password" : "{{dummy.dummy4.password}}",
+    "store_info" :
+    {
+        "onjung_tag" : ["{{dummy.dummy4.store_info.onjung_tag[0]}}"],
+        "title" : "{{dummy.dummy4.store_info.title}}",
+        "youtube_url" : "{{dummy.dummy4.store_info.youtube_url}}",
+        "name" : "{{dummy.dummy4.store_info.name}}",
+        "category" : "{{dummy.dummy4.store_info.category}}",
+        "introduction" : "{{dummy.dummy4.store_info.introduction}}"
+    },
+    "ocr_info" :
+    {
+        "store_name" : "{{dummy.dummy4.ocr_info.store_name}}",
+        "address_name" : "{{dummy.dummy4.ocr_info.address_name}}"
+    },
+    "bank_info" :
+    {
+        "name": "{{dummy.dummy4.bank_info.name}}",
+        "account_number" : "{{dummy.dummy4.bank_info.account_number}}"
+    }
+}
+
+### 더미5 삽입
+// @no-log
+POST {{host_url}}/api/v1/auth/sign-up
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/5_profile.jpeg
+
+--boundary
+Content-Disposition: form-data; name="banner"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/5_banner.png
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+{
+    "serial_id" : "{{dummy.dummy5.serial_id}}",
+    "password" : "{{dummy.dummy5.password}}",
+    "store_info" :
+    {
+        "onjung_tag" : ["{{dummy.dummy5.store_info.onjung_tag[0]}}"],
+        "title" : "{{dummy.dummy5.store_info.title}}",
+        "youtube_url" : "{{dummy.dummy5.store_info.youtube_url}}",
+        "name" : "{{dummy.dummy5.store_info.name}}",
+        "category" : "{{dummy.dummy5.store_info.category}}",
+        "introduction" : "{{dummy.dummy5.store_info.introduction}}"
+    },
+    "ocr_info" :
+    {
+        "store_name" : "{{dummy.dummy5.ocr_info.store_name}}",
+        "address_name" : "{{dummy.dummy5.ocr_info.address_name}}"
+    },
+    "bank_info" :
+    {
+        "name": "{{dummy.dummy5.bank_info.name}}",
+        "account_number" : "{{dummy.dummy5.bank_info.account_number}}"
+    }
+}
+
+### 더미1 히스토리 등록하기-1
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history1.store_id}},
+  "action_date": "{{dummy.dummy1.history1.action_date}}",
+  "content": "{{dummy.dummy1.history1.content}}",
+  "amount": "{{dummy.dummy1.history1.amount}}"
+}
+
+### 더미1 히스토리 등록하기-2
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history2.store_id}},
+  "action_date": "{{dummy.dummy1.history2.action_date}}",
+  "content": "{{dummy.dummy1.history2.content}}",
+  "amount": "{{dummy.dummy1.history2.amount}}"
+}
+
+### 더미1 히스토리 등록하기-3
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history3.store_id}},
+  "action_date": "{{dummy.dummy1.history3.action_date}}",
+  "content": "{{dummy.dummy1.history3.content}}",
+  "amount": "{{dummy.dummy1.history3.amount}}"
+}
+
+### 더미1 히스토리 등록하기-4
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history4.store_id}},
+  "action_date": "{{dummy.dummy1.history4.action_date}}",
+  "content": "{{dummy.dummy1.history4.content}}",
+  "amount": "{{dummy.dummy1.history4.amount}}"
+}
+
+### 더미1 히스토리 등록하기-5
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history5.store_id}},
+  "action_date": "{{dummy.dummy1.history5.action_date}}",
+  "content": "{{dummy.dummy1.history5.content}}",
+  "amount": "{{dummy.dummy1.history5.amount}}"
+}
+
+### 더미1 히스토리 등록하기-6
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history6.store_id}},
+  "action_date": "{{dummy.dummy1.history6.action_date}}",
+  "content": "{{dummy.dummy1.history6.content}}",
+  "amount": "{{dummy.dummy1.history6.amount}}"
+}
+
+### 더미1 히스토리 등록하기-7
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history7.store_id}},
+  "action_date": "{{dummy.dummy1.history7.action_date}}",
+  "content": "{{dummy.dummy1.history7.content}}",
+  "amount": "{{dummy.dummy1.history7.amount}}"
+}
+
+### 더미1 히스토리 등록하기-8
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history8.store_id}},
+  "action_date": "{{dummy.dummy1.history8.action_date}}",
+  "content": "{{dummy.dummy1.history8.content}}",
+  "amount": "{{dummy.dummy1.history8.amount}}"
+}
+
+### 더미1 히스토리 등록하기-9
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy1.history9.store_id}},
+  "action_date": "{{dummy.dummy1.history9.action_date}}",
+  "content": "{{dummy.dummy1.history9.content}}",
+  "amount": "{{dummy.dummy1.history9.amount}}"
+}
+
+### 더미2 히스토리 등록하기-1
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history1.store_id}},
+  "action_date": "{{dummy.dummy2.history1.action_date}}",
+  "content": "{{dummy.dummy2.history1.content}}",
+  "amount": "{{dummy.dummy2.history1.amount}}"
+}
+
+### 더미2 히스토리 등록하기-2
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history2.store_id}},
+  "action_date": "{{dummy.dummy2.history2.action_date}}",
+  "content": "{{dummy.dummy2.history2.content}}",
+  "amount": "{{dummy.dummy2.history2.amount}}"
+}
+
+### 더미2 히스토리 등록하기-3
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history3.store_id}},
+  "action_date": "{{dummy.dummy2.history3.action_date}}",
+  "content": "{{dummy.dummy2.history3.content}}",
+  "amount": "{{dummy.dummy2.history3.amount}}"
+}
+
+### 더미2 히스토리 등록하기-4
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history4.store_id}},
+  "action_date": "{{dummy.dummy2.history4.action_date}}",
+  "content": "{{dummy.dummy2.history4.content}}",
+  "amount": "{{dummy.dummy2.history4.amount}}"
+}
+
+### 더미2 히스토리 등록하기-5
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history5.store_id}},
+  "action_date": "{{dummy.dummy2.history5.action_date}}",
+  "content": "{{dummy.dummy2.history5.content}}",
+  "amount": "{{dummy.dummy2.history5.amount}}"
+}
+
+### 더미2 히스토리 등록하기-6
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history6.store_id}},
+  "action_date": "{{dummy.dummy2.history6.action_date}}",
+  "content": "{{dummy.dummy2.history6.content}}",
+  "amount": "{{dummy.dummy2.history6.amount}}"
+}
+
+### 더미2 히스토리 등록하기-7
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history7.store_id}},
+  "action_date": "{{dummy.dummy2.history7.action_date}}",
+  "content": "{{dummy.dummy2.history7.content}}",
+  "amount": "{{dummy.dummy2.history7.amount}}"
+}
+
+### 더미2 히스토리 등록하기-8
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history8.store_id}},
+  "action_date": "{{dummy.dummy2.history8.action_date}}",
+  "content": "{{dummy.dummy2.history8.content}}",
+  "amount": "{{dummy.dummy2.history8.amount}}"
+}
+
+### 더미2 히스토리 등록하기-9
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy2.history9.store_id}},
+  "action_date": "{{dummy.dummy2.history9.action_date}}",
+  "content": "{{dummy.dummy2.history9.content}}",
+  "amount": "{{dummy.dummy2.history9.amount}}"
+}
+
+### 더미3 히스토리 등록하기-1
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history1.store_id}},
+  "action_date": "{{dummy.dummy3.history1.action_date}}",
+  "content": "{{dummy.dummy3.history1.content}}",
+  "amount": "{{dummy.dummy3.history1.amount}}"
+}
+
+### 더미3 히스토리 등록하기-2
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history2.store_id}},
+  "action_date": "{{dummy.dummy3.history2.action_date}}",
+  "content": "{{dummy.dummy3.history2.content}}",
+  "amount": "{{dummy.dummy3.history2.amount}}"
+}
+
+### 더미3 히스토리 등록하기-3
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history3.store_id}},
+  "action_date": "{{dummy.dummy3.history3.action_date}}",
+  "content": "{{dummy.dummy3.history3.content}}",
+  "amount": "{{dummy.dummy3.history3.amount}}"
+}
+
+### 더미3 히스토리 등록하기-4
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history4.store_id}},
+  "action_date": "{{dummy.dummy3.history4.action_date}}",
+  "content": "{{dummy.dummy3.history4.content}}",
+  "amount": "{{dummy.dummy3.history4.amount}}"
+}
+
+### 더미3 히스토리 등록하기-5
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history5.store_id}},
+  "action_date": "{{dummy.dummy3.history5.action_date}}",
+  "content": "{{dummy.dummy3.history5.content}}",
+  "amount": "{{dummy.dummy3.history5.amount}}"
+}
+
+### 더미3 히스토리 등록하기-6
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history6.store_id}},
+  "action_date": "{{dummy.dummy3.history6.action_date}}",
+  "content": "{{dummy.dummy3.history6.content}}",
+  "amount": "{{dummy.dummy3.history6.amount}}"
+}
+
+### 더미3 히스토리 등록하기-7
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history7.store_id}},
+  "action_date": "{{dummy.dummy3.history7.action_date}}",
+  "content": "{{dummy.dummy3.history7.content}}",
+  "amount": "{{dummy.dummy3.history7.amount}}"
+}
+
+### 더미3 히스토리 등록하기-8
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history8.store_id}},
+  "action_date": "{{dummy.dummy3.history8.action_date}}",
+  "content": "{{dummy.dummy3.history8.content}}",
+  "amount": "{{dummy.dummy3.history8.amount}}"
+}
+
+### 더미3 히스토리 등록하기-9
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy3.history9.store_id}},
+  "action_date": "{{dummy.dummy3.history9.action_date}}",
+  "content": "{{dummy.dummy3.history9.content}}",
+  "amount": "{{dummy.dummy3.history9.amount}}"
+}
+
+### 더미4 히스토리 등록하기-1
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history1.store_id}},
+  "action_date": "{{dummy.dummy4.history1.action_date}}",
+  "content": "{{dummy.dummy4.history1.content}}",
+  "amount": "{{dummy.dummy4.history1.amount}}"
+}
+
+### 더미4 히스토리 등록하기-2
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history2.store_id}},
+  "action_date": "{{dummy.dummy4.history2.action_date}}",
+  "content": "{{dummy.dummy4.history2.content}}",
+  "amount": "{{dummy.dummy4.history2.amount}}"
+}
+
+### 더미4 히스토리 등록하기-3
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history3.store_id}},
+  "action_date": "{{dummy.dummy4.history3.action_date}}",
+  "content": "{{dummy.dummy4.history3.content}}",
+  "amount": "{{dummy.dummy4.history3.amount}}"
+}
+
+### 더미4 히스토리 등록하기-4
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history4.store_id}},
+  "action_date": "{{dummy.dummy4.history4.action_date}}",
+  "content": "{{dummy.dummy4.history4.content}}",
+  "amount": "{{dummy.dummy4.history4.amount}}"
+}
+
+### 더미4 히스토리 등록하기-5
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history5.store_id}},
+  "action_date": "{{dummy.dummy4.history5.action_date}}",
+  "content": "{{dummy.dummy4.history5.content}}",
+  "amount": "{{dummy.dummy4.history5.amount}}"
+}
+
+### 더미4 히스토리 등록하기-6
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history6.store_id}},
+  "action_date": "{{dummy.dummy4.history6.action_date}}",
+  "content": "{{dummy.dummy4.history6.content}}",
+  "amount": "{{dummy.dummy4.history6.amount}}"
+}
+
+### 더미4 히스토리 등록하기-7
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history7.store_id}},
+  "action_date": "{{dummy.dummy4.history7.action_date}}",
+  "content": "{{dummy.dummy4.history7.content}}",
+  "amount": "{{dummy.dummy4.history7.amount}}"
+}
+
+### 더미4 히스토리 등록하기-8
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history8.store_id}},
+  "action_date": "{{dummy.dummy4.history8.action_date}}",
+  "content": "{{dummy.dummy4.history8.content}}",
+  "amount": "{{dummy.dummy4.history8.amount}}"
+}
+
+### 더미4 히스토리 등록하기-9
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy4.history9.store_id}},
+  "action_date": "{{dummy.dummy4.history9.action_date}}",
+  "content": "{{dummy.dummy4.history9.content}}",
+  "amount": "{{dummy.dummy4.history9.amount}}"
+}
+
+### 더미5 히스토리 등록하기-1
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history1.store_id}},
+  "action_date": "{{dummy.dummy5.history1.action_date}}",
+  "content": "{{dummy.dummy5.history1.content}}",
+  "amount": "{{dummy.dummy5.history1.amount}}"
+}
+
+### 더미5 히스토리 등록하기-2
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history2.store_id}},
+  "action_date": "{{dummy.dummy5.history2.action_date}}",
+  "content": "{{dummy.dummy5.history2.content}}",
+  "amount": "{{dummy.dummy5.history2.amount}}"
+}
+
+### 더미5 히스토리 등록하기-3
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history3.store_id}},
+  "action_date": "{{dummy.dummy5.history3.action_date}}",
+  "content": "{{dummy.dummy5.history3.content}}",
+  "amount": "{{dummy.dummy5.history3.amount}}"
+}
+
+### 더미5 히스토리 등록하기-4
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history4.store_id}},
+  "action_date": "{{dummy.dummy5.history4.action_date}}",
+  "content": "{{dummy.dummy5.history4.content}}",
+  "amount": "{{dummy.dummy5.history4.amount}}"
+}
+
+### 더미5 히스토리 등록하기-5
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history5.store_id}},
+  "action_date": "{{dummy.dummy5.history5.action_date}}",
+  "content": "{{dummy.dummy5.history5.content}}",
+  "amount": "{{dummy.dummy5.history5.amount}}"
+}
+
+### 더미5 히스토리 등록하기-6
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history6.store_id}},
+  "action_date": "{{dummy.dummy5.history6.action_date}}",
+  "content": "{{dummy.dummy5.history6.content}}",
+  "amount": "{{dummy.dummy5.history6.amount}}"
+}
+
+### 더미5 히스토리 등록하기-7
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history7.store_id}},
+  "action_date": "{{dummy.dummy5.history7.action_date}}",
+  "content": "{{dummy.dummy5.history7.content}}",
+  "amount": "{{dummy.dummy5.history7.amount}}"
+}
+
+### 더미5 히스토리 등록하기-8
+// @no-log
+POST {{host_url}}/api/v1/store-histories
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "store_id": {{dummy.dummy5.history8.store_id}},
+  "action_date": "{{dummy.dummy5.history8.action_date}}",
+  "content": "{{dummy.dummy5.history8.content}}",
+  "amount": "{{dummy.dummy5.history8.amount}}"
+}
