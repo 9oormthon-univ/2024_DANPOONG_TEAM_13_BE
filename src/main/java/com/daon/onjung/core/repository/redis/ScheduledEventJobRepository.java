@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ScheduledEventJobRepository extends CrudRepository<ScheduledEventJob, String> {
     @NotNull List<ScheduledEventJob> findAll();
+
+    void deleteByEventId(Long eventId);
 }
