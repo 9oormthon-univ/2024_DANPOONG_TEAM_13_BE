@@ -74,7 +74,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                     );
                 })
                 .filter(Objects::nonNull) // null 값 제거
-                .collect(Collectors.toList());
+                .collect(Collectors.<ReadOnjungEventOverviewResponseDto.EventDto>toList());
 
 
         // 페이지네이션
