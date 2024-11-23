@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface StoreHistoryRepository extends JpaRepository<StoreHistory, Long> {
-    List<StoreHistory> findByStoreOrderByActionDateAsc(Store store);
+    List<StoreHistory> findByStoreOrderByActionDateDesc(Store store);
 }

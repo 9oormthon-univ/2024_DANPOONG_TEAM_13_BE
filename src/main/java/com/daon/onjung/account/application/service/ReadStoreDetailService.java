@@ -69,7 +69,7 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
                 totalShareCount
         );
 
-        List<StoreHistory> storeHistories = storeHistoryRepository.findByStoreOrderByActionDateAsc(store);
+        List<StoreHistory> storeHistories = storeHistoryRepository.findByStoreOrderByActionDateDesc(store);
 
         // 그룹화: actionDate를 기준으로 그룹화
         Map<String, List<StoreHistory>> groupedByYearMonth = storeHistories.stream()
