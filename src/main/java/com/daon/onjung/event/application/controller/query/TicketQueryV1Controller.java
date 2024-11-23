@@ -2,9 +2,11 @@ package com.daon.onjung.event.application.controller.query;
 
 import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
+import com.daon.onjung.event.application.dto.response.ReadOnjungEventOverviewResponseDto;
 import com.daon.onjung.event.application.dto.response.ReadTicketBriefResponseDto;
 import com.daon.onjung.event.application.dto.response.ReadTicketCountResponseDto;
 import com.daon.onjung.event.application.dto.response.ReadTicketResponseDto;
+import com.daon.onjung.event.application.usecase.ReadOnjungEventOverviewUseCase;
 import com.daon.onjung.event.application.usecase.ReadTicketBriefUseCase;
 import com.daon.onjung.event.application.usecase.ReadTicketCountUseCase;
 import com.daon.onjung.event.application.usecase.ReadTicketUseCase;
@@ -21,6 +23,25 @@ public class TicketQueryV1Controller {
     private final ReadTicketUseCase readTicketUseCase;
     private final ReadTicketBriefUseCase readTicketBriefUseCase;
     private final ReadTicketCountUseCase readTicketCountUseCase;
+    private final ReadOnjungEventOverviewUseCase readOnjungEventOverviewUseCase;
+
+    /**
+     * 5.2 온기 우편함 조회하기
+     */
+    @GetMapping("/onjungs/events/overviews")
+    public ResponseDto<ReadOnjungEventOverviewResponseDto> readOnjungEventOverview(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @AccountID UUID accountId
+    ) {
+        return ResponseDto.ok(
+                readOnjungEventOverviewUseCase.execute(
+                        page,
+                        size,
+                        accountId
+                )
+        );
+    }
 
     /**
      * 5.3 나의 식권 조회하기

@@ -50,10 +50,16 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
+  "event_id": {{onjung.API_4_7.event_id}},
   "donation_amount": {{onjung.API_4_7.donation_amount}}
 }
 
-### 4.8 나의 온기 조회하기
+### 4.8 함께한 식당 조회하기
 // @no-log
 GET {{host_url}}/api/v1/users/onjungs/overviews
+Authorization: Bearer {{access_token}}
+
+### 4.9 나의 온기 조회하기
+// @no-log
+GET {{host_url}}/api/v1/users/onjungs/briefs
 Authorization: Bearer {{access_token}}

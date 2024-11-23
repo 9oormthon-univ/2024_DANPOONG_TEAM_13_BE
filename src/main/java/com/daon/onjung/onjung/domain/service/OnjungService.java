@@ -74,6 +74,27 @@ public class OnjungService {
         return uniqueUsers.size();
     }
 
+    // 온정 객체를 받아서, 가게 중복을 제외한 가게 리스트를 반환
+    public List<Store> getUniqueStoreList(Onjung onjung) {
+        Set<Store> uniqueStores = new HashSet<>();
+
+        // 각 리스트에서 Store 객체를 수집하여 Set에 추가
+        uniqueStores.addAll(onjung.getDonations().stream()
+                .map(Donation::getStore)
+                .collect(Collectors.toSet()));
+
+        uniqueStores.addAll(onjung.getReceipts().stream()
+                .map(Receipt::getStore)
+                .collect(Collectors.toSet()));
+
+        uniqueStores.addAll(onjung.getShares().stream()
+                .map(Share::getStore)
+                .collect(Collectors.toSet()));
+
+        return new ArrayList<>(uniqueStores);
+    }
+
+    // 온정 객체를 받아서 총 온정 금액을 계산
     public Integer calculateTotalOnjungAmount(Onjung onjung) {
         return onjung.getDonations().stream()
                 .map(Donation::getDonationAmount)
