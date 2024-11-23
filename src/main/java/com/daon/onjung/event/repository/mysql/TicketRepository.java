@@ -11,7 +11,7 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     // user로 Ticket 조회, expirationDate를 ASC로 정렬
-    Page<Ticket> findByUserOrderByExpirationDateDesc(User user, Pageable pageable);
+    Page<Ticket> findByUserOrderByExpirationDateAsc(User user, Pageable pageable);
 
     // user로 Ticket 수 조회
     Long countByUser(User user);
