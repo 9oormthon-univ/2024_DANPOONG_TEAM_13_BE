@@ -69,7 +69,7 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
                 totalShareCount
         );
 
-        List<StoreHistory> storeHistories = storeHistoryRepository.findByStoreOrderByActionDateDesc(store);
+        List<StoreHistory> storeHistories = storeHistoryRepository.findByStoreSortedByActionDate(store);
 
         // 그룹화: actionDate를 기준으로 그룹화
         Map<String, List<StoreHistory>> groupedByYearMonth = storeHistories.stream()
@@ -79,11 +79,13 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
 
 
         List<ReadStoreDetailResponseDto.StoreHistoryDto> storeHistoryDtos = groupedByYearMonth.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
+                .sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey())) // 키(yearMonth)를 기준으로 내림차순 정렬
                 .map(entry -> {
                     String yearMonth = entry.getKey();
+
+                    // 그룹화된 리스트를 actionDate 기준으로 내림차순 정렬
                     List<ReadStoreDetailResponseDto.StoreHistoryDto.StoreHistoryInfo> infos = entry.getValue().stream()
-                            .sorted(Comparator.comparing(StoreHistory::getActionDate)) // 그룹 안에서 시간순 정렬
+                            .sorted((sh1, sh2) -> sh2.getActionDate().compareTo(sh1.getActionDate())) // actionDate 기준 정렬
                             .map(ReadStoreDetailResponseDto.StoreHistoryDto::fromEntity) // StoreHistory -> StoreHistoryDto 변환
                             .flatMap(dto -> dto.getStoreHistoryInfo().stream()) // StoreHistoryInfo만 추출
                             .toList();
@@ -94,6 +96,7 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
                             .build();
                 })
                 .toList();
+
 
         return ReadStoreDetailResponseDto.fromEntity(storeInfoDto, eventInfoDto, onjungInfoDto, storeHistoryDtos);
     }
