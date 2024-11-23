@@ -25,7 +25,10 @@ public class SchedulerRecoveryListener implements CommandLineRunner {
     public void run(String... args) throws Exception {
         LocalDateTime now = LocalDateTime.now();
         List<ScheduledEventJob> pendingJobs = scheduledEventJobRepository.findAll();
-
+        log.info("미처리 Job 조회 완료. 조회된 Job 수: {}", pendingJobs.size());
+        if (pendingJobs.isEmpty()) {
+            return;
+        }
         for (ScheduledEventJob job : pendingJobs) {
             if (job.getScheduledTime().isAfter(now)) {
                 log.info("미래 작업 스케줄러에 재등록. eventId: {}", job.getEventId());
