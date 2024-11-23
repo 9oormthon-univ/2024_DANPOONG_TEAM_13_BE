@@ -129,4 +129,25 @@ public class OnjungService {
                 }))
                 .collect(Collectors.toList());
     }
+
+    // 온정 객체를 받아서 생성일 기준으로 반대 정렬
+    public List<Object> sortOnjungByCreatedAtDesc(Onjung onjung) {
+        List<Object> allEntities = new ArrayList<>();
+        allEntities.addAll(onjung.getDonations());
+        allEntities.addAll(onjung.getReceipts());
+        allEntities.addAll(onjung.getShares());
+
+        return allEntities.stream()
+                .sorted(Comparator.comparing(entity -> {
+                    if (entity instanceof Donation) {
+                        return ((Donation) entity).getCreatedAt();
+                    } else if (entity instanceof Receipt) {
+                        return ((Receipt) entity).getCreatedAt();
+                    } else if (entity instanceof Share) {
+                        return ((Share) entity).getCreatedAt().atStartOfDay();
+                    }
+                    throw new CommonException(ErrorCode.INVALID_ARGUMENT);
+                }).reversed())
+                .collect(Collectors.toList());
+    }
 }

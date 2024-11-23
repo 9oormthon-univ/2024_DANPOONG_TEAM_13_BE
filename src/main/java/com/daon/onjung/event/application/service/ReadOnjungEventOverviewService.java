@@ -64,9 +64,9 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
 
         Onjung onjung = onjungService.createOnjung(donations, receipts, shares);
 
-        List<Object> sortedOnjungByCreatedAt = onjungService.sortOnjungByCreatedAt(onjung);
+        List<Object> sortedOnjungByCreatedAtDesc = onjungService.sortOnjungByCreatedAtDesc(onjung);
 
-        List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAt.stream()
+        List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAtDesc.stream()
                 .map(entity -> {
                     if (entity instanceof Donation donation) {
                     // donation 날짜가 포함된 이벤트 가져오기
