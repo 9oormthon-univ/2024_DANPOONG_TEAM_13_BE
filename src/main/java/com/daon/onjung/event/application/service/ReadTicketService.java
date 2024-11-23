@@ -40,7 +40,7 @@ public class ReadTicketService implements ReadTicketUseCase {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        Page<Ticket> ticketsPage = ticketRepository.findByUserOrderByExpirationDateAsc(user, pageable);
+        Page<Ticket> ticketsPage = ticketRepository.findByUserOrderByIsValidateDescExpirationDateAsc(user, pageable);
 
         // dto로 변환
         List<ReadTicketResponseDto.TicketDto> ticketDtos = ticketsPage.stream()
