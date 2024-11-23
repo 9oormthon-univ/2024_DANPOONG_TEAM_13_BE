@@ -39,14 +39,8 @@ public class ReadStoreOverviewService implements ReadStoreOverviewUseCase {
         // title null 처리
         title = storeService.convertToTitle(title);
 
-        Page<Store> storesPage = storeRepository.findStoresByEarliestEventOrdered(title, onjungTagsList, pageable);
+        Page<Store> storesPage = storeRepository.findStores(title, onjungTagsList, pageable);
 
-        /*
-        // 상점이 없을 경우
-        if (storeList.isEmpty()) {
-            return new ReadStoreOverviewsResponseDto(false, List.of());
-        }
-         */
         // total onjung count별 정렬
         List<ReadStoreOverviewsResponseDto.StoreOverviewDto> storeOverviewDtos = storesPage.stream()
                 .map(store -> {

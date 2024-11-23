@@ -24,16 +24,12 @@ public interface StoreRepository extends JpaRepository <Store, Long> {
     Optional<Store> findWithOnjungTagsById(Long id);
 
     @Query("SELECT s FROM Store s " +
-            "LEFT JOIN s.events e ON e.endDate = ( " +
-            "   SELECT MIN(e1.endDate) FROM Event e1 " +
-            "   WHERE e1.store.id = s.id AND e1.endDate > CURRENT_DATE" +
-            ") " +
             "LEFT JOIN s.onjungTags tag " +
             "WHERE (:title IS NULL OR s.title LIKE %:title%) " +
             "AND (:onjungTags IS NULL OR tag IN :onjungTags) " +
             "GROUP BY s.id " +
-            "ORDER BY MIN(e.endDate) ASC")
-    Page<Store> findStoresByEarliestEventOrdered(
+            "ORDER BY s.id ASC") // 정렬 기준을 ID로 유지하거나 원하는 기준으로 수정
+    Page<Store> findStores(
             @Param("title") String title,
             @Param("onjungTags") List<EOnjungTag> onjungTags,
             Pageable pageable
