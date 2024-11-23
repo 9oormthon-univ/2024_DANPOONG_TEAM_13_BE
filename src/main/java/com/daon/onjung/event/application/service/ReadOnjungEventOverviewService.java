@@ -101,7 +101,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                                 DateTimeUtil.convertLocalDateTimeToSHORTKORString(receipt.getCreatedAt()),
                             EOnjungType.fromString("RECEIPT"),
                                 EStatus.COMPLETED,
-                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(receipt.getCreatedAt().toLocalDate()),
+                                DateTimeUtil.convertLocalDateToDotSeparatedDateTime(receipt.getPaymentDate()),
                             null,
                             null,
                             null
