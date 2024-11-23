@@ -70,7 +70,7 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                 .map(entity -> {
                     if (entity instanceof Donation donation) {
                     // donation 날짜가 포함된 이벤트 가져오기
-                    Event event = eventRepository.findFirstEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
+                    Event event = eventRepository.findTopEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
                             .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
