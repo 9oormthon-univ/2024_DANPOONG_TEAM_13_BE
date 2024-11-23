@@ -51,11 +51,11 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
         ReadStoreDetailResponseDto.StoreInfoDto storeInfoDto = ReadStoreDetailResponseDto.StoreInfoDto.fromEntity(store);
 
         // event 정보
-        Integer totalAmount = getTotalAmount(id);
+        Integer totalAmount = getTotalAmount(event.getBankId());
 
         ReadStoreDetailResponseDto.EventInfoDto eventInfoDto = ReadStoreDetailResponseDto.EventInfoDto.of(totalAmount, eventService.getRestOfDate(event));
 
-        // onjung 정보 (null 값 대신 0으로
+        // onjung 정보 (null 값 대신 0으로)
         Integer totalOnjungCount = Optional.ofNullable(storeRepository.countUsersByStoreId(id)).orElse(0);
         Integer totalDonationAmount = Optional.ofNullable(storeRepository.sumDonationAmountByStoreId(id)).orElse(0);
         Integer totalReceiptAmount = Optional.ofNullable(storeRepository.sumReceiptAmountByStoreId(id)).orElse(0);
@@ -96,8 +96,8 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
     }
 
     // bank api 호출
-    private Integer getTotalAmount(Long storeId) {
-        String url = bankUtil.createReadVirtualAccountRequestUrl(storeId);
+    private Integer getTotalAmount(Long eventId) {
+        String url = bankUtil.createReadVirtualAccountRequestUrl(eventId);
 
         HttpHeaders headers = bankUtil.createVirtualAccountRequestHeaders();
 
