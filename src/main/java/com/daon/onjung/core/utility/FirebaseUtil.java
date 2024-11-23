@@ -37,6 +37,8 @@ public class FirebaseUtil {
     private static final String JSON_BODY_KEY_NOTIFICATION = "notification";
     private static final String JSON_BODY_KEY_MESSAGE = "message";
     private static final String JSON_BODY_KEY_VALIDATE_ONLY = "validate_only";
+    private static final String TITLE_DATA = "\uD83C\uDF89 1만원 금액 식권 당첨";
+    private static final String BODY_DATA = "지금 바로 클릭해서 따뜻한 한 끼를 확인해 보세요!";
 
     public String createFirebaseRequestUrl() {
         return UriComponentsBuilder.fromHttpUrl(GOOGLE_NOTIFICATION_URL)
@@ -77,10 +79,12 @@ public class FirebaseUtil {
         JSONObject messageBody = new JSONObject();
 
         JSONObject notificationJson = new JSONObject();
-        notificationJson.put(JSON_BODY_KEY_TITLE, "\uD83C\uDF89 1만원 금액 식권 당첨");
-        notificationJson.put(JSON_BODY_KEY_BODY, "지금 바로 클릭해서 따뜻한 한 끼를 확인해 보세요!");
+        notificationJson.put(JSON_BODY_KEY_TITLE, TITLE_DATA);
+        notificationJson.put(JSON_BODY_KEY_BODY, BODY_DATA);
 
         JSONObject dataJson = new JSONObject();
+        dataJson.put("title", TITLE_DATA);
+        dataJson.put("body", BODY_DATA);
         dataJson.put("store_name", storeName);
         dataJson.put("user_name", userName);
         dataJson.put("category", category);
