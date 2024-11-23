@@ -121,7 +121,7 @@ public class OnjungService {
                     if (entity instanceof Donation) {
                         return ((Donation) entity).getCreatedAt();
                     } else if (entity instanceof Receipt) {
-                        return ((Receipt) entity).getCreatedAt();
+                        return ((Receipt) entity).getPaymentDate().atTime(0, 0);
                     } else if (entity instanceof Share) {
                         return ((Share) entity).getCreatedAt().atStartOfDay();
                     }
