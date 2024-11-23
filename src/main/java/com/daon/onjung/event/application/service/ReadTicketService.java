@@ -10,6 +10,7 @@ import com.daon.onjung.event.application.usecase.ReadTicketUseCase;
 import com.daon.onjung.event.domain.Ticket;
 import com.daon.onjung.event.repository.mysql.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,31 +40,19 @@ public class ReadTicketService implements ReadTicketUseCase {
         User user = userRepository.findById(accountId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        List<Ticket> tickets = ticketRepository.findByUserOrderByExpirationDateAsc(user);
-
-        // 티켓이 없을 경우
-        if (tickets.isEmpty()) {
-            return new ReadTicketResponseDto(false, List.of());
-        }
+        Page<Ticket> ticketsPage = ticketRepository.findByUserOrderByExpirationDateAsc(user, pageable);
 
         // dto로 변환
-        List<ReadTicketResponseDto.TicketDto> ticketDtos = tickets.stream()
+        List<ReadTicketResponseDto.TicketDto> ticketDtos = ticketsPage.stream()
                 .map(ticket -> {
                     Store store = ticket.getStore();
                     return ReadTicketResponseDto.TicketDto.fromEntity(ticket, store);
                 })
                 .toList();
 
-
-        // 페이지네이션
-        int start = (int) pageable.getOffset();
-        int end = Math.min(start + pageable.getPageSize(), tickets.size());
-        List<ReadTicketResponseDto.TicketDto> pagedStoreOverviewDtos = ticketDtos.subList(start, end);
-
-
         return ReadTicketResponseDto.fromPage(
-                pagedStoreOverviewDtos,
-                end < tickets.size()
+                ticketDtos,
+                ticketsPage.hasNext()
         );
     }
 }
