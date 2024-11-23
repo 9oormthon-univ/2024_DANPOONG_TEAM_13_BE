@@ -37,7 +37,6 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
 
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
-    private final StoreRepository storeRepository;
     private final DonationRepository donationRepository;
     private final ReceiptRepository receiptRepository;
     private final ShareRepository shareRepository;
@@ -69,8 +68,9 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
         List<ReadOnjungEventOverviewResponseDto.EventDto> eventDtos = sortedOnjungByCreatedAt.stream()
                 .map(entity -> {
                     if (entity instanceof Donation donation) {
-                    // Store에 해당하는 가장 최근 이벤트 가져오기
-                    Event event = eventRepository.findMostRecentEventByStore(donation.getStore());
+                    // donation 날짜가 포함된 이벤트 가져오기
+                    Event event = eventRepository.findEventByStoreAndLocalDate(donation.getStore().getId(), donation.getCreatedAt().toLocalDate())
+                            .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
                             ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
@@ -86,8 +86,10 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                             DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
                     );
                     } else if (entity instanceof Receipt receipt) {
-                    // Store에 해당하는 가장 최근 이벤트 가져오기
-                    Event event = eventRepository.findMostRecentEventByStore(receipt.getStore());
+                    // receipt 날짜가 포함된 이벤트 가져오기
+                    Event event = eventRepository.findEventByStoreAndLocalDate(receipt.getStore().getId(), receipt.getCreatedAt().toLocalDate())
+                            .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
                             ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
@@ -103,8 +105,9 @@ public class ReadOnjungEventOverviewService implements ReadOnjungEventOverviewUs
                             DateTimeUtil.convertLocalDateToDotSeparatedDateTime(event.getReportDate())
                     );
                     } else if (entity instanceof Share share) {
-                    // Store에 해당하는 가장 최근 이벤트 가져오기
-                    Event event = eventRepository.findMostRecentEventByStore(share.getStore());
+                    // share 날짜가 포함된 이벤트 가져오기
+                    Event event = eventRepository.findEventByStoreAndLocalDate(share.getStore().getId(), share.getCreatedAt())
+                            .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
                         return ReadOnjungEventOverviewResponseDto.EventDto.fromEntity(
                             ReadOnjungEventOverviewResponseDto.EventDto.StoreInfoDto.fromEntity(
