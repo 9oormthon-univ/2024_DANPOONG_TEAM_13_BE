@@ -21,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -78,9 +79,11 @@ public class ReadStoreDetailService implements ReadStoreDetailUseCase {
 
 
         List<ReadStoreDetailResponseDto.StoreHistoryDto> storeHistoryDtos = groupedByYearMonth.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
                 .map(entry -> {
                     String yearMonth = entry.getKey();
                     List<ReadStoreDetailResponseDto.StoreHistoryDto.StoreHistoryInfo> infos = entry.getValue().stream()
+                            .sorted(Comparator.comparing(StoreHistory::getActionDate)) // 그룹 안에서 시간순 정렬
                             .map(ReadStoreDetailResponseDto.StoreHistoryDto::fromEntity) // StoreHistory -> StoreHistoryDto 변환
                             .flatMap(dto -> dto.getStoreHistoryInfo().stream()) // StoreHistoryInfo만 추출
                             .toList();
