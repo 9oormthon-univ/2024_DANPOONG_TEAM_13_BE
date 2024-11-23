@@ -35,6 +35,10 @@ public class ReadUserOnjungOverviewResponseDto extends SelfValidating<ReadUserOn
         @NotNull(message = "onjung_type은 null일 수 없습니다.")
         private final String onjungType;
 
+        @JsonProperty("store_id")
+        @NotNull(message = "store_id는 null일 수 없습니다.")
+        private final Long storeId;
+
         @JsonProperty("store_name")
         @NotNull(message = "store_name은 null일 수 없습니다.")
         private final String storeName;
@@ -42,6 +46,10 @@ public class ReadUserOnjungOverviewResponseDto extends SelfValidating<ReadUserOn
         @JsonProperty("store_title")
         @NotNull(message = "store_title은 null일 수 없습니다.")
         private final String storeTitle;
+
+        @JsonProperty("logo_img_url")
+        @NotNull(message = "logo_img_url은 null일 수 없습니다.")
+        private final String logoImgUrl;
 
         @JsonProperty("amount")
         @NotNull(message = "amount는 null일 수 없습니다.")
@@ -52,20 +60,24 @@ public class ReadUserOnjungOverviewResponseDto extends SelfValidating<ReadUserOn
         private final String date;
 
         @Builder
-        public StoreDto(String onjungType, String storeName, String storeTitle, Integer amount, String date) {
+        public StoreDto(String onjungType, Long storeId, String storeName, String storeTitle, String logoImgUrl, Integer amount, String date) {
             this.onjungType = onjungType;
+            this.storeId = storeId;
             this.storeName = storeName;
             this.storeTitle = storeTitle;
+            this.logoImgUrl = logoImgUrl;
             this.amount = amount;
             this.date = date;
             this.validateSelf();
         }
 
-        public static StoreDto of(String onjungType, String storeName, String storeTitle, Integer amount, String date) {
+        public static StoreDto of(String onjungType, Long storeId, String storeName, String storeTitle, String logoImgUrl, Integer amount, String date) {
             return StoreDto.builder()
                     .onjungType(onjungType)
+                    .storeId(storeId)
                     .storeName(storeName)
                     .storeTitle(storeTitle)
+                    .logoImgUrl(logoImgUrl)
                     .amount(amount)
                     .date(date)
                     .build();
@@ -79,24 +91,30 @@ public class ReadUserOnjungOverviewResponseDto extends SelfValidating<ReadUserOn
                     if (entity instanceof Donation donation) {
                         return StoreDto.of(
                                 "DONATION",
+                                donation.getStore().getId(),
                                 donation.getStore().getName(),
                                 donation.getStore().getTitle(),
+                                donation.getStore().getLogoImgUrl(),
                                 donation.getDonationAmount(),
                                 DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(donation.getCreatedAt())
                         );
                     } else if (entity instanceof Receipt receipt) {
                         return StoreDto.of(
                                 "RECEIPT",
+                                receipt.getStore().getId(),
                                 receipt.getStore().getName(),
                                 receipt.getStore().getTitle(),
+                                receipt.getStore().getLogoImgUrl(),
                                 receipt.getPaymentAmount(),
                                 DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(receipt.getCreatedAt())
                         );
                     } else if (entity instanceof Share share) {
                         return StoreDto.of(
                                 "SHARE",
+                                share.getStore().getId(),
                                 share.getStore().getName(),
                                 share.getStore().getTitle(),
+                                share.getStore().getLogoImgUrl(),
                                 share.getCount() * 100,
                                 DateTimeUtil.convertLocalDateTimeToDotSeparatedDateTime(share.getCreatedAt().atStartOfDay())
                         );

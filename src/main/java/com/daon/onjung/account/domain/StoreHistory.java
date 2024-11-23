@@ -29,7 +29,7 @@ public class StoreHistory {
     @Column(name = "content", length = 30, nullable = false)
     private String content;
 
-    @Column(name = "amount")
+    @Column(name = "amount", length = 50, nullable = false)
     private String amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
