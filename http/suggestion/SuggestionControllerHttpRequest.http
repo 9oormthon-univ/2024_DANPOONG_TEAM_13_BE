@@ -1,0 +1,6 @@
+### 6.1 게시글 리스트 조회
+// @no-log
+GET {{host_url}}/api/v1/boards/overviews?
+    page={{suggestion.API_6_1.page}}&
+    size={{suggestion.API_6_1.size}}
+Authorization: Bearer {{access_token}}

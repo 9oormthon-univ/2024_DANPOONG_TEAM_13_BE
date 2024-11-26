@@ -274,5 +274,37 @@ public class DateTimeUtil {
         }
         throw new IllegalArgumentException("Unrecognized date format: " + dateString);
     }
+
+    /**
+     * 게시글 및 댓글 작성 시간이 현재로부터 얼마나되었는지를 계산하여 반환
+     *
+     * @param postedAt 작성 시각
+     * @return 게시글 작성 시각과 현재 시각의 차이(예: 1분 전, 1시간 전, 1일 전, 1달 전, 1년 전)
+     */
+    public static String calculatePostedAgo(LocalDateTime postedAt) {
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(postedAt, now);
+
+        long seconds = duration.getSeconds();
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        long months = days / 30;
+        long years = days / 365;
+
+        if (minutes < 1) {
+            return seconds + "초 전";
+        } else if (hours < 1) {
+            return minutes + "분 전";
+        } else if (days < 1) {
+            return hours + "시간 전";
+        } else if (months < 1) {
+            return days + "일 전";
+        } else if (years < 1) {
+            return months + "달 전";
+        } else {
+            return years + "년 전";
+        }
+    }
 }
 
