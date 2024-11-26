@@ -37,3 +37,13 @@ Content-Disposition: form-data; name="file"; filename="image.png"
 Content-Type: image/png
 
 < /Users/kyeom/Desktop/1_banner.png
+
+### 6.5 댓글 등록하기
+// @no-log
+POST {{host_url}}/api/v1/boards/{{suggestion.API_6_5.id}}/comments
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "content": "{{suggestion.API_6_5.content}}"
+}
