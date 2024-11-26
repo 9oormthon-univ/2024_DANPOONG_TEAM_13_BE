@@ -9,3 +9,10 @@ Authorization: Bearer {{access_token}}
 // @no-log
 GET {{host_url}}/api/v1/boards/{{suggestion.API_6_2.id}}/details
 Authorization: Bearer {{access_token}}
+
+### 6.3 댓글 조회
+// @no-log
+GET {{host_url}}/api/v1/boards/{{suggestion.API_6_3.id}}/comments/overviews?
+    page={{suggestion.API_6_3.page}}&
+    size={{suggestion.API_6_3.size}}
+Authorization: Bearer {{access_token}}
