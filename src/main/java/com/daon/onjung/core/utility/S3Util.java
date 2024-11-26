@@ -28,7 +28,7 @@ public class S3Util {
     @Value("${cloud.aws.s3.url}")
     private String bucketUrl;
 
-    public String uploadImageFile(MultipartFile file, String serialId, EImageType eImageType) {
+    public String uploadImageFile(MultipartFile file, String id, EImageType eImageType) {
         try {
             String fileName = UUID.randomUUID().toString();
             ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -36,9 +36,10 @@ public class S3Util {
             objectMetadata.setContentType(file.getContentType());
 
             String key = switch (eImageType) {
-                case BANNER_IMG -> "account_" + serialId + "/banner_" + fileName;
-                case LOGO_IMG -> "account_" + serialId + "/logo_" + fileName;
-                case COMPANY_IMG -> "company_" + serialId + "/image_" + fileName;
+                case BANNER_IMG -> "account_" + id + "/banner_" + fileName;
+                case LOGO_IMG -> "account_" + id + "/logo_" + fileName;
+                case COMPANY_IMG -> "company_" + id + "/image_" + fileName;
+                case BOARD_IMG -> "board_" + id + "/image_" + fileName;
             };
 
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, file.getInputStream(), objectMetadata);

@@ -16,3 +16,24 @@ GET {{host_url}}/api/v1/boards/{{suggestion.API_6_3.id}}/comments/overviews?
     page={{suggestion.API_6_3.page}}&
     size={{suggestion.API_6_3.size}}
 Authorization: Bearer {{access_token}}
+
+### 6.4 게시글 등록하기
+// @no-log
+POST {{host_url}}/api/v1/boards
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer {{access_token}}
+
+--boundary
+Content-Disposition: form-data; name="body"
+Content-Type: application/json
+
+    {
+        "title": "{{suggestion.API_6_4.title}}",
+        "content": "{{suggestion.API_6_4.content}}"
+    }
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="image.png"
+Content-Type: image/png
+
+< /Users/kyeom/Desktop/1_banner.png

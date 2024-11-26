@@ -53,13 +53,15 @@ public class Board {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Board(String title, String content, String imgUrl, User user) {
+    public Board(String title, String content, User user) {
         this.title = title;
         this.content = content;
-        this.imgUrl = imgUrl;
         this.user = user;
         this.likeCount = 0;
         this.createdAt = LocalDateTime.now();
     }
 
+    public void updateImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }
