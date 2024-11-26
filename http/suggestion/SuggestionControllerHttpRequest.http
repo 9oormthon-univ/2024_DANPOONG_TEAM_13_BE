@@ -4,3 +4,8 @@ GET {{host_url}}/api/v1/boards/overviews?
     page={{suggestion.API_6_1.page}}&
     size={{suggestion.API_6_1.size}}
 Authorization: Bearer {{access_token}}
+
+### 6.2 게시글 상세 정보 조회
+// @no-log
+GET {{host_url}}/api/v1/boards/{{suggestion.API_6_2.id}}/details
+Authorization: Bearer {{access_token}}

@@ -1,13 +1,15 @@
 package com.daon.onjung.suggestion.application.controller.query;
 
+import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
+import com.daon.onjung.suggestion.application.dto.response.ReadBoardDetailResponseDto;
 import com.daon.onjung.suggestion.application.dto.response.ReadBoardOverviewResponseDto;
+import com.daon.onjung.suggestion.application.usecase.ReadBoardDetailUseCase;
 import com.daon.onjung.suggestion.application.usecase.ReadBoardOverviewUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SuggestionQueryV1Controller {
 
     private final ReadBoardOverviewUseCase readBoardOverviewUseCase;
+    private final ReadBoardDetailUseCase readBoardDetailUseCase;
 
     @GetMapping("/boards/overviews")
     public ResponseDto<ReadBoardOverviewResponseDto> readBoardOverview(
@@ -23,4 +26,13 @@ public class SuggestionQueryV1Controller {
     ) {
         return ResponseDto.ok(readBoardOverviewUseCase.execute(page, size));
     }
+
+    @GetMapping("/boards/{id}/details")
+    public ResponseDto<ReadBoardDetailResponseDto> readBoardDetail(
+            @AccountID UUID accountId,
+            @PathVariable Long id
+    ) {
+        return ResponseDto.ok(readBoardDetailUseCase.execute(accountId, id));
+    }
+
 }
