@@ -6,6 +6,7 @@ import com.daon.onjung.suggestion.application.dto.request.CreateBoardRequestDto;
 import com.daon.onjung.suggestion.application.dto.request.CreateCommentRequestDto;
 import com.daon.onjung.suggestion.application.usecase.CreateBoardUseCase;
 import com.daon.onjung.suggestion.application.usecase.CreateCommentUseCase;
+import com.daon.onjung.suggestion.application.usecase.CreateOrDeleteLikeUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ public class SuggestionCommandV1Controller {
 
     private final CreateBoardUseCase createBoardUseCase;
     private final CreateCommentUseCase createCommentUseCase;
+    private final CreateOrDeleteLikeUseCase createOrDeleteLikeUseCase;
 
     @PostMapping(value = "/api/v1/boards", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseDto<Void> createBoard(
@@ -41,4 +43,15 @@ public class SuggestionCommandV1Controller {
         return ResponseDto.created(null);
     }
 
+    @PutMapping("/api/v1/boards/{id}/likes")
+    public ResponseDto<Void> likeBoard(
+            @AccountID UUID accountId,
+            @PathVariable Long id
+    ) {
+        if (createOrDeleteLikeUseCase.execute(accountId, id)) {
+            return ResponseDto.created(null);
+        } else {
+            return ResponseDto.ok(null);
+        }
+    }
 }

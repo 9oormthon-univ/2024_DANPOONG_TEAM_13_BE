@@ -47,3 +47,8 @@ Authorization: Bearer {{access_token}}
 {
     "content": "{{suggestion.API_6_5.content}}"
 }
+
+### 6.6 게시글 좋아요
+// @no-log
+PUT {{host_url}}/api/v1/boards/{{suggestion.API_6_6.id}}/likes
+Authorization: Bearer {{access_token}}
