@@ -49,9 +49,13 @@ public class ReadBoardDetailService implements ReadBoardDetailUseCase {
         // 작성자 조회
         User writer = board.getUser();
 
+        // 작성자가 본인인지 여부 조회
+        Boolean isMe = writer.getId().equals(user.getId());
+
         return ReadBoardDetailResponseDto.of(
                 board,
                 writer,
+                isMe,
                 likeCount,
                 commentCount,
                 isLiked

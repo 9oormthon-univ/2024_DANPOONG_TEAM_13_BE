@@ -37,15 +37,19 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
         @JsonProperty("masked_nickname")
         private final String maskedNickname;
 
+        @JsonProperty("is_me")
+        private final Boolean isMe;
+
         @Builder
-        public WriterInfoDto(String profileImgUrl, String maskedNickname) {
+        public WriterInfoDto(String profileImgUrl, String maskedNickname, Boolean isMe) {
             this.profileImgUrl = profileImgUrl;
             this.maskedNickname = maskedNickname;
+            this.isMe = isMe;
 
             this.validateSelf();
         }
 
-        public static WriterInfoDto fromEntity(User user) {
+        public static WriterInfoDto of(User user, Boolean isMe) {
 
             String nickname = user.getNickName();
             String maskedNickname;
@@ -64,6 +68,7 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
             return WriterInfoDto.builder()
                     .maskedNickname(maskedNickname)
                     .profileImgUrl(user.getProfileImgUrl())
+                    .isMe(isMe)
                     .build();
         }
     }
@@ -138,9 +143,9 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
         }
     }
 
-    public static ReadBoardDetailResponseDto of(Board board, User user, Integer likeCount, Integer commentCount, Boolean isLiked) {
+    public static ReadBoardDetailResponseDto of(Board board, User user, Boolean isMe, Integer likeCount, Integer commentCount, Boolean isLiked) {
         return ReadBoardDetailResponseDto.builder()
-                .writerInfo(WriterInfoDto.fromEntity(user))
+                .writerInfo(WriterInfoDto.of(user, isMe))
                 .boardInfo(BoardInfoDto.of(board, likeCount, commentCount, isLiked))
                 .build();
     }
