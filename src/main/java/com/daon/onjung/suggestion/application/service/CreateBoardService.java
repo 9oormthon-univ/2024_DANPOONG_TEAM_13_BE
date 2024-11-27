@@ -7,6 +7,7 @@ import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.core.utility.S3Util;
 import com.daon.onjung.security.domain.type.EImageType;
 import com.daon.onjung.suggestion.application.dto.request.CreateBoardRequestDto;
+import com.daon.onjung.suggestion.application.dto.response.CreateBoardResponseDto;
 import com.daon.onjung.suggestion.application.usecase.CreateBoardUseCase;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.domain.service.BoardService;
@@ -31,7 +32,7 @@ public class CreateBoardService implements CreateBoardUseCase {
 
     @Override
     @Transactional
-    public void execute(UUID accountId, MultipartFile file, CreateBoardRequestDto requestDto) {
+    public CreateBoardResponseDto execute(UUID accountId, MultipartFile file, CreateBoardRequestDto requestDto) {
 
         // 유저 조회
         User user = userRepository.findById(accountId)
@@ -51,5 +52,7 @@ public class CreateBoardService implements CreateBoardUseCase {
             board = boardService.updateBoardFile(board, imgUrl);
             boardRepository.save(board);
         }
+
+        return CreateBoardResponseDto.of(board.getId());
     }
 }

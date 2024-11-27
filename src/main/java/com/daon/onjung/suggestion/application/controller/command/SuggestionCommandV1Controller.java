@@ -4,6 +4,7 @@ import com.daon.onjung.core.annotation.security.AccountID;
 import com.daon.onjung.core.dto.ResponseDto;
 import com.daon.onjung.suggestion.application.dto.request.CreateBoardRequestDto;
 import com.daon.onjung.suggestion.application.dto.request.CreateCommentRequestDto;
+import com.daon.onjung.suggestion.application.dto.response.CreateBoardResponseDto;
 import com.daon.onjung.suggestion.application.dto.response.CreateCommentResponseDto;
 import com.daon.onjung.suggestion.application.dto.response.CreateOrDeleteLikeResponseDto;
 import com.daon.onjung.suggestion.application.usecase.CreateBoardUseCase;
@@ -26,13 +27,12 @@ public class SuggestionCommandV1Controller {
     private final CreateOrDeleteLikeUseCase createOrDeleteLikeUseCase;
 
     @PostMapping(value = "/api/v1/boards", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseDto<Void> createBoard(
+    public ResponseDto<CreateBoardResponseDto> createBoard(
             @AccountID UUID accountId,
             @RequestPart(value = "file", required = false) MultipartFile file,
             @RequestPart("body") @Valid CreateBoardRequestDto requestDto
     ) {
-        createBoardUseCase.execute(accountId, file, requestDto);
-        return ResponseDto.created(null);
+        return ResponseDto.created(createBoardUseCase.execute(accountId, file, requestDto));
     }
 
     @PostMapping("/api/v1/boards/{id}/comments")
