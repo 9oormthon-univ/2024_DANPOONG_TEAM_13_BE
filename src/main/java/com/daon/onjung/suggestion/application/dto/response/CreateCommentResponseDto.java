@@ -78,14 +78,14 @@ public class CreateCommentResponseDto extends SelfValidating<CreateCommentRespon
         @JsonProperty("content")
         private final String content;
 
-        @JsonProperty("posted_at")
-        private final String postedAt;
+        @JsonProperty("posted_ago")
+        private final String postedAgo;
 
         @Builder
-        public CommentInfoDto(Long id, String content, String postedAt) {
+        public CommentInfoDto(Long id, String content, String postedAgo) {
             this.id = id;
             this.content = content;
-            this.postedAt = postedAt;
+            this.postedAgo = postedAgo;
 
             this.validateSelf();
         }
@@ -94,7 +94,7 @@ public class CreateCommentResponseDto extends SelfValidating<CreateCommentRespon
             return CommentInfoDto.builder()
                     .id(comment.getId())
                     .content(comment.getContent())
-                    .postedAt(DateTimeUtil.calculatePostedAgo(comment.getCreatedAt()))
+                    .postedAgo(DateTimeUtil.calculatePostedAgo(comment.getCreatedAt()))
                     .build();
         }
     }
