@@ -5,6 +5,7 @@ import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.request.CommentMessage;
+import com.daon.onjung.suggestion.application.dto.response.CreateCommentResponseDto;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.domain.Comment;
 import com.daon.onjung.suggestion.domain.service.BoardService;
@@ -13,7 +14,9 @@ import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.dialect.lock.OptimisticEntityLockException;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +31,11 @@ public class CommentV1Consumer {
     private final CommentService commentService;
     private final BoardService boardService;
 
+    private final RabbitTemplate rabbitTemplate;
+
     @Transactional
     @RabbitListener(queues = "comment-queue-1")
-    public void processCommentMessage1(CommentMessage commentMessage) {
+    public CreateCommentResponseDto processCommentMessage1(CommentMessage commentMessage, Message amqpMessage) {
         try {
 
             // 게시글 조회
@@ -52,6 +57,8 @@ public class CommentV1Consumer {
             // 게시글 댓글 수 증가
             board = boardService.addCommentCount(board);
             boardRepository.save(board);
+
+            return CreateCommentResponseDto.of(user, true, comment);
         } catch (OptimisticEntityLockException e) {
             throw new CommonException(ErrorCode.OPTIMISTIC_EXCEPTION);
         }
@@ -59,7 +66,7 @@ public class CommentV1Consumer {
 
     @Transactional
     @RabbitListener(queues = "comment-queue-2")
-    public void processCommentMessage2(CommentMessage commentMessage) {
+    public CreateCommentResponseDto processCommentMessage2(CommentMessage commentMessage, Message amqpMessage) {
         try {
 
             // 게시글 조회
@@ -81,6 +88,8 @@ public class CommentV1Consumer {
             // 게시글 댓글 수 증가
             board = boardService.addCommentCount(board);
             boardRepository.save(board);
+
+            return CreateCommentResponseDto.of(user, true, comment);
         } catch (OptimisticEntityLockException e) {
             throw new CommonException(ErrorCode.OPTIMISTIC_EXCEPTION);
         }

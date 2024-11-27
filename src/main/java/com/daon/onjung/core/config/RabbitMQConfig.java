@@ -52,7 +52,9 @@ public class RabbitMQConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(jsonMessageConverter()); // JSON 컨버터 설정
+        rabbitTemplate.setMessageConverter(jsonMessageConverter());
+        rabbitTemplate.setReplyTimeout(5000);
+        rabbitTemplate.setUseDirectReplyToContainer(true);
         return rabbitTemplate;
     }
 }

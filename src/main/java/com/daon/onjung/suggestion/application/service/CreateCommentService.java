@@ -7,6 +7,7 @@ import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.controller.producer.CommentV1Producer;
 import com.daon.onjung.suggestion.application.dto.request.CommentMessage;
 import com.daon.onjung.suggestion.application.dto.request.CreateCommentRequestDto;
+import com.daon.onjung.suggestion.application.dto.response.CreateCommentResponseDto;
 import com.daon.onjung.suggestion.application.usecase.CreateCommentUseCase;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
@@ -27,7 +28,7 @@ public class CreateCommentService implements CreateCommentUseCase {
 
     @Override
     @Transactional
-    public void execute(UUID accountId, Long boardId, CreateCommentRequestDto requestDto) {
+    public CreateCommentResponseDto execute(UUID accountId, Long boardId, CreateCommentRequestDto requestDto) {
 
         // 유저 조회
         User user = userRepository.findById(accountId)
@@ -38,7 +39,7 @@ public class CreateCommentService implements CreateCommentUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         // 댓글 생성 요청 발송
-        commentProducer.sendComment(CommentMessage.builder()
+        return commentProducer.sendComment(CommentMessage.builder()
                         .content(requestDto.content())
                         .userId(user.getId())
                         .boardId(board.getId())
