@@ -36,6 +36,9 @@ public class Board {
     @Column(name = "like_count", nullable = false)
     private Integer likeCount;
 
+    @Column(name = "comment_count", nullable = false)
+    private Integer commentCount;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -58,10 +61,20 @@ public class Board {
         this.content = content;
         this.user = user;
         this.likeCount = 0;
+        this.commentCount = 0;
         this.createdAt = LocalDateTime.now();
     }
 
     public void updateImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public void updateLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void
+    updateCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }

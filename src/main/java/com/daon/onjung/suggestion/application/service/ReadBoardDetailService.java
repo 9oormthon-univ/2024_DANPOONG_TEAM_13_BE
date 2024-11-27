@@ -8,7 +8,6 @@ import com.daon.onjung.suggestion.application.dto.response.ReadBoardDetailRespon
 import com.daon.onjung.suggestion.application.usecase.ReadBoardDetailUseCase;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
-import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
 import com.daon.onjung.suggestion.repository.mysql.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ public class ReadBoardDetailService implements ReadBoardDetailUseCase {
 
     private final BoardRepository boardRepository;
     private final LikeRepository likeRepository;
-    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
     @Override
@@ -37,12 +35,6 @@ public class ReadBoardDetailService implements ReadBoardDetailUseCase {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        // 좋아요 개수 조회
-        Integer likeCount = likeRepository.countByBoard(board);
-
-        // 댓글 개수 조회
-        Integer commentCount = commentRepository.countByBoard(board);
-
         // 좋아요 여부 조회
         Boolean isLiked = likeRepository.existsByBoardAndUser(board, user);
 
@@ -56,8 +48,6 @@ public class ReadBoardDetailService implements ReadBoardDetailUseCase {
                 board,
                 writer,
                 isMe,
-                likeCount,
-                commentCount,
                 isLiked
         );
     }

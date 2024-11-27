@@ -8,6 +8,7 @@ import com.daon.onjung.suggestion.application.dto.request.CreateCommentRequestDt
 import com.daon.onjung.suggestion.application.usecase.CreateCommentUseCase;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.domain.Comment;
+import com.daon.onjung.suggestion.domain.service.BoardService;
 import com.daon.onjung.suggestion.domain.service.CommentService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
@@ -26,6 +27,7 @@ public class CreateCommentService implements CreateCommentUseCase {
     private final CommentRepository commentRepository;
 
     private final CommentService commentService;
+    private final BoardService boardService;
 
     @Override
     @Transactional
@@ -46,5 +48,9 @@ public class CreateCommentService implements CreateCommentUseCase {
                 board
         );
         commentRepository.save(comment);
+
+        // 게시글 댓글 수 증가
+        board = boardService.addCommentCount(board);
+        boardRepository.save(board);
     }
 }

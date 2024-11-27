@@ -73,19 +73,15 @@ public class ReadBoardOverviewResponseDto extends SelfValidating<ReadBoardOvervi
             this.validateSelf();
         }
 
-        public static BoardListDto of(
-                Board board,
-                Integer likeCount,
-                Integer commentCount
-        ) {
+        public static BoardListDto fromEntity(Board board) {
             return BoardListDto.builder()
                     .id(board.getId())
                     .imgUrl(board.getImgUrl())
                     .titleSummary(board.getTitle().length() > 15 ? board.getTitle().substring(0, 15) + "..." : board.getTitle())
                     .contentSummary(board.getContent().length() > 30 ? board.getContent().substring(0, 30) + "..." : board.getContent())
                     .postedAgo(DateTimeUtil.calculatePostedAgo(board.getCreatedAt()))
-                    .likeCount(likeCount)
-                    .commentCount(commentCount)
+                    .likeCount(board.getLikeCount())
+                    .commentCount(board.getCommentCount())
                     .build();
         }
     }

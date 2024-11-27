@@ -126,8 +126,6 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
 
         public static BoardInfoDto of(
                 Board board,
-                Integer likeCount,
-                Integer commentCount,
                 Boolean isLiked
         ) {
             return BoardInfoDto.builder()
@@ -136,17 +134,17 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
                     .title(board.getTitle())
                     .content(board.getContent())
                     .postedAgo(DateTimeUtil.calculatePostedAgo(board.getCreatedAt()))
-                    .likeCount(likeCount)
-                    .commentCount(commentCount)
+                    .likeCount(board.getLikeCount())
+                    .commentCount(board.getCommentCount())
                     .isLiked(isLiked)
                     .build();
         }
     }
 
-    public static ReadBoardDetailResponseDto of(Board board, User user, Boolean isMe, Integer likeCount, Integer commentCount, Boolean isLiked) {
+    public static ReadBoardDetailResponseDto of(Board board, User user, Boolean isMe, Boolean isLiked) {
         return ReadBoardDetailResponseDto.builder()
                 .writerInfo(WriterInfoDto.of(user, isMe))
-                .boardInfo(BoardInfoDto.of(board, likeCount, commentCount, isLiked))
+                .boardInfo(BoardInfoDto.of(board, isLiked))
                 .build();
     }
 

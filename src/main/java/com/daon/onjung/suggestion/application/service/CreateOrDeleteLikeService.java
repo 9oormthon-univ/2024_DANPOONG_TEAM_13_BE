@@ -7,6 +7,7 @@ import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.usecase.CreateOrDeleteLikeUseCase;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.domain.Like;
+import com.daon.onjung.suggestion.domain.service.BoardService;
 import com.daon.onjung.suggestion.domain.service.LikeService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import com.daon.onjung.suggestion.repository.mysql.LikeRepository;
@@ -23,7 +24,10 @@ public class CreateOrDeleteLikeService implements CreateOrDeleteLikeUseCase {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+
+    private final BoardService boardService;
     private final LikeService likeService;
+
 
     @Override
     @Transactional
@@ -43,10 +47,24 @@ public class CreateOrDeleteLikeService implements CreateOrDeleteLikeUseCase {
 
         // 좋아요 생성 또는 삭제
         if (like != null) {
+
+            // 좋아요가 이미 존재하면 삭제
             likeRepository.delete(like);
+
+            // 게시글 좋아요 수 감소
+            board = boardService.subtractLikeCount(board);
+            boardRepository.save(board);
+
             return false;
         } else {
+
+            // 좋아요가 존재하지 않으면 생성
             likeRepository.save(likeService.createLike(user,board));
+
+            // 게시글 좋아요 수 증가
+            board = boardService.addLikeCount(board);
+            boardRepository.save(board);
+
             return true;
         }
     }

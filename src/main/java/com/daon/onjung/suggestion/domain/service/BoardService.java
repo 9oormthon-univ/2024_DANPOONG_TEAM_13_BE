@@ -23,4 +23,24 @@ public class BoardService {
         board.updateImgUrl(imgUrl);
         return board;
     }
+
+    public Board addLikeCount(Board board) {
+        board.updateLikeCount(board.getLikeCount() + 1);
+        return board;
+    }
+
+    public Board subtractLikeCount(Board board) {
+        board.updateLikeCount(board.getLikeCount() - 1);
+        return board;
+    }
+
+    public Board addCommentCount(Board board) {
+        board.updateCommentCount(board.getCommentCount() + 1);
+        return board;
+    }
+
+    public Board subtractCommentCount(Board board) {
+        board.updateCommentCount(board.getCommentCount() - 1);
+        return board;
+    }
 }
