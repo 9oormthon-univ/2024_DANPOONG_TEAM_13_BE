@@ -5,6 +5,7 @@ import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.request.LikeMessage;
+import com.daon.onjung.suggestion.application.dto.response.CreateOrDeleteLikeResponseDto;
 import com.daon.onjung.suggestion.domain.Board;
 import com.daon.onjung.suggestion.domain.Like;
 import com.daon.onjung.suggestion.domain.service.BoardService;
@@ -30,7 +31,7 @@ public class LikeV1Consumer {
 
     @Transactional
     @RabbitListener(queues = "like-queue")
-    public void processLikeMessage(LikeMessage likeMessage) {
+    public Boolean processLikeMessage(LikeMessage likeMessage) {
         try {
 
             // 게시글 조회
@@ -52,6 +53,7 @@ public class LikeV1Consumer {
                 // 게시글 좋아요 수 감소
                 board = boardService.subtractLikeCount(board);
                 boardRepository.save(board);
+                return false;
             } else {
 
                 // 좋아요가 존재하지 않으면 생성
@@ -60,6 +62,7 @@ public class LikeV1Consumer {
                 // 게시글 좋아요 수 증가
                 board = boardService.addLikeCount(board);
                 boardRepository.save(board);
+                return true;
             }
         } catch (OptimisticEntityLockException e) {
             throw new CommonException(ErrorCode.OPTIMISTIC_EXCEPTION);

@@ -14,7 +14,6 @@ import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.dialect.lock.OptimisticEntityLockException;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class CommentV1Consumer {
 
     @Transactional
     @RabbitListener(queues = "comment-queue-1")
-    public CreateCommentResponseDto processCommentMessage1(CommentMessage commentMessage, Message amqpMessage) {
+    public CreateCommentResponseDto processCommentMessage1(CommentMessage commentMessage) {
         try {
 
             // 게시글 조회
@@ -66,7 +65,7 @@ public class CommentV1Consumer {
 
     @Transactional
     @RabbitListener(queues = "comment-queue-2")
-    public CreateCommentResponseDto processCommentMessage2(CommentMessage commentMessage, Message amqpMessage) {
+    public CreateCommentResponseDto processCommentMessage2(CommentMessage commentMessage) {
         try {
 
             // 게시글 조회
