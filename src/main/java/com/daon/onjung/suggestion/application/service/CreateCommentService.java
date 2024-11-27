@@ -4,14 +4,12 @@ import com.daon.onjung.account.domain.User;
 import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
+import com.daon.onjung.suggestion.application.controller.producer.CommentV1Producer;
+import com.daon.onjung.suggestion.application.dto.request.CommentMessage;
 import com.daon.onjung.suggestion.application.dto.request.CreateCommentRequestDto;
 import com.daon.onjung.suggestion.application.usecase.CreateCommentUseCase;
 import com.daon.onjung.suggestion.domain.Board;
-import com.daon.onjung.suggestion.domain.Comment;
-import com.daon.onjung.suggestion.domain.service.BoardService;
-import com.daon.onjung.suggestion.domain.service.CommentService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
-import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +22,8 @@ public class CreateCommentService implements CreateCommentUseCase {
 
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
-    private final CommentRepository commentRepository;
 
-    private final CommentService commentService;
-    private final BoardService boardService;
+    private final CommentV1Producer commentProducer;
 
     @Override
     @Transactional
@@ -41,16 +37,12 @@ public class CreateCommentService implements CreateCommentUseCase {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        // 댓글 생성
-        Comment comment = commentService.createComment(
-                requestDto.content(),
-                user,
-                board
+        // 댓글 생성 요청 발송
+        commentProducer.sendComment(CommentMessage.builder()
+                        .content(requestDto.content())
+                        .userId(user.getId())
+                        .boardId(board.getId())
+                        .build()
         );
-        commentRepository.save(comment);
-
-        // 게시글 댓글 수 증가
-        board = boardService.addCommentCount(board);
-        boardRepository.save(board);
     }
 }
