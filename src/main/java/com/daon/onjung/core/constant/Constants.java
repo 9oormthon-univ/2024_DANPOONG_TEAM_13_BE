@@ -39,7 +39,11 @@ public class Constants {
             "/api-docs.html",
             "/api-docs/**",
             "/swagger-ui/**",
-            "/v3/**"
+            "/v3/**",
+
+            // prometheus
+            "/actuator/",
+            "/actuator/**"
     );
 
     /**
