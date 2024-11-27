@@ -39,6 +39,9 @@ public class Board {
     @Column(name = "comment_count", nullable = false)
     private Integer commentCount;
 
+    @Version // Optimistic Lock 사용
+    private Long version;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
