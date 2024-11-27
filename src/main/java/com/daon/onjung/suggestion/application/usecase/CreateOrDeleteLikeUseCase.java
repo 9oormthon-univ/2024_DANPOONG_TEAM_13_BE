@@ -7,5 +7,5 @@ import java.util.UUID;
 @UseCase
 public interface CreateOrDeleteLikeUseCase {
 
-    Boolean execute(UUID accountId, Long boardId);
+    void execute(UUID accountId, Long boardId);
 }

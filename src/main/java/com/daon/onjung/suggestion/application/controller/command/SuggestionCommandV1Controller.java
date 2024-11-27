@@ -48,10 +48,7 @@ public class SuggestionCommandV1Controller {
             @AccountID UUID accountId,
             @PathVariable Long id
     ) {
-        if (createOrDeleteLikeUseCase.execute(accountId, id)) {
-            return ResponseDto.created(null);
-        } else {
-            return ResponseDto.ok(null);
-        }
+        createOrDeleteLikeUseCase.execute(accountId, id);
+        return ResponseDto.ok(null);
     }
 }
