@@ -1,6 +1,6 @@
 package com.daon.onjung.suggestion.repository.mysql;
 
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

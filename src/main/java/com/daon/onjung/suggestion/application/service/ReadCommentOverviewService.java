@@ -6,7 +6,7 @@ import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.response.ReadCommentOverviewResponseDto;
 import com.daon.onjung.suggestion.application.usecase.ReadCommentOverviewUseCase;
-import com.daon.onjung.suggestion.domain.Comment;
+import com.daon.onjung.suggestion.domain.mysql.Comment;
 import com.daon.onjung.suggestion.repository.mysql.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

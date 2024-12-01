@@ -74,7 +74,7 @@ public class Store {
     /* -------------------------------------------- */
     /* One To One Mapping ------------------------ */
     /* -------------------------------------------- */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private Owner owner;
 

@@ -1,8 +1,8 @@
 package com.daon.onjung.suggestion.repository.mysql;
 
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.suggestion.domain.Board;
-import com.daon.onjung.suggestion.domain.Like;
+import com.daon.onjung.suggestion.domain.mysql.Board;
+import com.daon.onjung.suggestion.domain.mysql.Like;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

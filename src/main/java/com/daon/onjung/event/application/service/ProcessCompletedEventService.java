@@ -4,7 +4,6 @@ import com.daon.onjung.account.domain.Store;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.account.domain.type.EBankName;
 import com.daon.onjung.account.repository.mysql.UserRepository;
-import com.daon.onjung.event.domain.service.ScheduledEventJobService;
 import com.daon.onjung.core.dto.CreateVirtualAccountResponseDto;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
@@ -16,9 +15,11 @@ import com.daon.onjung.event.application.usecase.ProcessCompletedEventUseCase;
 import com.daon.onjung.event.domain.mysql.Event;
 import com.daon.onjung.event.domain.mysql.Ticket;
 import com.daon.onjung.event.domain.service.EventService;
+import com.daon.onjung.event.domain.service.ScheduledEventJobService;
 import com.daon.onjung.event.domain.service.TicketService;
 import com.daon.onjung.event.repository.mysql.EventRepository;
 import com.daon.onjung.event.repository.mysql.TicketRepository;
+import com.daon.onjung.event.repository.redis.ScheduledEventJobRepository;
 import com.daon.onjung.onjung.repository.mysql.DonationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,7 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final DonationRepository donationRepository;
+    private final ScheduledEventJobRepository scheduledEventJobRepository;
 
     private final EventService eventService;
     private final TicketService ticketService;
@@ -54,6 +56,11 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
     @Override
     @Transactional
     public void execute(Long eventId) {
+
+        // eventId를 통해 ScheduledEventJob을 삭제
+        scheduledEventJobRepository.findByEventId(eventId)
+                .ifPresent(scheduledEventJobRepository::delete);
+        log.info("ScheduledEventJob 삭제 완료. eventId: {}", eventId);
 
         // 이벤트 조회
         Event currentEvent = eventRepository.findById(eventId)

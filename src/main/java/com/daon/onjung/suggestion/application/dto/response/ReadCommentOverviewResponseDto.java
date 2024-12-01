@@ -3,7 +3,7 @@ package com.daon.onjung.suggestion.application.dto.response;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.core.utility.DateTimeUtil;
-import com.daon.onjung.suggestion.domain.Comment;
+import com.daon.onjung.suggestion.domain.mysql.Comment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;

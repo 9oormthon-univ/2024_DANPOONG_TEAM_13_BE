@@ -2,7 +2,7 @@ package com.daon.onjung.suggestion.application.service;
 
 import com.daon.onjung.suggestion.application.dto.response.ReadBoardOverviewResponseDto;
 import com.daon.onjung.suggestion.application.usecase.ReadBoardOverviewUseCase;
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

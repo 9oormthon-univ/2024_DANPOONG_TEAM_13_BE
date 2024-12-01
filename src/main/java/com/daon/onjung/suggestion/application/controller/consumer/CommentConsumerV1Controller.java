@@ -6,8 +6,8 @@ import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.request.CommentMessage;
 import com.daon.onjung.suggestion.application.dto.response.CreateCommentResponseDto;
-import com.daon.onjung.suggestion.domain.Board;
-import com.daon.onjung.suggestion.domain.Comment;
+import com.daon.onjung.suggestion.domain.mysql.Board;
+import com.daon.onjung.suggestion.domain.mysql.Comment;
 import com.daon.onjung.suggestion.domain.service.BoardService;
 import com.daon.onjung.suggestion.domain.service.CommentService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class CommentV1Consumer {
+public class CommentConsumerV1Controller {
 
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;

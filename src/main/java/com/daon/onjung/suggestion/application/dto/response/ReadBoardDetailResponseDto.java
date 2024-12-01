@@ -3,13 +3,15 @@ package com.daon.onjung.suggestion.application.dto.response;
 import com.daon.onjung.account.domain.User;
 import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.core.utility.DateTimeUtil;
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 @Getter
 public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverviewResponseDto> {
@@ -93,9 +95,17 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
         @Size(min = 1, max = 500, message = "내용은 1자 이상 500자 이하여야 합니다")
         private final String content;
 
+        @JsonProperty("status")
+        @NotNull(message = "status는 null일 수 없습니다.")
+        private final String status;
+
         @JsonProperty("posted_ago")
         @NotNull(message = "posted_ago는 null일 수 없습니다.")
         private final String postedAgo;
+
+        @JsonProperty("goal_count")
+        @NotNull(message = "goal_count는 null일 수 없습니다.")
+        private final Integer goalCount;
 
         @JsonProperty("like_count")
         @NotNull(message = "like_count는 null일 수 없습니다.")
@@ -110,16 +120,33 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
         @JsonProperty("is_liked")
         private final Boolean isLiked;
 
+        @JsonProperty("start_date")
+        @NotNull(message = "start_date는 null일 수 없습니다.")
+        private final String startDate;
+
+        @JsonProperty("end_date")
+        @NotNull(message = "end_date는 null일 수 없습니다.")
+        private final String endDate;
+
+        @JsonProperty("remaining_days")
+        @NotNull(message = "remaining_days는 null일 수 없습니다.")
+        private final Integer remainingDays;
+
         @Builder
-        public BoardInfoDto(Long id, String imgUrl, String title, String content, String postedAgo, Integer likeCount, Integer commentCount, Boolean isLiked) {
+        public BoardInfoDto(Long id, String imgUrl, String title, String content, String status, String postedAgo, Integer goalCount,  Integer likeCount, Integer commentCount, Boolean isLiked, String startDate, String endDate, Integer remainingDays) {
             this.id = id;
             this.imgUrl = imgUrl;
             this.title = title;
             this.content = content;
+            this.status = status;
             this.postedAgo = postedAgo;
+            this.goalCount = goalCount;
             this.likeCount = likeCount;
             this.commentCount = commentCount;
             this.isLiked = isLiked;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.remainingDays = remainingDays;
 
             this.validateSelf();
         }
@@ -133,10 +160,15 @@ public class ReadBoardDetailResponseDto extends SelfValidating<ReadBoardOverview
                     .imgUrl(board.getImgUrl())
                     .title(board.getTitle())
                     .content(board.getContent())
+                    .status(board.getStatus().toString())
                     .postedAgo(DateTimeUtil.calculatePostedAgo(board.getCreatedAt()))
+                    .goalCount(100) // 기획상 100으로 고정
                     .likeCount(board.getLikeCount())
                     .commentCount(board.getCommentCount())
                     .isLiked(isLiked)
+                    .startDate(DateTimeUtil.convertLocalDateToDotSeparatedDateTime(board.getStartDate()))
+                    .endDate(DateTimeUtil.convertLocalDateToDotSeparatedDateTime(board.getEndDate()))
+                    .remainingDays(DateTimeUtil.calculateDaysBetween(LocalDate.now(), board.getEndDate()))
                     .build();
         }
     }

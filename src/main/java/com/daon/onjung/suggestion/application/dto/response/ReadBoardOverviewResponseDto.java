@@ -2,7 +2,7 @@ package com.daon.onjung.suggestion.application.dto.response;
 
 import com.daon.onjung.core.dto.SelfValidating;
 import com.daon.onjung.core.utility.DateTimeUtil;
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -38,13 +38,17 @@ public class ReadBoardOverviewResponseDto extends SelfValidating<ReadBoardOvervi
         @JsonProperty("img_url")
         private final String imgUrl;
 
+        @JsonProperty("status")
+        @NotNull(message = "status는 null일 수 없습니다.")
+        private final String status;
+
         @JsonProperty("title_summary")
-        @Size(min = 1, max = 18, message = "제목은 1자 이상 18자 이하여야 합니다.")
+        @Size(min = 1, max = 30, message = "제목은 1자 이상 30자 이하여야 합니다.")
         @NotNull(message = "제목은 null일 수 없습니다.")
         private final String titleSummary;
 
         @JsonProperty("content_summary")
-        @Size(min = 1, max = 33, message = "내용은 1자 이상 33자 이하여야 합니다.")
+        @Size(min = 1, max = 60, message = "내용은 1자 이상 60자 이하여야 합니다.")
         @NotNull(message = "내용은 null일 수 없습니다.")
         private final String contentSummary;
 
@@ -61,9 +65,10 @@ public class ReadBoardOverviewResponseDto extends SelfValidating<ReadBoardOvervi
         private final Integer commentCount;
 
         @Builder
-        public BoardListDto(Long id, String imgUrl, String titleSummary, String contentSummary, String postedAgo, Integer likeCount, Integer commentCount) {
+        public BoardListDto(Long id, String imgUrl, String status, String titleSummary, String contentSummary, String postedAgo, Integer likeCount, Integer commentCount) {
             this.id = id;
             this.imgUrl = imgUrl;
+            this.status = status;
             this.titleSummary = titleSummary;
             this.contentSummary = contentSummary;
             this.postedAgo = postedAgo;
@@ -77,8 +82,9 @@ public class ReadBoardOverviewResponseDto extends SelfValidating<ReadBoardOvervi
             return BoardListDto.builder()
                     .id(board.getId())
                     .imgUrl(board.getImgUrl())
-                    .titleSummary(board.getTitle().length() > 15 ? board.getTitle().substring(0, 15) + "..." : board.getTitle())
-                    .contentSummary(board.getContent().length() > 30 ? board.getContent().substring(0, 30) + "..." : board.getContent())
+                    .status(board.getStatus().toString())
+                    .titleSummary(board.getTitle().length() > 30 ? board.getTitle().substring(0, 15) : board.getTitle())
+                    .contentSummary(board.getContent().length() > 30 ? board.getContent().substring(0, 60) : board.getContent())
                     .postedAgo(DateTimeUtil.calculatePostedAgo(board.getCreatedAt()))
                     .likeCount(board.getLikeCount())
                     .commentCount(board.getCommentCount())

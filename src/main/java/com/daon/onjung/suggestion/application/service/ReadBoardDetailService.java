@@ -6,7 +6,7 @@ import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.response.ReadBoardDetailResponseDto;
 import com.daon.onjung.suggestion.application.usecase.ReadBoardDetailUseCase;
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import com.daon.onjung.suggestion.repository.mysql.LikeRepository;
 import lombok.RequiredArgsConstructor;

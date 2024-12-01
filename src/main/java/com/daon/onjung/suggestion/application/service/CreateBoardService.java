@@ -9,14 +9,17 @@ import com.daon.onjung.security.domain.type.EImageType;
 import com.daon.onjung.suggestion.application.dto.request.CreateBoardRequestDto;
 import com.daon.onjung.suggestion.application.dto.response.CreateBoardResponseDto;
 import com.daon.onjung.suggestion.application.usecase.CreateBoardUseCase;
-import com.daon.onjung.suggestion.domain.Board;
+import com.daon.onjung.suggestion.domain.mysql.Board;
 import com.daon.onjung.suggestion.domain.service.BoardService;
+import com.daon.onjung.suggestion.domain.service.ScheduledBoardJobService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -27,8 +30,10 @@ public class CreateBoardService implements CreateBoardUseCase {
     private final BoardRepository boardRepository;
 
     private final BoardService boardService;
+    private final ScheduledBoardJobService scheduledBoardJobService;
 
     private final S3Util s3Util;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     @Transactional
@@ -52,6 +57,15 @@ public class CreateBoardService implements CreateBoardUseCase {
             board = boardService.updateBoardFile(board, imgUrl);
             boardRepository.save(board);
         }
+
+        applicationEventPublisher.publishEvent(
+            scheduledBoardJobService.createScheduledJob(
+                    board.getId(),
+//                    board.getEndDate().plusDays(1).atStartOfDay()
+                    LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+            )
+        );
+
 
         return CreateBoardResponseDto.of(board.getId());
     }

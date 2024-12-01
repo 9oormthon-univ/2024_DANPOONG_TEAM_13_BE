@@ -5,9 +5,8 @@ import com.daon.onjung.account.repository.mysql.UserRepository;
 import com.daon.onjung.core.exception.error.ErrorCode;
 import com.daon.onjung.core.exception.type.CommonException;
 import com.daon.onjung.suggestion.application.dto.request.LikeMessage;
-import com.daon.onjung.suggestion.application.dto.response.CreateOrDeleteLikeResponseDto;
-import com.daon.onjung.suggestion.domain.Board;
-import com.daon.onjung.suggestion.domain.Like;
+import com.daon.onjung.suggestion.domain.mysql.Board;
+import com.daon.onjung.suggestion.domain.mysql.Like;
 import com.daon.onjung.suggestion.domain.service.BoardService;
 import com.daon.onjung.suggestion.domain.service.LikeService;
 import com.daon.onjung.suggestion.repository.mysql.BoardRepository;
@@ -20,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class LikeV1Consumer {
+public class LikeConsumerV1Controller {
 
     private final LikeRepository likeRepository;
     private final BoardRepository boardRepository;

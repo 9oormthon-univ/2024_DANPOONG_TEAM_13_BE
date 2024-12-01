@@ -1,4 +1,4 @@
-package com.daon.onjung.suggestion.domain;
+package com.daon.onjung.suggestion.domain.mysql;
 
 import com.daon.onjung.account.domain.User;
 import jakarta.persistence.*;

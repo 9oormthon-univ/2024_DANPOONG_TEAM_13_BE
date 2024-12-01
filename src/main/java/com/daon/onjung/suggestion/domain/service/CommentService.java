@@ -1,8 +1,8 @@
 package com.daon.onjung.suggestion.domain.service;
 
 import com.daon.onjung.account.domain.User;
-import com.daon.onjung.suggestion.domain.Board;
-import com.daon.onjung.suggestion.domain.Comment;
+import com.daon.onjung.suggestion.domain.mysql.Board;
+import com.daon.onjung.suggestion.domain.mysql.Comment;
 import org.springframework.stereotype.Service;
 
 @Service
