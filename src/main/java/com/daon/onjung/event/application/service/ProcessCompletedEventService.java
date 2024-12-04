@@ -100,8 +100,8 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
         applicationEventPublisher.publishEvent(
                 scheduledEventJobService.createScheduledJob(
                         newEvent.getId(),
-                        newEvent.getEndDate().plusDays(1).atStartOfDay()
-//                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+//                        newEvent.getEndDate().plusDays(1).atStartOfDay()
+                        LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
                 )
         );
 
