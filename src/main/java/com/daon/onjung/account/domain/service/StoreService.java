@@ -23,8 +23,10 @@ public class StoreService {
             ECategory category,
             String introduction,
             String ocrStoreName,
-            String ocrStoreAddress
-            , Owner owner) {
+            String ocrStoreAddress,
+            Double latitude,
+            Double longitude,
+            Owner owner) {
         return Store.builder()
                 .title(title)
                 .bannerImgUrl(bannerImgUrl)
@@ -36,6 +38,8 @@ public class StoreService {
                 .introduction(introduction)
                 .ocrStoreName(ocrStoreName)
                 .ocrStoreAddress(ocrStoreAddress)
+                .latitude(latitude)
+                .longitude(longitude)
                 .owner(owner)
                 .build();
     }

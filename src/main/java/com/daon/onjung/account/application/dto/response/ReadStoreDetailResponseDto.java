@@ -90,6 +90,12 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
         @JsonProperty("introduction")
         private final String introduction;
 
+        @JsonProperty("latitude")
+        private final Double latitude;
+
+        @JsonProperty("longitude")
+        private final Double longitude;
+
         @Builder
         public StoreInfoDto(
                 String bannerImgUrl,
@@ -100,7 +106,9 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
                 String name,
                 String category,
                 String address,
-                String introduction
+                String introduction,
+                Double latitude,
+                Double longitude
         ) {
             this.bannerImgUrl = bannerImgUrl;
             this.tags = tags;
@@ -111,6 +119,8 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
             this.category = category;
             this.address = address;
             this.introduction = introduction;
+            this.latitude = latitude;
+            this.longitude = longitude;
         }
 
         public static StoreInfoDto fromEntity(Store store) {
@@ -124,6 +134,8 @@ public class ReadStoreDetailResponseDto extends SelfValidating<ReadStoreOverview
                     .category(store.getCategory().name())
                     .address(store.getOcrStoreAddress())
                     .introduction(store.getIntroduction())
+                    .latitude(store.getLatitude())
+                    .longitude(store.getLongitude())
                     .build();
         }
     }

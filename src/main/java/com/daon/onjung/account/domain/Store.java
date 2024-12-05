@@ -65,6 +65,12 @@ public class Store {
     @Column(name = "ocr_store_address", length = 100, nullable = false)
     private String ocrStoreAddress;
 
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
     /* -------------------------------------------- */
     /* Timestamp Column --------------------------- */
     /* -------------------------------------------- */
@@ -91,7 +97,7 @@ public class Store {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Store(String title, String bannerImgUrl, Set<EOnjungTag> onjungTags, String youtubeUrl, String logoImgUrl, String name, ECategory category, String introduction, String ocrStoreName, String ocrStoreAddress, Owner owner) {
+    public Store(String title, String bannerImgUrl, Set<EOnjungTag> onjungTags, String youtubeUrl, String logoImgUrl, String name, ECategory category, String introduction, String ocrStoreName, String ocrStoreAddress, Double latitude, Double longitude, Owner owner) {
        this.title = title;
        this.onjungTags = onjungTags;
        this.bannerImgUrl = bannerImgUrl;
@@ -102,6 +108,8 @@ public class Store {
        this.introduction = introduction;
        this.ocrStoreName = ocrStoreName;
        this.ocrStoreAddress = ocrStoreAddress;
+       this.latitude = latitude;
+       this.longitude = longitude;
        this.createdAt = LocalDateTime.now();
        this.owner = owner;
     }

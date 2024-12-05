@@ -59,7 +59,15 @@ public record SignUpOwnerByDefaultRequestDto(
             @NotNull
             @Size(min = 1, max = 100)
             @JsonProperty("introduction")
-            String introduction
+            String introduction,
+
+            @NotNull
+            @JsonProperty("latitude")
+            Double latitude,
+
+            @NotNull
+            @JsonProperty("longitude")
+            Double longitude
     ) {}
 
     public record OcrInfo(

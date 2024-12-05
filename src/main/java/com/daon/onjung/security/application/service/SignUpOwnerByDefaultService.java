@@ -87,6 +87,8 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
                 requestDto.storeInfo().introduction(),
                 requestDto.ocrInfo().storeName(),
                 requestDto.ocrInfo().addressName(),
+                requestDto.storeInfo().latitude(),
+                requestDto.storeInfo().longitude(),
                 owner
         );
         storeRepository.save(store);

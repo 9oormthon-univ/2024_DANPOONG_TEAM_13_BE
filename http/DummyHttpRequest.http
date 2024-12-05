@@ -29,7 +29,9 @@ Content-Type: application/json
 		"youtube_url" : "{{dummy.dummy1.store_info.youtube_url}}",
 		"name" : "{{dummy.dummy1.store_info.name}}",
 		"category" : "{{dummy.dummy1.store_info.category}}",
-		"introduction" : "{{dummy.dummy1.store_info.introduction}}"
+		"introduction" : "{{dummy.dummy1.store_info.introduction}}",
+		"latitude" : "{{dummy.dummy1.store_info.latitude}}",
+		"longitude" : "{{dummy.dummy1.store_info.longitude}}"
 	},
 	"ocr_info" :
 	{
@@ -74,9 +76,10 @@ Content-Type: application/json
         "title" : "{{dummy.dummy2.store_info.title}}",
         "youtube_url" : "{{dummy.dummy2.store_info.youtube_url}}",
         "name" : "{{dummy.dummy2.store_info.name}}",
-
         "category" : "{{dummy.dummy2.store_info.category}}",
-        "introduction" : "{{dummy.dummy2.store_info.introduction}}"
+        "introduction" : "{{dummy.dummy2.store_info.introduction}}",
+        "latitude" : "{{dummy.dummy2.store_info.latitude}}",
+		"longitude" : "{{dummy.dummy2.store_info.longitude}}"
     },
     "ocr_info" :
     {
@@ -121,7 +124,9 @@ Content-Type: application/json
         "youtube_url" : "{{dummy.dummy3.store_info.youtube_url}}",
         "name" : "{{dummy.dummy3.store_info.name}}",
         "category" : "{{dummy.dummy3.store_info.category}}",
-        "introduction" : "{{dummy.dummy3.store_info.introduction}}"
+        "introduction" : "{{dummy.dummy3.store_info.introduction}}",
+        "latitude" : "{{dummy.dummy3.store_info.latitude}}",
+		"longitude" : "{{dummy.dummy3.store_info.longitude}}"
     },
     "ocr_info" :
     {
@@ -166,7 +171,9 @@ Content-Type: application/json
         "youtube_url" : "{{dummy.dummy4.store_info.youtube_url}}",
         "name" : "{{dummy.dummy4.store_info.name}}",
         "category" : "{{dummy.dummy4.store_info.category}}",
-        "introduction" : "{{dummy.dummy4.store_info.introduction}}"
+        "introduction" : "{{dummy.dummy4.store_info.introduction}}",
+        "latitude" : "{{dummy.dummy4.store_info.latitude}}",
+		"longitude" : "{{dummy.dummy4.store_info.longitude}}"
     },
     "ocr_info" :
     {
@@ -211,7 +218,9 @@ Content-Type: application/json
         "youtube_url" : "{{dummy.dummy5.store_info.youtube_url}}",
         "name" : "{{dummy.dummy5.store_info.name}}",
         "category" : "{{dummy.dummy5.store_info.category}}",
-        "introduction" : "{{dummy.dummy5.store_info.introduction}}"
+        "introduction" : "{{dummy.dummy5.store_info.introduction}}",
+        "latitude" : "{{dummy.dummy5.store_info.latitude}}",
+		"longitude" : "{{dummy.dummy5.store_info.longitude}}"
     },
     "ocr_info" :
     {
