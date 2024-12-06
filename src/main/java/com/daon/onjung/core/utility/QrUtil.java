@@ -79,7 +79,7 @@ public class QrUtil {
             bgGraphics.dispose();
 
             // 로고 이미지 로드
-            BufferedImage logoImage = ImageIO.read(new URL(logo_img_url));
+            // BufferedImage logoImage = ImageIO.read(new URL(logo_img_url));
 
             // 배경 이미지 위에 QR 코드 합성
             BufferedImage combinedImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_ARGB);
@@ -94,11 +94,11 @@ public class QrUtil {
             g.drawImage(qrCodeImage, qrX, qrY, null);
 
             // QR 코드 중앙에 로고 삽입
-            int logoWidth = qrCodeImage.getWidth() / 4; // QR 코드 크기의 1/4 크기로 로고 설정
-            int logoHeight = qrCodeImage.getHeight() / 4;
-            int logoX = qrX + (qrCodeImage.getWidth() - logoWidth) / 2; // QR 코드 중앙에 배치
-            int logoY = qrY + (qrCodeImage.getHeight() - logoHeight) / 2;
-            g.drawImage(logoImage, logoX, logoY, logoWidth, logoHeight, null);
+            // int logoWidth = qrCodeImage.getWidth() / 4; // QR 코드 크기의 1/4 크기로 로고 설정
+            // int logoHeight = qrCodeImage.getHeight() / 4;
+            // int logoX = qrX + (qrCodeImage.getWidth() - logoWidth) / 2; // QR 코드 중앙에 배치
+            // int logoY = qrY + (qrCodeImage.getHeight() - logoHeight) / 2;
+            // g.drawImage(logoImage, logoX, logoY, logoWidth, logoHeight, null);
 
             // 리소스 해제
             g.dispose();
