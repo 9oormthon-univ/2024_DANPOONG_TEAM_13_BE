@@ -96,7 +96,8 @@ public class SignUpOwnerByDefaultService implements SignUpOwnerByDefaultUseCase 
         // 생성한 가게에 대한 이벤트 생성
         Event event = eventService.createEvent(
                 LocalDate.now(),
-                LocalDate.now().plusDays(13),
+//                LocalDate.now().plusDays(13),
+                LocalDate.now(), // 테스트용. 당일
                 store
         );
         event = eventRepository.save(event);

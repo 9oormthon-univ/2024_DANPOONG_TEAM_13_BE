@@ -40,7 +40,7 @@ public class ReadCommentOverviewService implements ReadCommentOverviewUseCase {
         List<ReadCommentOverviewResponseDto.CommentDto> commentList = comments.getContent().stream()
                 .map(comment -> {
                     Boolean isMe = comment.getUser().getId().equals(user.getId());
-                    return ReadCommentOverviewResponseDto.CommentDto.of(comment, user, isMe);
+                    return ReadCommentOverviewResponseDto.CommentDto.of(comment, isMe);
                 })
                 .toList();
 

@@ -76,7 +76,8 @@ public class ProcessCompletedEventService implements ProcessCompletedEventUseCas
         // 새로운 이벤트 생성
         Event newEvent = eventService.createEvent(
                 LocalDate.now(),
-                LocalDate.now().plusDays(13),
+//                LocalDate.now().plusDays(13),
+                LocalDate.now(), // 테스트용 당일
                 store
         );
         newEvent = eventRepository.save(newEvent);

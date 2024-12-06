@@ -119,9 +119,9 @@ public class ReadCommentOverviewResponseDto extends SelfValidating<ReadCommentOv
             }
         }
 
-        public static ReadCommentOverviewResponseDto.CommentDto of(Comment comment, User user, Boolean isMe) {
+        public static ReadCommentOverviewResponseDto.CommentDto of(Comment comment, Boolean isMe) {
             return ReadCommentOverviewResponseDto.CommentDto.builder()
-                    .writerInfo(ReadCommentOverviewResponseDto.CommentDto.WriterInfoDto.of(user, isMe))
+                    .writerInfo(ReadCommentOverviewResponseDto.CommentDto.WriterInfoDto.of(comment.getUser(), isMe))
                     .commentInfo(ReadCommentOverviewResponseDto.CommentDto.CommentInfoDto.fromEntity(comment))
                     .build();
         }

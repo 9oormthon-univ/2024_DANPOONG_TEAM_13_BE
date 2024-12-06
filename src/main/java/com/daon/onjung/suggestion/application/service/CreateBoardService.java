@@ -61,8 +61,8 @@ public class CreateBoardService implements CreateBoardUseCase {
         applicationEventPublisher.publishEvent(
             scheduledBoardJobService.createScheduledJob(
                     board.getId(),
-//                    board.getEndDate().plusDays(1).atStartOfDay()
-                    LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
+                    board.getEndDate().plusDays(1).atStartOfDay()
+//                    LocalDateTime.now().plusMinutes(1) // 테스트용 1분 뒤
             )
         );
 
